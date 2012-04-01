@@ -7,7 +7,6 @@ title: Checking the current directory for progressive JPEGs
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P59 -->
 <p>This is a quick hack, you'll need <a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a> with JPEG support installed to use it.</p>
@@ -15,4 +14,3 @@ title: Checking the current directory for progressive JPEGs
 import glob, Image
 print 'n'.join([fn for fn in glob.glob('*.jpg') if Image.open(fn).info.get('progression')])
 </pre>
-{% endraw %}

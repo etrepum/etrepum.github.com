@@ -7,7 +7,6 @@ title: Erlang Binary Performance
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>I was benchmarking <a class="reference external" href="http://code.google.com/p/egeoip/">egeoip</a> today, which is my from-scratch <a class="reference external" href="http://www.erlang.org/">Erlang</a> <a class="reference external" href="http://en.wikipedia.org/wiki/Geolocation">geolocation</a> library. It uses the <a class="reference external" href="http://www.maxmind.com/app/geolitecity">MaxMind GeoLite City</a> database, which has implementations in a bunch of other languages so it's great to compare with. The results were rather surprising to me, because I hadn't previously done any benchmarking of <a class="reference external" href="http://www.erlang.org/">Erlang</a> performance.</p>
 <p>The test environment is a MacBook Pro 2ghz,  Mac OS X 10.4.7, <a class="reference external" href="http://www.erlang.org/">Erlang</a> R11B-1 w/ HiPE enabled, <a class="reference external" href="http://www.python.org/">Python</a> 2.4.3 (using their <a class="reference external" href="http://www.maxmind.com/app/python">GeoIP Python API</a>, which is written in C). I do have other processes running (namely iTunes), but the benchmark is fair because the background load is consistent throughout the tests.</p>
@@ -43,4 +42,3 @@ title: Erlang Binary Performance
 </dl>
 <p>This brings the BEAM performance up to about 38% of C/Python and HiPE up to 55%. Not bad!</p>
 </div>
-{% endraw %}

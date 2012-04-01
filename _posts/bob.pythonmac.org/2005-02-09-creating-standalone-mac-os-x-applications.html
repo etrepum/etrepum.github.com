@@ -7,7 +7,6 @@ title: Creating standalone Mac OS X applications
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.8 will ship with a new script: <tt class="docutils literal">macho_standalone</tt> (in svn already)</p>
 <p>This script takes an application bundle as a parameter, and it does the following:</p>
@@ -19,4 +18,3 @@ title: Creating standalone Mac OS X applications
 </ul>
 <p>The functionality in this script is used internally by <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>, with some additional special cases for frameworks.  However, this script could be used for applications not written in Python.. perhaps as an alternative to the &quot;copy files build phase&quot; for frameworks in Xcode, or as part of the build process for other <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>-like environments (<a class="reference external" href="http://www.fobj.com/rubycocoa/">RubyCocoa</a>, <a class="reference external" href="http://camelbones.sourceforge.net/index.php">CamelBones</a>, etc.)</p>
 <p>Of lesser interest is the new <tt class="docutils literal">macho_find</tt> script.  Like the <a class="reference external" href="x-man-page://1/find">find</a> tool, it walks files/directories and prints each on its own line to stdout.  <tt class="docutils literal">macho_find</tt> simply matches files that have the Mach-O signature, and could be used as input to a tool such as strip.</p>
-{% endraw %}

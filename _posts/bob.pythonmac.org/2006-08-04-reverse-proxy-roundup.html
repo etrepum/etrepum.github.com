@@ -7,7 +7,6 @@ title: Reverse proxy roundup
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>The first line of defense in scaling out a web solution is a load balancer, often implemented as a HTTP reverse proxy. In my particular situation, I wanted to be able to load balance based on HTTP headers (<tt class="docutils literal">Host</tt> is a must, URL is a bonus) on a FreeBSD platform.</p>
 <p><a class="reference external" href="http://httpd.apache.org/docs/2.0/mod/mod_proxy.html">Apache 2.0 + mod_proxy</a></p>
@@ -50,4 +49,3 @@ title: Reverse proxy roundup
 <dt><a class="reference external" href="http://siag.nu/pen/">Pen</a>:</dt>
 <dd>Just a TCP proxy.</dd>
 </dl>
-{% endraw %}

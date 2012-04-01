@@ -7,7 +7,6 @@ title: Clever use of Python's complex number type
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>I was thoroughly amused when I saw the <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/365013">Linear equations solver in 3 lines</a> recipe in <a class="reference external" href="http://aspn.activestate.com/ASPN/">ASPN</a>'s <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/">Python Cookbook</a> this morning.  Since it's so short, I'll reproduce it here as a two line recipe ;)</p>
 <pre class="literal-block">
@@ -34,4 +33,3 @@ j = (-a)/b
 </pre>
 <p>When the <tt class="docutils literal">solve</tt> function evaluates the rewritten expression, it uses <tt class="docutils literal">1j</tt> (really, <tt class="docutils literal">0 + 1j</tt> -- or <tt class="docutils literal">complex(0, 1)</tt>) for the value of <em>x</em>, which  Python simply evaluates down to a single complex number.  As stated above, when we divide the negation of the real part by the imaginary part, we get the desired solution.  Neat!</p>
 <p>UPDATE: maxim commented that a more comprehensive recipe by Rick Muller, <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/362193">Manipulate simple polynomials in Python</a>, is also available in the <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/">Python Cookbook</a>.  It's not two lines, though :)</p>
-{% endraw %}

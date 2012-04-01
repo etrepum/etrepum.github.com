@@ -7,7 +7,6 @@ title: bundlebuilder2 -- coming soon to a mac near you
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P38 -->
 <p>For the past.. while.. I've been slowly hacking at a refactoring of <a class="reference external" href="http://pythonmac.org/wiki/BundleBuilder">bundlebuilder</a> that uses my (unreleased) macholib package.  Here's what the new bundlebuilder will do:</p>
@@ -21,4 +20,3 @@ title: bundlebuilder2 -- coming soon to a mac near you
 </blockquote>
 <p>For the interested, macholib is basically a Python-rewrite of the <tt class="docutils literal"><span class="pre">/usr/include/mach-o</span></tt> headers, which a subset of the functionality from <a class="reference external" href="x-man-page://otool">otool</a> and <a class="reference external" href="x-man-page://install_name_tool">install_name_tool</a>.  Originally I had released something called potool that attempted to do these things, but I had made a few wrong assumptions, so I rewrote it all as macholib.</p>
 <p>Honestly, the only things I can think of that otool has that I don't are symbolic disassembly, symbol table dumps, and useless things like printing a nice description of the threadstate load commands.  I actually do have a mostly-finished symbolic PPC disassembler written in Python, but it's an ugly port of some of GCC's guts and I doubt it'd be a good idea to unleash it on the world :)</p>
-{% endraw %}

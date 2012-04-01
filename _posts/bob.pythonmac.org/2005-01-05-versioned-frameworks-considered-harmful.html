@@ -7,7 +7,6 @@ title: Versioned Frameworks Considered Harmful?
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>It has recently <a class="footnote-reference" href="#id2" id="id1">[1]</a> come to my attention that using versioned frameworks without binary compatible APIs simply doesn't work all too well.  Essentially, you may have an older version installed, but without swapping symlinks around, you you won't be able to use the older version for anything except <em>runtime compatibility</em> with software that is <em>already linked</em>.</p>
 <p>This isn't a problem with the dyld runtime, simply a problem with gcc's compiler and linker (and supposedly there may be runtime bugs with <tt class="docutils literal">CFBundle</tt> and/or <tt class="docutils literal">NSBundle</tt> in this arena as well).</p>
@@ -99,4 +98,3 @@ env MACOSX_DEPLOYMENT_TARGET=10.3 cc
 <tr><td class="label">[1]</td><td>I wrote this a few months ago, before I had replaced PyDS, so &quot;recently&quot; means Novemberish.</td></tr>
 </tbody>
 </table>
-{% endraw %}

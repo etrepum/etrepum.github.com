@@ -7,7 +7,6 @@ title: Yet Another Line Ending Conversion Program
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P4 -->
 <p>This is what I've been using.. it's really simple, and should convert Win32, Mac, or Unix line endings to whatever your native line ending is.  A possible future optimization would be to use temp files instead, but they're annoying.</p>
@@ -35,4 +34,3 @@ if __name__ == '__main__':
     for fname in sys.argv[1:]:
         tonative(fname)
 </pre>
-{% endraw %}

@@ -7,7 +7,6 @@ title: iPod model detection
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>For various reasons, I have a need to determine the version of an iPod.  Previously, I only needed to know if an iPod was &quot;firmware version 2&quot; or later (aka &quot;Dock-connector&quot;), and there's a whole slew of obvious ways to determine that (presence of a <tt class="docutils literal">Notes</tt> folder would be the most obvious).  There are also ways to grab iPod information with SPI (via COM on win32 or the private <tt class="docutils literal">iPod.framework</tt> on Mac OS X), but I like to avoid that whenever possible.</p>
 <p>So far, the most reliable method I've found was with a little parsing of the <tt class="docutils literal">SysInfo</tt> file.  This file is located at &quot;<tt class="docutils literal"><span class="pre">$(IPOD_VOLUME)/iPod_Control/Device/SysInfo</span></tt>&quot;.  The <tt class="docutils literal">iPod_Control</tt> folder is going to be hidden on either platform, so you may not have noticed it before.  Many examples of <tt class="docutils literal">SysInfo</tt> files can be found by googling for some of the keys, such as <tt class="docutils literal">buildID</tt>, <tt class="docutils literal">visibleBuildID</tt>, <tt class="docutils literal">boardHwName</tt>, etc.  The most complete resource I've found is the on the <a class="reference external" href="http://www.ipodlinux.org/forums/viewtopic.php?t=1583">iPodLinux forums</a>.</p>
@@ -69,4 +68,3 @@ def parseUpdaterVersions(path):
     return buildPairs, families
 </pre>
 <p>Note that all of this code is cross-platform, but you'll need an <tt class="docutils literal">UpdaterVersions.plist</tt> or equivalent from somewhere, and you'll need to pick up <tt class="docutils literal">plistlib.py</tt> from Python's <tt class="docutils literal"><span class="pre">src/Lib/plat-mac</span></tt> dir if using it on some other platform.  Alternatively, you could use <a class="reference external" href="http://effbot.org/zone/element-index.htm">ElementTree</a> to parse the plist XML.  Its <a class="reference external" href="http://effbot.org/zone/element-iterparse.htm">iterparse documentation</a> has an excellent example of how easily it can be used to parse these files.</p>
-{% endraw %}

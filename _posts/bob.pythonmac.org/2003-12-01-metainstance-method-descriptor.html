@@ -7,7 +7,6 @@ title: meta/instance method descriptor
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P15 -->
 <p>This is odd, but I ran into a situation where I wanted to have a method be callable from both the class (as a metamethod) and the instance (as a normal instance method).  The only decent way I could think of was to use a descriptor, here's an example:</p>
@@ -34,4 +33,3 @@ class Minor(object):
 </pre>
 <p><strong>Updates:</strong></p>
 <p>Phillip J. Eby came up with a better way to do this for PyProtocols.  Basically, the descriptor goes on the metaclass rather than the class, which is less work and requires less magic.  Check the comments (or PyProtocols) for his implementation.  Thanks!</p>
-{% endraw %}

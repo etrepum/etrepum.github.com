@@ -7,7 +7,6 @@ title: 'In development: flashticle'
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>We at <a class="reference external" href="http://mochimedia.com/">Mochi Media</a> have been working on Macromedia Flash related stuff a lot lately (especially <a class="reference external" href="http://mochibot.com/">MochiBot</a>).  One such thing is a soon-to-be-released (but available from svn) open source library called <a class="reference external" href="http://undefined.org/python/#flashticle">flashticle</a>.</p>
 <p><a class="reference external" href="http://undefined.org/python/#flashticle">flashticle</a> deals in all of those gnarly binary proprietary formats: FLV, SWF, AMF, Flash Remoting, Local Shared Object files, etc.  The only reason this was possible is because of the efforts of the <a class="reference external" href="http://osflash.org/">osflash</a> community, who have tirelessly reverse engineered all of these things and boiled it down into source code and documentation that I can learn from.</p>
@@ -22,4 +21,3 @@ title: 'In development: flashticle'
 <p>This is a total of a whopping 117 lines of very liberally spaced Python code that defines all three database tables and fully implements every feature of both sample applications.</p>
 <p>The PHP version of the pizzaService backend (<a class="reference external" href="http://amfphp.sourceforge.net/examples/pizzaservice/pizzaService.phps">pizzaService.php</a>) is 138 lines of code, is one big security flaw (doesn't escape SQL properly, big surprise), is MySQL specific, and it doesn't include the DB schema and can't create any tables for you (thank you <tt class="docutils literal"><span class="pre">tg-admin</span> sql create</tt>).</p>
 <p>The Java version of the BirthdayOrganizer backend, which I won't even bother linking to, is well... ginormous.  246 lines of XML configuration sludge in 5 files, 29 lines of SQL schema in 1 file, and 3004 lines of Java code in 45 files.  Holy crap.  If you add that all up, the <em>trivial BirthdayOrganizer example</em> is only a hair shorter than <em>all of flashticle</em>!  And the BirthdayOrganizer example builds on top of 15 Java dependencies and requires a J2EE server plus ant.  Friends don't let friends code Java.  Oh, and it's also MySQL specific, but you better be damn well sure that there's a stub implementation you can subclass and an XML file you can mangle in order to support something else if you so choose to write that 200 lines of code to support a single three column table database.</p>
-{% endraw %}

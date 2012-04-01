@@ -7,7 +7,6 @@ title: Apache X-Forwarded-For caveat
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>When using Apache's mod_proxy in a reverse proxying scenario, usually you'll want to take a look at the (seemingly undocumented) X-Forwarded-For header.  This header contains <em>whatever the client sent for X-Forwarded-For</em> (if anything), plus the remote IP address of the client.</p>
 <p>So, if you're trying to do anything with this header, check for commas and pick out the <em>last</em> piece, because the client can send anything they want to, and you shouldn't ever trust the client:</p>
@@ -24,4 +23,3 @@ def get_request_ip(request):
     return header.split(',')[-1].strip()
 </pre>
 <p>I gleaned this from reading the Apache 2.0.54 source, I couldn't find any description of the behavior of mod_proxy in Apache's docs, only how to configure it.  I was surprised that it even preserved what the client sent!</p>
-{% endraw %}

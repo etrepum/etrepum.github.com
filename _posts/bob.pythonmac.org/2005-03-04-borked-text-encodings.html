@@ -7,7 +7,6 @@ title: Borked Text Encodings
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>Unfortunately when you're dealing with text across platforms, you're likely to run into a situation where you see characters that don't belong.  When I need to fixup such text, I put a snippet of the borked text on the clipboard and break open a Python interpreter.  On platforms other than Mac OS X, you'll probably have to fiddle around with the I/O boundary codecs, but on Mac OS X it is generally going to be UTF-8 to and from standard I/O.</p>
 <pre class="literal-block">
@@ -30,4 +29,3 @@ California’s
 </pre>
 <p>So apparently, this text originated in <tt class="docutils literal">macroman</tt> format, but ended up on a Windows machine and got marked as <tt class="docutils literal"><span class="pre">latin-1</span></tt>.  From here, I'll leave it as an exercise to the reader to do this treatment in batch.</p>
 <p>Are there any applications on the market that twiddle text encodings like this?  I've certainly run into the problem a number of times.  Would you pay for something that was really smart about guessing how to fix text encodings?  If it could do the fix for rich text documents?</p>
-{% endraw %}

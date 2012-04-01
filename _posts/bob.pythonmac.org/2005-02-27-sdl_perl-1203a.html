@@ -7,7 +7,6 @@ title: SDL_perl 1.20.3a
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>This is painfully old news, but it seems that <a class="reference external" href="http://bloodgate.com/">Tels</a> had forked <a class="reference external" href="http://sdl.perl.org/">SDL_perl</a> and released <a class="reference external" href="http://bloodgate.com/perl/sdl/sdl_perl.html">SDL_perl 1.20.3</a>.  This distribution is a hybrid of SDL_perl 2.0b2, with a mostly compatible SDL_perl 1.19 interface.  <a class="reference external" href="http://www.thomastongue.com/">Thomas Tongue</a> forked this as <a class="reference external" href="http://www.thomastongue.com/Code/SDL_Perl_MacOSX.html">SDL_perl 1.20.3a</a> which integrates some of the Mac OS X build patches I had made when I ported <a class="reference external" href="http://www.frozen-bubble.org/">Frozen Bubble</a>.</p>
 <p>I say mostly compatible, because it almost works unchanged with <a class="reference external" href="http://www.frozen-bubble.org/">Frozen Bubble</a> (as far as I can tell).  It seems that SDL_perl 1.19 stored <tt class="docutils literal"><span class="pre">SDL::Surface</span></tt> objects as a hash reference, where they are scalar references in SDL_perl 1.20.3a.  So, I had to change several lines of code that looked like this:</p>
@@ -18,4 +17,3 @@ $surface_reference-&gt;{-surface}
 <pre class="literal-block">
 ${$surface_reference}
 </pre>
-{% endraw %}

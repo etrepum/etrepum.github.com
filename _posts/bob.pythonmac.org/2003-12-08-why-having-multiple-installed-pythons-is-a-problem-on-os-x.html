@@ -7,7 +7,6 @@ title: Why having multiple installed Pythons is a problem on OS X
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P16 -->
 <p>Jack nailed down the reason that extension modules fail to link properly on 10.3 if you have a separate Python installed.  The -framework search path on OS X for linking (compile and runtime) hits /System last, and the Makefile for the system Python does not override the search path with -F.</p>
@@ -22,4 +21,3 @@ title: Why having multiple installed Pythons is a problem on OS X
 <tr><td class="label">[1]</td><td><a class="reference external" href="http://mail.python.org/pipermail/pythonmac-sig/2003-December/009654.html">http://mail.python.org/pipermail/pythonmac-sig/2003-December/009654.html</a></td></tr>
 </tbody>
 </table>
-{% endraw %}

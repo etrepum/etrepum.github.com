@@ -7,7 +7,6 @@ title: Erlang Mode for Emacs
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p><a class="reference external" href="http://www.erlang.org/">Erlang</a> ships with a quite nice <a class="reference external" href="http://erlang.se/doc/doc-5.5.3/lib/tools-2.5.3/doc/html/erlang_mode.html">Erlang mode</a> for <a class="reference external" href="http://www.gnu.org/software/emacs/">Emacs</a>. Editing <a class="reference external" href="http://www.erlang.org/">Erlang</a> code is actually the <em>only</em> thing I ever use <a class="reference external" href="http://www.gnu.org/software/emacs/">Emacs</a> for.</p>
 <p>Setting it up is only slightly painful. For a default R11B-3 installation your <tt class="docutils literal">.emacs</tt> will look like this:</p>
@@ -23,4 +22,3 @@ title: Erlang Mode for Emacs
 <p>The second expression tells the emacs mode not to wait for an <a class="reference external" href="http://www.erlang.org/">Erlang</a> prompt. This is my only annoyance with the mode. Without this defvar, when you send a command from Emacs to Erlang it'll hang for 60 seconds (or until you hit Ctrl-G) if there was any IO since the last prompt (e.g. an error_logger report or an io:format call). The caveat with this setting is that the first command you issue (the one that causes the inferior shell to get started) will get sent before Erlang is started and get lost. Issuing the first command twice is a small price to pay in this case, because the lock-up is annoying as all hell when you're in the middle of the compile/play cycle.</p>
 <p>Using the Erlang mode is pretty straightforward. Tab does the right thing for indentation and is a good way to check to see if your code makes sense syntactically. If it doesn't indent to the right place, you probably screwed up. The electric stuff like comma and semicolon are great and save you a good deal of typing. The only command I really use is C-c C-k which compiles and reloads the current module into the running Erlang inferior shell. It will start one if one isn't already running (C-c C-z just starts the shell).</p>
 <p>The other gripe I have is that when you get compiler errors sometimes clicking the line numbers takes you to the wrong line in the source file, but that's a relatively minor annoyance for me. Restarting seems to fix that (until it breaks again) and normally I'm not fighting too many compiler errors :)</p>
-{% endraw %}

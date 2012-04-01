@@ -7,7 +7,6 @@ title: Universal Binaries with gcc and Xcode
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>Versions of Mac OS X prior to 10.4 <em>did</em> support universal binaries, but the shipping gcc did not, so it is possible to compile applications that will work on both 10.3 ppc (Panther) and 10.4 i386 (Tiger).  To build Panther-compatible universal binaries, you'll need to use the following Custom Build Settings in Xcode 2.1 or later...</p>
 <p>Per-architecture SDK Support for Universal Binaries in Xcode.  <em>This is according to documentation, but I couldn't get it to work</em>:</p>
@@ -31,4 +30,3 @@ LDFLAGS= -isysroot ${SDK} -syslibroot,${SDK}
 <li><a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/cross_development/Articles/cd_overview.html">Cross-Development: Configuring Your Project for Cross Development</a></li>
 <li><a class="reference external" href="http://developer.apple.com/documentation/Darwin/Reference/ManPages/man1/lipo.1.html">lipo - create or operate on fat files</a></li>
 </ul>
-{% endraw %}

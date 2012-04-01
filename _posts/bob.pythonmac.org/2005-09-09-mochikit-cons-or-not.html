@@ -7,7 +7,6 @@ title: MochiKit cons.. or not
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>I was taking a look at the <a class="reference external" href="http://wiki.osafoundation.org/bin/view/Projects/AjaxLibraries">AjaxLibraries</a> section of the <a class="reference external" href="http://wiki.osafoundation.org/">OSAFoundation wiki</a>, because <a class="reference external" href="http://mochikit.com/">mochikit.com</a> has been getting a lot of referrals from there.  There's a bit of misinformation in the cons section, which I'll clarify in this post:</p>
 <blockquote>
@@ -25,4 +24,3 @@ title: MochiKit cons.. or not
 <p>The AJAX library, called <a class="reference external" href="http://mochikit.com/doc/html/MochiKit/Async.html">MochiKit.Async</a> gives you full access to the <tt class="docutils literal">XMLHttpRequest</tt> object throughout the entire process, which lets you do whatever you want.  I imagine that the confusion arises because we make GET and JSON really really ridiculously easy.  Because they are.  There's nothing it can't do, though, because you have full control.</p>
 <p>To do a POST (or any other verb), use <tt class="docutils literal">getXMLHttpRequest()</tt> and set one up, use <tt class="docutils literal">sendXMLHttpRequest(req, postData)</tt> to fire it out.  If you want an easy way to build the post data, use <tt class="docutils literal">queryString()</tt>.</p>
 <p>The returned <tt class="docutils literal">Deferred</tt> object will call back with the <tt class="docutils literal">XMLHttpRequest</tt> object upon successful completion (which means you can get XML, or whatever the hell else you want), or if there is an error, the <tt class="docutils literal">XMLHttpRequestError</tt> object has a <tt class="docutils literal">req</tt> object that corresponds to the failed request, and for convenience a <tt class="docutils literal">number</tt> property that corresponds to <tt class="docutils literal">req.status</tt>.</p>
-{% endraw %}

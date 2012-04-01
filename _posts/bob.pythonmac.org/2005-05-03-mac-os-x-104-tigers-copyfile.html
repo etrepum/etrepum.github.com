@@ -7,9 +7,7 @@ title: Mac OS X 10.4 (Tiger)'s copyfile()
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>All of the snazzy ACL-and-metadata-copying features in Darwin 8 / Tiger live in one function, <tt class="docutils literal">copyfile()</tt>.  Unfortunately, Apple forgot to include the header for it in the version of Xcode that ships with Mac OS X 10.4.</p>
 <p>It is defined in libSystem, so you can use it if you knew its prototype, and you can pick up the <a class="reference external" href="http://www.opensource.apple.com/darwinsource/10.4/Libc-391/darwin/copyfile.h">copyfile.h</a> (may not be newest!) from the Libc package from <a class="reference external" href="http://www.opensource.apple.com/darwinsource/">Darwin releases</a>.</p>
 <p>Since this isn't a static library, and probably depends on New Stuff, using it in a backwards compatible way (i.e. to get resource-fork copying in Panther) probably isn't going to work.  Oh well.</p>
-{% endraw %}

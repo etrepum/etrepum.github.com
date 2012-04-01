@@ -7,7 +7,6 @@ title: Pure python &quot;structseq&quot; factory
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P18 -->
 <p>This is a pattern I've been playing with lately (to be used in the next version of <a class="reference external" href="http://undefined.org/python/#aeve">aeve</a>, in the aeut/aete decoder).  Basically it's a factory for &quot;tuples with a little metadata that can be used a little bit like dicts too&quot;.  Yeah I know that dict-like methods will stomp on names if there's a clash, but I don't have any use cases where that happens so my implementation doesn't consider that.</p>
@@ -36,4 +35,3 @@ def prettyPrintVersionRecordFromPackedString(s):
 </pre>
 <p>Yes, the example is contrived.  But it really does make things easier when you're passing non-trivial versions of these around.  Instead of having to remember the index of a field, you can just remember the name.  In my typical use case, these names come from C structures, so it makes the Python code closer to what a C implementation would be like (in a good way).</p>
 <p>I have a more generic (but mutable and not nearly as lightweight) solution to this problem (making structures easier to work with), currently called &quot;ptypes&quot; since it is so much like ctypes Structures API-wise.  It's currently being used in a pure python package (macholib, formerly potool) for reading/writing Mach-O headers (the OS X analog of Linux's ELF, or Win32's PE).  macholib is useful for dependency walking, and automation of install_name_tool like functionality.  However, since it also understands symbol tables, it would be useful for determining if a particular source file contains Objective C class definitions.. which is good to know because Objective C classes can not be unloaded at runtime.  It could even be used to write a symbolic debugger if one were so inclined.  I have written a largely untested symbolic PowerPC disassembler in Python, so it would be neat to hook the two together eventually.</p>
-{% endraw %}

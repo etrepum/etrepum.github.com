@@ -7,7 +7,6 @@ title: from __future__ import packman
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>For quite some time I've been neglecting my packman repository.  I find it hard to make time and the infrastructure for maintainers and users alike are quite archaic.</p>
 <p>Ideally I would like to move everything over to using <a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/SoftwareDistribution/index.html">Apple's installation tools</a> with <tt class="docutils literal">.mpkg</tt> based distributions.  That, along with replacing some ugly distribution scripts in <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a>, were why I wrote <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>'s <tt class="docutils literal">bdist_mpkg</tt> command.  This opens up several doors and has a few immediate advantages:</p>
@@ -25,4 +24,3 @@ title: from __future__ import packman
 <li>Using <tt class="docutils literal">bdist_mpkg</tt>, packman could &quot;record&quot; (not perform) an installation so that it may be performed later or elsewhere.  For a given package, packman would download it and all of its dependencies and create a self-contained <tt class="docutils literal">.mpkg</tt> for simple installation and transport.  People who have broadband at work or school and dial-up at home would probably be particularly fond of this feature.</li>
 </ul>
 <p>... Of course, even after this is developed, it's no promise that I'll have a long-term interest in maintaining my own repository.  However, with this kind of infrastructure and the right tools, I think that someone else (hopefully several others) will!</p>
-{% endraw %}

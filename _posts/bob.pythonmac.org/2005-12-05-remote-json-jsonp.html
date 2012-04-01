@@ -7,7 +7,6 @@ title: Remote JSON - JSONP
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>The browser security model dictates that XMLHttpRequest, frames, etc. must have the same domain in order to communicate.  That's not a terrible idea, for security reasons, but it sure does make distributed (service oriented, mash-up, whatever it's called this week) web development suck.</p>
 <p>There are traditionally three solutions to solving this problem.</p>
@@ -68,4 +67,3 @@ delicious_callbacks[12345]([{
 <p>See, because we're wrapping with parentheses, a JSONP request can translate into a function call or a plain old JSON literal.  All the server needs to do differently is prepend a little bit of text to the beginning and wrap the JSON in parentheses!</p>
 <p>Now, of course, you'd have libraries like <a class="reference external" href="http://mochikit.com/">MochiKit</a>, <a class="reference external" href="http://dojotoolkit.org/">Dojo</a>, etc. abstracting JSONP so that you don't have to write the ugly DOM script tag insertion yourself, etc.</p>
 <p>Of course, this just solves the standardization problem.  Your page is still toast if the remote host decides to inject malicious code instead of JSON data.  However, if implemented, it'd save a lot of developers some time and allow for generic abstractions, tutorials, and documentation to be built.</p>
-{% endraw %}

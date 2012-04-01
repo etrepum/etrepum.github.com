@@ -7,7 +7,6 @@ title: Comparing iterables
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P13 -->
 <p>Python doesn't have a way to compare arbitrary iterables (without converting them to a tuple or list).  It's also easy to get it wrong if you try and do it with itertools (since imap and izip will consume an extra element from the first sequence if it's longer).  Here's how to do it right:</p>
@@ -35,4 +34,3 @@ def cmpseq(a, b, StopToken=StopToken):
         except StopIteration:
             return 0
 </pre>
-{% endraw %}

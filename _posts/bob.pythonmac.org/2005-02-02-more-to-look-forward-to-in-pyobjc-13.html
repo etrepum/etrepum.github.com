@@ -7,7 +7,6 @@ title: More to look forward to in PyObjC 1.3
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>Lots of nice new things went into <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a> the past few days:</p>
 <ul class="simple">
@@ -40,4 +39,3 @@ classmethods.</li>
 Python representation.</li>
 </ul>
 <p>This allows you do use Objective-C conventions for dealing with numbers, i.e. <tt class="docutils literal">someNumber.doubleValue()</tt>.  The reason I did this was because <tt class="docutils literal">NSNumber</tt> only keeps track of the &quot;basic type&quot; of the value that goes in, so it will &quot;forget&quot; if the value was unsigned.  Since Python is really bad at emulating C conventions for signed/unsigned numbers, this was the obvious way to fix it.</p>
-{% endraw %}

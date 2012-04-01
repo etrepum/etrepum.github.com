@@ -7,7 +7,6 @@ title: 'svnsync: mirror your svn repository'
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>Since the svnsync tool in <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> 1.4 still lacks documentation, here's a quick example to get you started with it:</p>
 <pre class="literal-block">
@@ -26,4 +25,3 @@ $ svnsync sync file://$PWD/svn.mochikit.com
 </ul>
 <p>Note that this is point-in-time synchronization. To keep an up to date mirror you'll have to run <tt class="docutils literal">svnsync sync</tt> on a regular basis (e.g. by cron job or post-commit hook).</p>
 <p>If you're looking for an especially easy to install set of svn binaries for Mac OS X, I recommend <a class="reference external" href="http://www.codingmonkeys.de/mbo/">Martin Ott's</a> (of <a class="reference external" href="http://www.codingmonkeys.de/subethaedit/">SubEthaEdit</a> fame) build. I've been using it on all of my Macs for quite some time with no issues. Much less hassle than building it myself or using <a class="reference external" href="http://www.macports.org/">MacPorts</a> (previously known as DarwinPorts).</p>
-{% endraw %}

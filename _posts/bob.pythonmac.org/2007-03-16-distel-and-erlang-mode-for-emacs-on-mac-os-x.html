@@ -7,7 +7,6 @@ title: Distel and Erlang mode for Emacs, on Mac OS X
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>In the comments of my post on <a class="reference external" href="http://bob.pythonmac.org/archives/2007/03/14/erlang-mode-for-emacs/">Erlang Mode for Emacs</a> Tobbe pointed me at the <a class="reference external" href="http://code.google.com/p/distel/">new Distel repository</a> for <a class="reference external" href="http://fresh.homeunix.net/~luke/distel/">Distel</a>. I had originally tried to install <a class="reference external" href="http://fresh.homeunix.net/~luke/distel/">Distel</a> last year when I began with <a class="reference external" href="http://www.erlang.org/">Erlang</a> but it didn't work. It works now! Here's the deal.</p>
 <ol class="arabic">
@@ -56,4 +55,3 @@ $ echo 'code:add_pathsz([&quot;/Users/bob/src/distel/ebin&quot;]).' &gt;&gt; ~/.
 </ol>
 <p>If the <a class="reference external" href="http://fresh.homeunix.net/~luke/distel/">Distel</a> installation was done properly your Emacs mode line will be displayed as <tt class="docutils literal">(Erlang EXT)</tt> next time you're editing an <a class="reference external" href="http://www.erlang.org/">Erlang</a> module. If you get a &quot;nodedown: ...&quot; message when executing a <a class="reference external" href="http://fresh.homeunix.net/~luke/distel/">Distel</a> command that means you haven't started a shell yet (<tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">C-z</span></tt>). A good test is to stick your insertion point at a function name and hit <tt class="docutils literal"><span class="pre">M-.</span></tt> to get to its definition. <tt class="docutils literal"><span class="pre">M-TAB</span></tt> is auto-completion. I haven't used too much else from it yet.</p>
 <p>(Now here's to hoping I don't have to learn any more elisp, ever).</p>
-{% endraw %}

@@ -7,7 +7,6 @@ title: This weekend in PyObjC
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>I've made several pretty cool enhancements to <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a> and <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> this weekend:</p>
 <ul class="simple">
@@ -39,4 +38,3 @@ as they are no longer useful.</li>
 </ul>
 <p>These all VASTLY improve support for plugins.  Additionally, I have made some changes to the <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> bootstrap to support these new features, and I've cleaned it up so that it loads plugins into their own modules rather than stuffing them into <tt class="docutils literal">__main__</tt>.</p>
 <p>I have also started work on a new <tt class="docutils literal">RemotePyInterpreter</tt> example, which runs the interpreter in a subprocess and communicates with it asynchronously.  This will be useful for IDE work when it's done.  The IPC protocol it uses is a cute little repr-based hack, loosely based on <a class="reference external" href="http://codespeak.net/py/current/doc/execnet.html">py.execnet</a>.  I'll also use this to implement out-of-process debugging (think <tt class="docutils literal">pdb attach</tt>) and other fun things, hopefully in the near future.</p>
-{% endraw %}

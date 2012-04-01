@@ -7,7 +7,6 @@ title: simple_json 1.0
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p><a class="reference external" href="http://undefined.org/python/#simple_json">simple_json</a> is a simple, fast, complete, correct and extensible <a class="reference external" href="http://json.org/">JSON</a> encoder/decoder for Python 2.3+.  It's pure Python code with no dependencies.</p>
 <p><a class="reference external" href="http://undefined.org/python/#simple_json">simple_json</a> exists because <a class="reference external" href="http://sourceforge.net/projects/json-py/">json-py</a> sucks.  <a class="reference external" href="http://undefined.org/python/#simple_json">simple_json</a> is a drop-in replacement for <a class="reference external" href="http://sourceforge.net/projects/json-py/">json-py</a>, but it also exposes more sanely named APIs, and can be extended by subclassing.</p>
@@ -36,4 +35,3 @@ title: simple_json 1.0
 <li>The decoder understands encoded strings (and unicode).  It defaults to UTF-8, but can use anything ASCII-based.  If the input is of an encoding that is not ASCII-based (such as UCS-2), it can be decoded to unicode first.</li>
 <li>Exceptions during encoding or decoding are simply <tt class="docutils literal">ValueError</tt> (though a future version could provide more informative messages)</li>
 </ul>
-{% endraw %}

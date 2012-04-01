@@ -7,7 +7,6 @@ title: Unicode and vulgar fractions
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>This little snippet will scan a block of text and replace fractions with the unicode vulgar fraction equivalent when possible, removing spaces if the fraction is immediately after another number.  For example &quot;1 1/2&quot; will be replaced by &quot;1½&quot;.</p>
 <pre class="literal-block">
@@ -44,4 +43,3 @@ def fractions(s):
         return frac
     return FRACRE.sub(subfrac, s)
 </pre>
-{% endraw %}

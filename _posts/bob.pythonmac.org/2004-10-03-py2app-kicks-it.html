@@ -7,7 +7,6 @@ title: py2app kicks it
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P72 -->
 <p>I've spent some more time with <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> this week, and I'm pretty sure it's way beyond bundlebuilder's capabilities at this point (except for half-assed plugin building).  It actually has a significantly smarter scheme for dealing with dependencies than <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a> now.  Feel free to borrow it :)</p>
@@ -15,4 +14,3 @@ title: py2app kicks it
 <p>Using a graph allows you to selectively prune dependencies, and it makes adding implicit dependencies much more sane.  For example, you definitely don't want a Tkinter dependency just because PIL.Image does &quot;import FixTk&quot; for initialization purposes.  However, it's entirely likely that the user might want Tkinter later, so in the PIL recipe I simply remove the PIL.Image -&gt; FixTk dependency.  Importing ImageTk, or anything else that depends on Tkinter, will of course cause Tkinter get included.</p>
 <p>I have added full package include support, but have not done a no-zip distribution mode.  This is of little utility with the full package include mode and alias build mode for development, so I may drop it altogether.  If you have a strong opinion about this, state it now, or else it will almost definitely go away.</p>
 <p>I have also added an extensible recipe system, and included recipes for PIL and pygame.  The PIL recipe is quite complex, because PIL's initialization is.  The pygame recipe simply forces it to be included as a full package.  The cool thing about <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>'s full package support is that it still does mach header rewriting of the extensions it can find (via <a class="reference external" href="http://svn.red-bean.com/bob/macholib/trunk/">macholib</a>).</p>
-{% endraw %}

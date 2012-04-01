@@ -7,7 +7,6 @@ title: Py3k Unified Numeric Hash Proposal
 ---
 {% include JB/setup %}
 
-{% raw %}
 There has been a recent and interesting set of discussions on python-dev
 [(Decimal <-> float comparisons)][]
 for what the best behavior for numeric type interoperability would be. The
@@ -343,4 +342,3 @@ me know!
 [(Objects/longobject.c)]: http://codereview.appspot.com/660042/diff/19001/11011#newcode2577 "Objects/longobject.c - Issue 660042: Compatible numeric hashes - Code Review"
 [issue8188]: http://bugs.python.org/issue8188 "issue8188"
 [Mersenne prime]: http://en.wikipedia.org/wiki/Mersenne_prime "Mersenne prime"
-{% endraw %}

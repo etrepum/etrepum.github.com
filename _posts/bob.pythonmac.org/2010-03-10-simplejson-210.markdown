@@ -7,7 +7,6 @@ title: simplejson 2.1.0
 ---
 {% include JB/setup %}
 
-{% raw %}
 [simplejson](http://undefined.org/python/#simplejson) ([documentation](http://simplejson.googlecode.com/svn/tags/simplejson-2.1.0/docs/index.html)) is a simple, fast, complete, correct and extensible [JSON](http://json.org/) ([RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)) encoder/decoder for Python 2.5+.  It is pure Python code with no dependencies, but features an optional C extension for speed-ups.
 
 [simplejson](http://undefined.org/python/#simplejson) 2.1.0 is a major update with several new features and bug-fixes:
@@ -29,4 +28,3 @@ title: simplejson 2.1.0
 * Fixed containerless unicode float decoding (same bug as 2.0.4, oops!) [http://code.google.com/p/simplejson/issues/detail?id=43](http://code.google.com/p/simplejson/issues/detail?id=43)
 * Share PosInf definition between encoder and decoder
 * Minor reformatting to make it easier to backport simplejson changes to Python 2.7/3.1 json module
-{% endraw %}

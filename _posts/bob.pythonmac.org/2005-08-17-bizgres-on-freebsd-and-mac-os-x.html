@@ -7,7 +7,6 @@ title: Bizgres on FreeBSD and Mac OS X
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>We're currently experimenting with various optimization techniques for our databases using <a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a>'s features, and we've become quite interested in the <a class="reference external" href="http://www.bizgres.org/assets/docs/html/tblpartn.htm">Table Partitioning</a> in PostgreSQL 8.1.  <a class="reference external" href="http://www.bizgres.org/">Bizgres</a> has this feature now (amongst others that will likely benefit our app) in its 0.7 release, so I decided to give it a whirl.</p>
 <p>Installing <a class="reference external" href="http://www.bizgres.org/">Bizgres</a> 0.7 on Mac OS X is easy enough, but it loses a few points (no big deal, it's beta):</p>
@@ -70,4 +69,3 @@ exit
 <p>Changed the URL of the patch to one that compiles with OpenSSL support by default.  To add OpenSSL support to an already patched source (or to JUST add OpenSSL support to unpatched source), use the following:</p>
 <p><a class="reference external" href="http://redivi.com/~bob/bizgres-0_7_4-OpenSSL.patch">http://redivi.com/~bob/bizgres-0_7_4-OpenSSL.patch</a></p>
 </blockquote>
-{% endraw %}

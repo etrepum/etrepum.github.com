@@ -7,7 +7,6 @@ title: How to patch Python's standard library without touching vendor files
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P45 -->
 <p>I've been using 2.3.0 for quite some time because it's the version Apple provides with OS X 10.3.  This works out just fine most of the time, even though 2.3.3 is the latest version.  However, it's definitely possible to hit a nasty stardard library bug or performance issue that has already been fixed.</p>
@@ -24,4 +23,3 @@ import sys
 sys.path.insert(0, &quot;/Library/Python/2.3_FIXES&quot;)
 </pre>
 <p>Now create <tt class="docutils literal">/Library/Python/2.3_FIXES</tt> and drop all the standard library updates you need right in there.  I suggest fetching <tt class="docutils literal">_strptime.py</tt> from 2.3.3 right away ;)</p>
-{% endraw %}

@@ -7,7 +7,6 @@ title: Python and Universal Binaries on Mac OS X
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>It's been a pretty long haul getting Python to do the right thing on Mac OS X with regard to Universal Binaries.  The dust is settling, and it's about time to start publicizing the results.</p>
 <p>In order to compile extensions with Universal MacPython, you absolutely must have the latest version of Xcode installed.  When you install it, make absolutely sure that you Customize the installation and install the Mac OS X 10.4 Universal SDK.  Universal MacPython <em>requires</em> this SDK to be installed, as it instructs the compiler and linker to use this specific SDK.  There is a hook that will remove these special flags, but ONLY for legacy Mac OS X 10.3.9 users.  Mac OS X 10.3.9 users should still be able to compile extensions, but the resultant binaries will be PPC only and shouldn't be distributed (as they will not work on Intel).</p>
@@ -36,4 +35,3 @@ title: Python and Universal Binaries on Mac OS X
 </ul>
 <p><a class="reference external" href="http://pythonmac.org/packages/">pythonmac.org packages</a> has been split into two sections, one for universal packages, and one for legacy builds of Python.  Currently there aren't many universal packages ready (largely because I don't have an Intel machine yet, so I can only test on PPC).  The legacy packages for Python 2.4 are still compatible with Universal MacPython, however, they are NOT compatible with Intel.</p>
 <p>Most packages should compile just fine, and <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a>/<a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">easy_install</a> are already Universal MacPython aware.  However, packages that depend on external libraries will not compile correctly of the dependent libraries aren't also Universal.  This means that MySQL bindings, wxPython, and a few other popular packages are not yet readily available.  This issue will resolve itself at some point due to the demand, but it's not resolved <em>yet</em>.  There's a list of desired packages and their status at the <a class="reference external" href="http://pythonmac.org/wiki/UniversalPackages">UniversalPackages</a> node on the <a class="reference external" href="http://pythonmac.org/wiki/">pythonmac.org wiki</a>.</p>
-{% endraw %}

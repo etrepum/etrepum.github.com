@@ -7,7 +7,6 @@ title: for loops and empty iterables
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P14 -->
 <p><a class="reference external" href="http://pythonmac.org/wiki/JustVanRossum">Just van Rossum</a> and I were discussing the <a class="reference external" href="http://python.org/doc/current/ref/for.html">for:else:</a>, <a class="reference external" href="http://python.org/doc/current/ref/while.html">while:else:</a> and <a class="reference external" href="http://python.org/doc/current/ref/try.html">try:else:</a> syntax on the <a class="reference external" href="http://pythonmac.org/wiki/MacPythonChannel">MacPythonChannel</a> this morning (morning for me, at least).  I'm not sure if this is sufficiently covered elsewhere, but here is the pattern I use to check for empty iterables:</p>
@@ -25,4 +24,3 @@ def doesSomethingWithIterable(iterable):
         else:
             pass # do something because iterable was not empty
 </pre>
-{% endraw %}

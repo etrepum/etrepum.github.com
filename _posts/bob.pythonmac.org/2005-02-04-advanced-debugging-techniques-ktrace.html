@@ -7,7 +7,6 @@ title: 'Advanced Debugging Techniques: ktrace'
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>I had spent the past few days on and off trying to help a <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> user with a very hairy problem:  when <a class="reference external" href="http://wxpython.org/">wxPython</a> 2.4.2.4 was bundled, the main menu didn't work.  Running the application as an alias bundle or with <tt class="docutils literal">pythonw</tt> worked just fine, but when built as standalone or semi-standalone, the menu no longer showed up.</p>
 <p>Right off the bat I (correctly) assumed it was a problem with <a class="reference external" href="http://wxpython.org/">wxPython</a> or his sample code, because <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> doesn't do anything that would cause this sort of behavior.  It does link to Cocoa, but it doesn't call into any AppKit functionality unless it needs to display an error message.  Somewhat trivially converting his source to work with <a class="reference external" href="http://wxpython.org/">wxPython</a> 2.5 solved this issue, so I was rather stumped.</p>
@@ -55,4 +54,3 @@ setup(
 )
 </pre>
 <p>Now the application works as expected.  <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.9 will include a recipe for <a class="reference external" href="http://wxpython.org/">wxPython</a> to make sure that this file ends up in the bundle automagically, among other new features.</p>
-{% endraw %}

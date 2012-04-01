@@ -7,7 +7,6 @@ title: PyObjC, WindowServer, and rasterizing PDFs
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <!-- original id: P30 -->
 <p>We had a visitor to the <a class="reference external" href="http://pythonmac.org/wiki/MacPythonChannel">MacPython Channel</a> yesterday that had heard <a class="reference external" href="http://developer.apple.com/documentation/GraphicsImaging/Reference/Quartz_2D_Ref/index.html">Quartz</a> (really, CoreGraphics) was a really fast way to work with PDFs on OS X.  His specific application was quickly to generating preview jpegs of very large (10mb) dynamically generated press-ready PDFs on the OS X Server 10.2 platform (dual 1ghz Xserve).  His current solution was using <a class="reference external" href="http://www.cs.wisc.edu/~ghost/">GhostScript</a> as the rasterization engine, but the color matching was off and it was grinding his poor server to a halt.  <a class="reference external" href="http://homepages.cwi.nl/~jack/macpython/index.html">MacPython</a> to the rescue!</p>
@@ -22,4 +21,3 @@ title: PyObjC, WindowServer, and rasterizing PDFs
 <tr><td class="label">[1]</td><td>See /Developer/Examples/Quartz/Python/ (included with Xcode on OS X 10.3)</td></tr>
 </tbody>
 </table>
-{% endraw %}

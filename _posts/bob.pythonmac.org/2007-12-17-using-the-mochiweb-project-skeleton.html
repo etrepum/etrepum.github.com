@@ -7,7 +7,6 @@ title: Using the mochiweb project skeleton
 ---
 {% include JB/setup %}
 
-{% raw %}
 <!-- -*- mode: rst -*- -->
 <p>A bit over a week ago we moved a slightly modified version of our project skeleton into the open source <a class="reference external" href="http://mochiweb.com/">mochiweb</a> repository, which gets you a start shell script, a skeleton application following (most of) the OTP paradigms, a Makefile, and a web server that serves static files out of <tt class="docutils literal">priv/www</tt>.</p>
 <p>The first thing you have to do is make sure <a class="reference external" href="http://mochiweb.com/">mochiweb</a> is built:</p>
@@ -35,7 +34,7 @@ $ ./start-dev.sh
 
 1&gt; http:request(&quot;http://127.0.0.1:8000/&quot;).
 ...
-{ok,{{&quot;HTTP/1.1&quot;,200,&quot;OK&quot;},
+{ok,{&#38;&quot;HTTP/1.1&quot;,200,&quot;OK&quot;},
      [{&quot;date&quot;,&quot;Tue, 18 Dec 2007 04:58:55 GMT&quot;},
       {&quot;server&quot;,&quot;MochiWeb/1.0 (Any of you quaids got a smint?)&quot;},
       {&quot;content-length&quot;,&quot;88&quot;},
@@ -43,4 +42,3 @@ $ ./start-dev.sh
      &quot;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;It Worked&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\nMochiWeb running.\n&lt;/body&gt;\n&lt;/html&gt;\n&quot;}}
 </pre>
 <p>As far as deployment goes, it's a convenience that <a class="reference external" href="http://mochiweb.com/">mochiweb</a> makes a symlink to itself as <tt class="docutils literal"><span class="pre">PROJECT/deps/mochiweb-src</span></tt> so that the start scripts can find it and put them in your code path. You'll probably want to put a full copy of <a class="reference external" href="http://mochiweb.com/">mochiweb</a> in its place, use a svn:external (which is what we do right now), or manage the <a class="reference external" href="http://mochiweb.com/">mochiweb</a> dependency by some other means.</p>
-{% endraw %}
