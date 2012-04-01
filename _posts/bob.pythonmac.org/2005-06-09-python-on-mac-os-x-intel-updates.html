@@ -1,0 +1,32 @@
+---
+categories: [python, PyObjC, macosx, universal binaries]
+category: archives
+layout: post
+tags: [macosx, pyobjc, python, universal binaries]
+title: Python on Mac OS X (Intel) - Updates
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>PyObjC</p>
+<blockquote>
+<p>Ronald has customized the libffi export even further to work for Mach-O x86, mostly by removing the usage of autoconf.  He has also managed to hack in some universal binaries support, but it really needs to move to distutils.  All of the unit tests pass.  This code should end up in ctypes too, probably.</p>
+<p>The Xcode templates should work with Xcode 2.1 now, but they won't build universal binaries until py2app does.</p>
+<p>objc.inject still doesn't work (since mach_inject isn't fixed yet).</p>
+</blockquote>
+<p>Python</p>
+<blockquote>
+<p>This is built as universal binaries by Apple.  I haven't seen the patches yet, but whatever they're doing doesn't carry over to distutils, and it doesn't also include ppc64 support (though it certainly <em>could</em>, if Python didn't depend so much on autoconf crap).  One way to fix this would be to create a custom pyconfig.h with reasonable compiler-determined values, and not using autoconf at all (an Xcode project might be a good idea).  This has lots of problems of its own, because there are a lot of options that can be useful to configure, distutils reads in several autoconf-generated files, etc.</p>
+<p>It's also going to take some time to figure out the gcc incantations to build against SDKs, as they're not documented.  Especially if we're going to try and build against two different SDKs (i.e. 10.3 for PPC and 10.4.1 for x86).</p>
+<p>If we do end up putting universal binaries support into distutils, it may require users to have the SDK installed in order to use distutils.  Unfortunately this isn't the default when installing Xcode 2.1.</p>
+<p>Four character codes, and probably other data structures, are still the wrong endian on x86.</p>
+<p>The majority of bundlebuilder applications will not run on Intel machines without modification, even with Rosetta, because their executable is a script so Python is going to start up as an x86 binary.  py2app-built applications don't have this problem.</p>
+<p>It might make sense to add some intelligence to the extension importer to check for correct architecture before it tries to load the <tt class="docutils literal">.so</tt>, or to have separate site-packages directories for each architecture, plus one for universal binaries.  For example, it would make sense to have psyco available  for x86, but maybe not anywhere else.</p>
+</blockquote>
+<p>py2app</p>
+<blockquote>
+<p>macholib needs to learn how to rewrite load commands of universal binaries.</p>
+<p>If the py2app bootstraps are recompiled as universal binaries, then it should probably be able to detect whether the application needs to start up as ppc, because I don't want it to build incompatible apps like bundlebuilder does.</p>
+</blockquote>
+{% endraw %}

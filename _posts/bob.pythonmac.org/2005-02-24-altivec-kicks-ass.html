@@ -1,0 +1,16 @@
+---
+categories: [python, pygame, macosx, c]
+category: archives
+layout: post
+tags: [c, macosx, pygame, python]
+title: Altivec Kicks Ass
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I started screwing around with enhancing Ryan Gordon's AltiVec patch for SDL last weekend.  I ended up spending more time on it than I should've, but I think I've optimized all of the 32bit-32bit blits.  Even though my AltiVec is probably pretty naive, I'm seeing a ~3-4x speed increase over the scalar code.  And the scalar code is probably about as optimized as it's going to get, with duffs, etc.</p>
+<p>Another thing I noticed is that my G5 really, really, really beats the snot out of my G4 powerbook for this stuff.  For some of the blits, the 2ghz G5 runs about 5.65x faster than the 1ghz G4.  That's nearly three times as much work per cycle!  This is probably due to the bus speed and memory bandwidth more than anything else, but it's impressive nonetheless.</p>
+<p>Now I really want a G5 powerbook.  Even if it were clocked at 1ghz like my current G4, it seems like there would still be a large difference in performance.</p>
+<p>Once I clean up the patch and do some more testing (read: hopefully this weekend), I'll do a release of pygame that will include this enhanced version of SDL.  pygame is overdue for an update, anyway.</p>
+{% endraw %}

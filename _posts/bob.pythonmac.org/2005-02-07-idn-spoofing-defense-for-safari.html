@@ -1,0 +1,81 @@
+---
+categories: [python, PyObjC, py2app, macosx, debugging]
+category: archives
+layout: post
+tags: [debugging, macosx, py2app, pyobjc, python]
+title: IDN Spoofing Defense for Safari
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<dl class="docutils">
+<dt>UPDATE:</dt>
+<dd>Apple has properly resolved this issue with Safari, see <a class="reference external" href="http://docs.info.apple.com/article.html?artnum=301116">About Safari International Domain Name Support</a>.</dd>
+</dl>
+<p>Soon after I got home from <a class="reference external" href="http://www.shmoocon.org/">ShmooCon</a>, I saw that the <a class="reference external" href="http://www.shmoo.com/">Shmoo Group</a> came up with a new <a class="reference external" href="http://www.shmoo.com/idn/">domain spoofing exploit</a> for which &quot;no defense exists&quot;.  It's pretty amazing that browsers actually implement IDN without any kind of protection, so I decided to quickly hack up a defense for Safari on Mac OS X 10.3 (and probably later).</p>
+<img alt="http://undefined.org/python/IDNSnitch_00.jpg" src="http://undefined.org/python/IDNSnitch_00.jpg" />
+<dl class="docutils">
+<dt>Application:</dt>
+<dd><a class="reference external" href="http://undefined.org/python/IDNSnitch.app.tgz">IDNSnitch.app.tgz</a> (335k)
+USE AT YOUR OWN RISK.  This probably will cause instability in Safari.</dd>
+<dt>Source:</dt>
+<dd><a class="reference external" href="http://svn.red-bean.com/pyobjc/trunk/pyobjc/Examples/Inject/IDNSnitch">http://svn.red-bean.com/pyobjc/trunk/pyobjc/Examples/Inject/IDNSnitch</a></dd>
+</dl>
+<p>The hack is implemented in two parts, an application and a plugin.</p>
+<p><strong>Application</strong></p>
+<p><a class="reference external" href="http://svn.red-bean.com/pyobjc/trunk/pyobjc/Examples/Inject/IDNSnitch/IDNSnitch.py">IDNSnitch.py</a> is a simple application that scans <tt class="docutils literal">NSWorkspace</tt> for Safari
+instances, and registers for application launch notifications for new Safari
+instances.  When it sees an instance of Safari, it uses <tt class="docutils literal">objc.inject</tt> to load
+the plugin into the target pid.</p>
+<p><strong>Plugin</strong></p>
+<p><a class="reference external" href="http://svn.red-bean.com/pyobjc/trunk/pyobjc/Examples/Inject/IDNSnitch/IDNSnitchPlugin.py">IDNSnitchPlugin.py</a> is where all the magic happens.  It
+<a class="reference external" href="http://www.cocoadev.com/index.pl?MethodSwizzling">swizzles</a> <tt class="docutils literal">NSURLRequest</tt>'s designated initializer by creating a category
+after caching the original IMP.  This swizzled initializer calls into another method
+that checks the <tt class="docutils literal">NSURL</tt> and has an opportunity to return a different one.
+The implemented checker that looks for the ACE (ASCII compatible encoding) prefix
+in the host of the given <tt class="docutils literal">NSURL</tt>.  If it sees an ACE prefix, it presents an alert panel to the
+user showing them the raw IDN URL, the &quot;display&quot; host name, and the unicode
+escaped host name.  The user can then decide whether to allow or deny requests
+from this host, and this decision is cached for the rest of their Safari session, but
+not persisted.  If they choose Deny, it simply returns <tt class="docutils literal">about:blank</tt> rather than the
+original URL.</p>
+<p><strong>Discovery</strong></p>
+<p>In order to discover how to implement this hack, I attached <a class="reference external" href="x-man-page://1/gdb">gdb</a> to Safari, like so:</p>
+<pre class="literal-block">
+% ps -auxwww|grep Safari
+bob    21062   0.0  3.9   254720  40976  ??  S     5:23PM   0:57.19 /Applications/Safari.app/Contents/MacOS/Safari -psn_0_193331201
+bob    21103   0.0  0.0    17052      8 std  R+    5:40PM   0:00.00 grep Safari
+[meth:~] bob% gdb attach 21062
+</pre>
+<p>I then thought that I could easily pick out when Safari used URLs by putting a break point on <tt class="docutils literal">NSURL</tt>'s designated initializer:</p>
+<pre class="literal-block">
+(gdb) fb -[NSURL initWithString:relativeToURL:]
+Breakpoint 1 at 0x90a2d51c
+(gdb) c
+</pre>
+<p>After going to a few URLs, I noticed that it would often have the URL cached somehow.  So then I looked at a <tt class="docutils literal">NSURL</tt> backtrace and saw that <tt class="docutils literal">NSURLRequest</tt> was probably used more often, so I put a break point on its designated initializer:</p>
+<pre class="literal-block">
+^C
+Program received signal SIGINT, Interrupt.
+0x900074c8 in mach_msg_trap ()
+(gdb) fb -[NSURLRequest initWithURL:cachePolicy:timeoutInterval:]
+Breakpoint 2 at 0x90a0b0b8
+(gdb) c
+</pre>
+<p><tt class="docutils literal">NSURLRequest</tt> is indeed used all the time, so I took a look at what a spoofed URL looks like:</p>
+<pre class="literal-block">
+Breakpoint 2, 0x90a0b0b8 in -[NSURLRequest initWithURL:cachePolicy:timeoutInterval:] ()
+(gdb) po $r5
+https://www.xn--pypal-4ve.com/
+</pre>
+<p>At this point I had everything I needed to know, so I wrote the code.</p>
+<p>UPDATE:</p>
+<ul class="simple">
+<li>Rewritten in pure Python (requires svn trunk of <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a>), hopefully fixed threading bugs.</li>
+<li>Fixed some more bugs and made it smaller</li>
+<li>An alternate implementation of this is available in <a class="reference external" href="http://haoli.dnsalias.com/">Saft</a> v7.5.1 and later (have not tried it myself)</li>
+<li>One of the authors of the IDN standard writes about a <a class="reference external" href="http://lookit.proper.com/archives/000302.html">more balanced solution</a> to this issue.  I had actually considered doing it this way, but I simply didn't have the time or interest in creating the custom dialogs required.  This functionality should be in <a class="reference external" href="http://docs.python.org/lib/module-unicodedata.html">unicodedata</a>, but it's not, though <a class="reference external" href="http://www.unicode.org/Public/UNIDATA/Blocks.txt">Blocks.txt</a> would be trivial to parse.</li>
+<li>An up and coming Mozilla extension, <a class="reference external" href="http://TrustBar.MozDev.Org/">TrustBar</a>, attempts to solve this and other issues for Mozilla and FireFox</li>
+</ul>
+{% endraw %}

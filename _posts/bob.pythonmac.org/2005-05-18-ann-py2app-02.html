@@ -1,0 +1,41 @@
+---
+categories: [python, PyObjC, py2app]
+category: archives
+layout: post
+tags: [py2app, pyobjc, python]
+title: 'ANN: py2app 0.2'
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app 0.2</a> is a minor bug fix release.  You can download it from <a class="reference external" href="http://pythonmac.org/packages/">pythonmac.org packages</a>.  <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> 1.3.5 ships with py2app 0.2, so if you have that, you have already upgraded to py2app 0.2!</p>
+<p>Functional changes:</p>
+<ul class="simple">
+<li>New datamodels option to support CoreData.  Compiles
+.xcdatamodel files and places them in the Resources dir
+(as .mom).</li>
+<li>New use-pythonpath option.  The py2app application bootstrap
+will no longer use entries from PYTHONPATH unless this option
+is used.</li>
+<li>py2app now persists information about the build environment
+(python version, executable, build style, etc.) in the
+Info.plist and will clean the executable before rebuilding
+if anything at all has changed.</li>
+<li>bdist_mpkg now builds packages with the full platform info,
+so that installing a package for one platform combination
+will not look like an upgrade to another platform combination.</li>
+</ul>
+<p>Bug Fixes:</p>
+<ul class="simple">
+<li>Fixed a bug in standalone building, where a rebuild could
+cause an unlaunchable executable.</li>
+<li>Plugin bootstrap should compile/link correctly
+with gcc 4.</li>
+<li>Plugin bootstrap no longer sets PYTHONHOME and will
+restore PYTHONPATH after initialization.</li>
+<li>Plugin bootstrap swaps out thread state upon plug-in
+load if it is the first to initialize Python.  This
+fixes threading issues.</li>
+</ul>
+{% endraw %}

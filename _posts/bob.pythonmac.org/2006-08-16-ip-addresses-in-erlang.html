@@ -1,0 +1,33 @@
+---
+categories: [erlang]
+category: archives
+layout: post
+tags: [erlang]
+title: IP Addresses in Erlang
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>The <a class="reference external" href="http://www.erlang.org/">Erlang</a> kernel has an undocumented module for dealing with ipv4 and ipv6 internet addresses: <tt class="docutils literal">inet_parse</tt>. I ran across it from a brief mention in the <a class="reference external" href="http://www.erlang.org/doc/doc-5.5/lib/kernel-2.11/doc/html/inet.html">inet documentation</a> while looking for a function to convert an Erlang <tt class="docutils literal">ip_address()</tt> tuple to a <tt class="docutils literal">string()</tt>.</p>
+<p><tt class="docutils literal">inet_parse:address(String) <span class="pre">-&gt;</span> {ok, Address} | {error, Reason}</tt></p>
+<blockquote>
+<pre class="literal-block">
+1&gt; inet_parse:address(&quot;127.0.0.1&quot;).
+{ok,{127,0,0,1}}
+2&gt; inet_parse:address(&quot;::1&quot;).
+{ok,{0,0,0,0,0,0,0,1}}
+3&gt; inet_parse:address(&quot;300.400.500.600&quot;).
+{error,einval}
+</pre>
+</blockquote>
+<p><tt class="docutils literal">inet_parse:ntoa(Address) <span class="pre">-&gt;</span> String</tt></p>
+<blockquote>
+<pre class="literal-block">
+1&gt; inet_parse:ntoa({127,0,0,1}).
+&quot;127.0.0.1&quot;
+2&gt; inet_parse:ntoa({0,0,0,0,0,0,0,1}).
+&quot;::1&quot;
+</pre>
+</blockquote>
+{% endraw %}

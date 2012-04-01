@@ -1,0 +1,24 @@
+---
+categories: [python, py2app, pil, macosx]
+category: archives
+layout: post
+tags: [macosx, pil, py2app, python]
+title: PIL 1.1.5b3 for Mac OS X 10.3
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I've put together a quick bdist_mpkg build of <a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a> 1.1.5b3:</p>
+<ul class="simple">
+<li>Imaging-1.1.5b3-py2.3-macosx10.3.zip for Mac OS X 10.3 (Pre-installed Python 2.3.0)</li>
+</ul>
+<p>UPDATE: This is out of date.  There is a newer version and other installers available at <a class="reference external" href="http://pythonmac.org/packages/">pythonmac packages</a>.</p>
+<p>It's statically linked against:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.ijg.org/">jpeg</a> 6b (from <a class="reference external" href="http://darwinports.opendarwin.org/">darwinports</a>)</li>
+<li><a class="reference external" href="http://www.remotesensing.org/libtiff/">tiff</a> 3.7.1 (from <a class="reference external" href="http://darwinports.opendarwin.org/">darwinports</a>)</li>
+<li><a class="reference external" href="http://www.freetype.org/">freetype</a> 2.1.9 revision 1 (from <a class="reference external" href="http://darwinports.opendarwin.org/">darwinports</a>)</li>
+</ul>
+<p><tt class="docutils literal">_imagingtk</tt> is dynamically linked with the <a class="reference external" href="http://tcltkaqua.sourceforge.net/">Tcl and Tk 8.4 frameworks</a> installed to <tt class="docutils literal">/Library</tt>.</p>
+{% endraw %}

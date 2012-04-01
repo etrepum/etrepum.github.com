@@ -1,0 +1,38 @@
+---
+categories: [python, py2app]
+category: archives
+layout: post
+tags: [py2app, python]
+title: 'py2app:  Packaging wxGlade'
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P76 -->
+<p>(Note: this information is relevant to <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.2 - which is currently just on the <a class="reference external" href="http://svn.red-bean.com/bob/py2app/trunk">svn trunk</a>)</p>
+<p>In order to see how hard it would be to package a complicated application such as <a class="reference external" href="http://wxglade.sourceforge.net/">wxGlade</a>, I decided to give it a try.  <a class="reference external" href="http://wxglade.sourceforge.net/">wxGlade</a> is quite a dynamic beast with regard to code generation and widget plugins, so it was a bit of a pain to deal with.  I actually had to add several features to <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> in the process:</p>
+<ul class="simple">
+<li>A feature where one module can be &quot;aliased&quot; to another module.  I needed this because wxPython.wx points to wx, but is not actually on the filesystem.</li>
+<li>An extensible module filtering system, so a recipe can say &quot;yes&quot; or &quot;no&quot; to any extension or python module it comes across.  Before this, there was only one static filter that would say &quot;no&quot; to standard library modules when using a vendor Python.</li>
+</ul>
+<p><a class="reference external" href="http://wxglade.sourceforge.net/">wxGlade</a> causes problems because it needs to list the &quot;codegen&quot; and &quot;widgets&quot; directories, and load code from them.  This would be easy if:</p>
+<ul class="simple">
+<li>The path were configurable in some way (using sys.path, a separate variable, etc.).  Packages go into .../Python/site-packages/, where it expected to see them at .../</li>
+<li>The list of modules were configurable in some way (right now it expects to perform an os.listdir)</li>
+</ul>
+<p>The naive way would be to just include them as data files, however this prevents dependency analysis from occurring.  It turns out that <a class="reference external" href="http://wxglade.sourceforge.net/">wxGlade</a> did indeed cause new dependencies in these modules so a more complicated solution was required.  The solution to this particular problem is in three parts:</p>
+<ol class="arabic simple">
+<li>Add &quot;codegen&quot; and &quot;widgets&quot; as data files</li>
+<li>Add a wxglade recipe that scans all of these plugins for dependencies</li>
+<li>Have the wxglade recipe install a filter that makes sure these dependencies aren't copied into the normal place</li>
+</ol>
+<p>The other customization I used was a custom boot script, wxGlade.py.  This boot script does two things:</p>
+<ol class="arabic simple">
+<li>Starts up wxGlade as per wxglade.py, but in a simpler way (less is needed, the environment is already sane)</li>
+<li>Monkeypatches a bug in <a class="reference external" href="http://wxglade.sourceforge.net/">wxGlade</a> so that it can open the help files</li>
+</ol>
+<p>The example setup.py and bootstrap wxGlade.py are located at:
+<a class="reference external" href="http://undefined.org/python/wxGlade-0.3.4-py2app.tgz">http://undefined.org/python/wxGlade-0.3.4-py2app.tgz</a></p>
+<p>Note that setup.py expects a <a class="reference external" href="http://sourceforge.net/project/showfiles.php?group_id=58225&amp;package_id=54072&amp;release_id=264401">wxGlade 0.3.4</a> distribution to be unpacked in ./wxGlade-0.3.4</p>
+{% endraw %}

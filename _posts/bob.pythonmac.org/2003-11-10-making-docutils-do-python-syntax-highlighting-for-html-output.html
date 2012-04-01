@@ -1,0 +1,27 @@
+---
+categories: [python, docutils]
+category: archives
+layout: post
+tags: [docutils, python]
+title: Making docutils do python syntax highlighting (for HTML output)
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P7 -->
+<p><a class="reference external" href="http://undefined.org/python/docpytils-0.0.tgz">http://undefined.org/python/docpytils-0.0.tgz</a> is a simple docutils directive that does simple python syntax highlighting in ReST.. basically, after importing docpytils, you can do something like this:</p>
+<pre class="literal-block">
+.. pycode::
+
+    python code here..
+</pre>
+<p>Like raw, you can also use :file: or :url: as arguments.</p>
+<p>Output will look like this:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; from __future__ import *
+  File &quot;&lt;stdin&quot;&gt;, line 1
+SyntaxError: future statement does not support import *
+&gt;&gt;&gt;
+</pre>
+{% endraw %}

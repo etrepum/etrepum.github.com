@@ -1,0 +1,15 @@
+---
+categories: [python]
+category: archives
+layout: post
+tags: [python]
+title: realloc.. doesn't?
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>Apparently, <a class="reference external" href="http://www.opensource.apple.com/darwinsource/10.3.7/Libc-320.1.3/gen/malloc.c">Darwin's implementation</a> of <tt class="docutils literal">realloc</tt> never frees memory if you ask
+for a smaller size.  <a class="reference external" href="http://python.org/sf/1092502">Python</a>, and probably plenty of other software, assumes that
+it does, because that's how it behaves on the other platforms (at least Linux and OpenBSD).  Oops!</p>
+{% endraw %}

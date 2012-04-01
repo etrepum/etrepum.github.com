@@ -1,0 +1,26 @@
+---
+categories: [javascript, AJAX]
+category: archives
+layout: post
+tags: [ajax, javascript]
+title: JavaScript Sucks (volume 2)
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>JavaScript sucks (<a class="reference external" href="http://bob.pythonmac.org/archives/2005/06/02/javascript-sucks-volume-1/">1-14 here</a>):</p>
+<ol class="arabic simple" start="15">
+<li>Functions can't be used as a prototype, and you can't do <tt class="docutils literal">new Function(anotherFunction)</tt>, so you can't &quot;clone&quot; a function unless you reliably have access to its source code(!!).</li>
+<li>While accessing the source code to a function is possible, accessing the scope it was defined in is not.  So, you still can't &quot;clone&quot; a function reliably.</li>
+<li>All JavaScript implementations are broken.  Some more broken than others (*cough*JScript*cough*).  They're all broken in different ways.</li>
+<li>When you run into a broken JScript.. er JavaScript...  interpreter, it will either crash, or behave in a completely unexpected way.  Good luck debugging either.</li>
+<li>There's no <tt class="docutils literal">import</tt> statement.  Good luck writing re-usable code.  There are workarounds (e.g. <tt class="docutils literal">XMLHttpRequest</tt> + <tt class="docutils literal">eval</tt>, <tt class="docutils literal"><span class="pre">document.write(&quot;...&quot;)</span></tt>, etc.), but all are pretty hackish and don't work everywhere all the time or don't get cached by all browsers.</li>
+<li>It's terribly hard to find something that tokenizes JavaScript correctly.  Hell, most JavaScript interpreters don't even get that far.</li>
+<li>No coroutines, continuations, generators, threads (please don't!), or equivalent.  That means implementing iterators, cooperative multitasking, or anything else asynchronous is only slightly more fun than a good caning.</li>
+<li>Despite its terrible facilities for doing so, writing asynchronous code is necessary.  JavaScript interpreters nearly always have the capability to block a browser, sometimes indefinitely.</li>
+<li>When they can't block a browser indefinitely, the user gets a stupid &quot;Do you want to terminate this script?&quot; modal dialog.  Regardless of the user's choice, they probably have to terminate the process anyway.</li>
+<li><tt class="docutils literal">alert()</tt> is a modal dialog, which means that if the script invokes it repeatedly fast enough, you have to terminate your browser's process.  Of course, there really isn't a better way to get debugging output.</li>
+<li>JavaScript's caretakers don't seem to be interested fixing any of its problems, just adding new ones.  Optional type declarations, classes and interfaces, inline XML, etc.  Whee!</li>
+</ol>
+{% endraw %}

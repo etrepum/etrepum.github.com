@@ -1,0 +1,37 @@
+---
+categories: [perl, subversion]
+category: archives
+layout: post
+tags: [perl, subversion]
+title: SVN::Mirror
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P74 -->
+<p>Mirroring of <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> repositories isn't very well supported at this point.  It seems that the only way to do it without filesystem access to the server is with a perl package, <a class="reference external" href="http://search.cpan.org/~clkao/SVN-Mirror/">SVN::Mirror</a>.</p>
+<p>Installing <a class="reference external" href="http://search.cpan.org/~clkao/SVN-Mirror/">SVN::Mirror</a> was a bit troublesome.  Basically you need to:</p>
+<ul class="simple">
+<li>Install <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> &gt;= 1.0.4</li>
+<li>Install the <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> Perl bindings (<tt class="docutils literal">make <span class="pre">install-swig-pl</span></tt>)</li>
+<li>Install <a class="reference external" href="http://search.cpan.org/~clkao/SVN-Simple/">SVN::Simple</a> from CPAN (an unlisted dependency)</li>
+<li>Install <a class="reference external" href="http://search.cpan.org/~clkao/SVN-Mirror/">SVN::Mirror</a> from CPAN (say no if it asks you about VCP)</li>
+</ul>
+<p>After that, you should have a <a class="reference external" href="http://search.cpan.org/~clkao/SVN-Mirror/bin/svm">svm</a> utility, which you can mirror your repository with.  There is a documentation bug in the current version where it says that that <tt class="docutils literal">init</tt> takes a <tt class="docutils literal">skip_to</tt> argument.  It does not.  <tt class="docutils literal">sync</tt> does, however.</p>
+<p>In order to get the mirror going, you need to do something like this</p>
+<pre class="literal-block">
+$ setenv SVMREPOS ~/svm
+$ svm init mirror/bob http://svn.red-bean.com/bob
+$ svm sync mirror/bob 2
+</pre>
+<p>The 2 is important, because it's the <tt class="docutils literal">skip_to</tt> argument that allows your mirror's revisions to match your repository.  Don't ask.  In an earlier version of svm, this number used to be 3.</p>
+<p>To check it out, you do:</p>
+<pre class="literal-block">
+$ svn co file://$SVMREPOS/mirror/bob bob
+</pre>
+<p>And to update the mirror:</p>
+<pre class="literal-block">
+$ svm sync mirror/bob
+</pre>
+{% endraw %}

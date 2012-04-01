@@ -1,0 +1,17 @@
+---
+categories: [flash, actionscript]
+category: archives
+layout: post
+tags: [actionscript, flash]
+title: 'SWX: The JSON equivalent for Flash'
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://aralbalkan.com/">Aral Balkan</a> has recently released <a class="reference external" href="http://swxformat.org/">SWX</a>, a new data exchange format for Flash.</p>
+<p>In his current implementation it's really two standards: A JSON-ish format based on PHP (bad idea) and a particular layout of SWF bytecode on the receiving end (good idea).</p>
+<p>Creating another JSON-like format is stupid. I really don't know why he did that. There are plenty of fast parsers for JSON in PHP, which are almost certainly going to be faster and perhaps safer than scanning input with a regex and eval-ing it. Using eval in server-side code with untrusted input, no matter how good you think your input validation is, is just foolish</p>
+<p>Generating SWF bytecode for the return value is a good idea. It's fast, compact (zlib compressible even), requires no parsing on the Flash end, and can be used cross-domain (with appropriate instrumentation) since it's just a loadMovie call. We actually do something very similar to <a class="reference external" href="http://swxformat.org/">SWX</a> for essentially these reasons (that's a lot of what <a class="reference external" href="http://code.google.com/p/eswf/">eswf</a> is used for).</p>
+<p>I'd like to see him give up on the PHP junk in exchange for JSON and add explicit hooks in the standard for cross-domain help (LocalConnection transport, System.security.allowDomain support). All said, this could be a good thing for Flash developers and I'll be paying close attention to the project over the next few months.</p>
+{% endraw %}

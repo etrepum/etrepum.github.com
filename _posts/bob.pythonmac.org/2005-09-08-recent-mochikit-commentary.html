@@ -1,0 +1,24 @@
+---
+categories: [javascript, MochiKit, AJAX]
+category: archives
+layout: post
+tags: [ajax, javascript, mochikit]
+title: Recent MochiKit commentary
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>For those not watching the entire blogosphere, here's two pretty good articles/posts about <a class="reference external" href="http://mochikit.com/">MochiKit</a> that have come up recently:</p>
+<hr class="docutils" />
+<p><a class="reference external" href="http://argv0.net/">Andy</a> has put together <a class="reference external" href="http://argv0.net/static/mochitut/1/">part 1</a> of a series of MochiKit tutorials for building a blog application, almost entirely client-side:
+<a class="reference external" href="http://argv0.net/static/mochitut/1/">http://argv0.net/static/mochitut/1/</a></p>
+<p>For a little more commentary on that post, you might look towards the <a class="reference external" href="http://www.ajaxian.com/archives/2005/09/simple_ajax_wit.html">Ajaxian blog coverage</a>.</p>
+<hr class="docutils" />
+<p><a class="reference external" href="http://griddlenoise.blogspot.com/">Jeff Shell</a> put out a little head-to-head between <a class="reference external" href="http://griddlenoise.blogspot.com/2005/09/prototypejs-and-mochikit.html">MochiKit and Prototype</a> from a Zope user's perspective:
+<a class="reference external" href="http://griddlenoise.blogspot.com/2005/09/prototypejs-and-mochikit.html">http://griddlenoise.blogspot.com/2005/09/prototypejs-and-mochikit.html</a></p>
+<p>What Jeff doesn't seem to mention in his article is that his AJAX example actually shows Prototype and MochiKit living in harmony (using <tt class="docutils literal">Element.show</tt> and <tt class="docutils literal">Element.fade</tt> from Prototype, with MochiKit's AJAX support).  That actually <em>does</em> work.  Personally, I'd have demonstrated the AJAX stuff without the Fully.Qualified.Names in that scenario (to show MochiKit in its best light in comparison w/ Prototype), and used <tt class="docutils literal">showElement</tt> instead of <tt class="docutils literal">Element.show</tt> (saves a character, removes a Prototype dependency ;).</p>
+<p>MochiKit plays very nice with both the strictest (i.e. <a class="reference external" href="http://dojotoolkit.org/">Dojo</a>) and the loosest JavaScript development styles (i.e. Prototype) around, because it's very defensively programmed and well exercised in those scenarios.  There's one or two places in MochiKit where you pay a price (performance, or extraneous data carried around) if you mucked up <tt class="docutils literal">Object.prototype</tt>, but it actually does let you do that.</p>
+<hr class="docutils" />
+<p>Thanks guys!</p>
+{% endraw %}

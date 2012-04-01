@@ -1,0 +1,37 @@
+---
+categories: [python]
+category: archives
+layout: post
+tags: [python]
+title: Clever use of Python's complex number type
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I was thoroughly amused when I saw the <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/365013">Linear equations solver in 3 lines</a> recipe in <a class="reference external" href="http://aspn.activestate.com/ASPN/">ASPN</a>'s <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/">Python Cookbook</a> this morning.  Since it's so short, I'll reproduce it here as a two line recipe ;)</p>
+<pre class="literal-block">
+def solve(eq, var='x'):
+    &quot;&quot;&quot;
+    &gt;&gt;&gt; solve(&quot;x - 2*x + 5*x - 46*(235 - 24) = x + 2&quot;)
+    3236.0
+    &quot;&quot;&quot;
+    c = eval(eq.replace(&quot;=&quot;, &quot;-(&quot;) + &quot;)&quot;, {var: 1j})
+    return -c.real/c.imag
+</pre>
+<p>The way it works is really clever.  First, it uses string replacement to turn it into a single expression rather than an equality.  This is effectively the same as rewriting an equation in the form of <tt class="docutils literal">x = 4</tt> to <tt class="docutils literal">x - 4 = 0</tt>.</p>
+<pre class="literal-block">
+x - 2*x + 5*x + 46*(235 - 24) = x + 2
+x - 2*x + 5*x + 46*(253 - 24) - (x + 2)
+</pre>
+<p>(Please forgive me for using uncommon math expressions below, the standard notations are confusing given the way the equation above was written and I wanted to remain close to valid Python syntax.)</p>
+<p>In order to solve such an equation, you would work through the simple math and end up with something in the form of <tt class="docutils literal">a*x + b</tt>.  Since this is for simple linear equations only, the author took the liberty of (ab)using the <tt class="docutils literal">complex</tt> type to make this happen automagically.</p>
+<p><a class="reference external" href="http://mathworld.wolfram.com/ComplexNumber.html">Complex numbers</a> are in the form of <tt class="docutils literal">a + bj</tt>, where the <em>a</em> represents the &quot;real&quot; component and <em>b</em> represents the &quot;imaginary&quot;, the <em>j</em> represents <tt class="docutils literal"><span class="pre">math.sqrt(-1)</span></tt>.  Python's <tt class="docutils literal">complex</tt> type stores the <em>a</em> in the <tt class="docutils literal">real</tt> attribute and the <em>b</em> in the <tt class="docutils literal">imag</tt> attribute.  In this example, we are pretending that the <em>j</em> really represents something other than <tt class="docutils literal"><span class="pre">math.sqrt(-1)</span></tt>, namely, the value of <em>x</em> that solves our equation.  In order to solve for <em>x</em>, we need to do the following transformation:</p>
+<pre class="literal-block">
+a + bj
+bj = -a
+j = (-a)/b
+</pre>
+<p>When the <tt class="docutils literal">solve</tt> function evaluates the rewritten expression, it uses <tt class="docutils literal">1j</tt> (really, <tt class="docutils literal">0 + 1j</tt> -- or <tt class="docutils literal">complex(0, 1)</tt>) for the value of <em>x</em>, which  Python simply evaluates down to a single complex number.  As stated above, when we divide the negation of the real part by the imaginary part, we get the desired solution.  Neat!</p>
+<p>UPDATE: maxim commented that a more comprehensive recipe by Rick Muller, <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/362193">Manipulate simple polynomials in Python</a>, is also available in the <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/">Python Cookbook</a>.  It's not two lines, though :)</p>
+{% endraw %}

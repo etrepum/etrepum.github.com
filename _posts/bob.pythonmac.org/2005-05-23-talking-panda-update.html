@@ -1,0 +1,22 @@
+---
+categories: [General, python, PyObjC, py2app, perl, java, pil, macosx, iPod]
+category: archives
+layout: post
+tags: [general, ipod, java, macosx, perl, pil, py2app, pyobjc, python]
+title: Talking Panda Update
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>We've (finally) updated <a class="reference external" href="http://talkingpanda.com/">talkingpanda.com</a> today with a fresh new look and a new product: <a class="reference external" href="http://talkingpanda.com/ibar.php">iBar</a>.</p>
+<p><a class="reference external" href="http://talkingpanda.com/ibar.php">iBar</a> turns your iPod (any iPod with a screen and a <a class="reference external" href="http://docs.info.apple.com/article.html?artnum=61688">dock connector</a>) into an &quot;ultimate bartending tool&quot; with over a thousand drink recipes, mixing techniques, and even a couple history lessons.  Like any good bar should be, it's stocked.  Altogether, the Notes content adds up to over 3 megabytes (yes, that's text!) with more than 40 minutes of original, professionally recorded, audio.</p>
+<p>Like its sibling <a class="reference external" href="http://talkingpanda.com/ilingo.php">iLingo</a>, <a class="reference external" href="http://talkingpanda.com/ibar.php">iBar</a> ships with installers for Mac OS X and Windows XP/2000 (everywhere iTunes is supported) that make installation painless.</p>
+<p>And for relevance, here's a little bit about how it's all put together:</p>
+<ul class="simple">
+<li>The Mac OS X installer was developed with <a class="reference external" href="http://python.org/">Python</a> 2.3, <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> 1.2, and bundled up with <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>.</li>
+<li>The Win32 installer was developed with <a class="reference external" href="http://python.org/">Python</a> 2.4, <a class="reference external" href="http://starship.python.net/crew/mhammond/win32/">win32all</a>, <a class="reference external" href="http://docs.python.org/lib/module-Tkinter.html">Tkinter</a>, <a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a> and is bundled up with <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a> and then made self-contained with <a class="reference external" href="http://nsis.sourceforge.net/">NSIS</a>.</li>
+<li>The build scripts for the installer application actually use <em>even more</em> open source stuff.  We use <a class="reference external" href="http://www.andykhan.com/jexcelapi/">JExcelAPI</a> to convert Excel spreadsheets to XML, and <a class="reference external" href="http://search.cpan.org/~autrijus/Win32-Exe/">Win32::Exe</a> to swap out the ICO resource out of win32 executables -- but no Java or Perl makes it into the redistributable :)</li>
+</ul>
+<p>We're also blogging updates and podcasting some of our content, so point your <a class="reference external" href="http://ranchero.com/netnewswire/">NetNewsWire</a> or <a class="reference external" href="http://www.apple.com/macosx/features/safari/">Safari RSS</a> over to <a class="reference external" href="http://talkingpanda.com/news/">Talking Panda News</a>!</p>
+{% endraw %}

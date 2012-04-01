@@ -1,0 +1,23 @@
+---
+categories: [python, simplejson]
+category: archives
+layout: post
+tags: [python, simplejson]
+title: simplejson 1.1
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> is a simple, fast, complete, correct and extensible <a class="reference external" href="http://json.org/">JSON</a> encoder/decoder for Python 2.3+.  It is pure Python code with no dependencies.  It's now the recommended module for Python use by <a class="reference external" href="http://json.org/">JSON.org</a> (replacing <a class="reference external" href="http://sourceforge.net/projects/json-py/">json-py</a>).</p>
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> was previously named simple_json, but was renamed to comply with <a class="reference external" href="http://python.org/peps/pep-0008.html">PEP 8</a> module naming guidelines.</p>
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> 1.1 has a much bigger test suite, a full set of <a class="reference external" href="http://svn.red-bean.com/bob/simplejson/trunk/docs/index.html">documentation</a> and a couple new features.</p>
+<ul class="simple">
+<li>The encoder and decoder have been extended to understand NaN, Infinity, and -Infinity (but this can be turned off via <tt class="docutils literal">allow_nan=False</tt> for strict JSON compliance)</li>
+<li>The decoder's scanner has been fixed so that it no longer accepts invalid JSON documents</li>
+<li>The decoder now reports line and column information as well as character numbers for easier debugging</li>
+<li>The encoder now has a circular reference checker, which can be optionally disabled with <tt class="docutils literal">check_circular=False</tt></li>
+<li>dump, dumps, load, loads now accept an optional <tt class="docutils literal">cls</tt> kwarg to use an alternate JSONEncoder or JSONDecoder class for convenience.</li>
+<li>The read/write compatibility shim for <a class="reference external" href="http://sourceforge.net/projects/json-py/">json-py</a> now have deprecation warnings</li>
+</ul>
+{% endraw %}

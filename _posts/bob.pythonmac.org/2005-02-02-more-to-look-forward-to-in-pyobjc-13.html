@@ -1,0 +1,43 @@
+---
+categories: [python, PyObjC]
+category: archives
+layout: post
+tags: [pyobjc, python]
+title: More to look forward to in PyObjC 1.3
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>Lots of nice new things went into <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a> the past few days:</p>
+<ul class="simple">
+<li>New HotKeyPython example in AppKit that demonstrates how to use
+Carbon global hot keys from a PyObjC application.  Also demonstrates
+how to use a NSApplication subclass.</li>
+<li><a class="reference external" href="http://developer.apple.com/documentation/Cocoa/Conceptual/KeyValueObserving/index.html">Key-Value Observing</a> support is now automatic in Python classes that
+descend from <tt class="docutils literal">NSObject</tt>, unless they implement a custom
+<tt class="docutils literal">willChangeValueForKey:</tt>, <tt class="docutils literal">didChangeValueForKey:</tt>, or
+<tt class="docutils literal">__useKVO__</tt> is not True.  This allows <tt class="docutils literal">self.foo = 1</tt> to
+automatically trigger notifications.  This works in all cases,
+whether <tt class="docutils literal">foo</tt> is a <tt class="docutils literal">property</tt>, <tt class="docutils literal">ivar</tt>, or just in the
+<tt class="docutils literal">__dict__</tt>.</li>
+</ul>
+<p>This should make writing <a class="reference external" href="http://developer.apple.com/documentation/Cocoa/Conceptual/CocoaBindings/">Cocoa Bindings</a> applications a whole heck of a lot easier...</p>
+<ul class="simple">
+<li>New Inject folder in Examples, with a PyInterpreter
+example that will inject a GUI Python interpreter into any process.</li>
+<li>New <tt class="docutils literal">objc.inject()</tt> function for Mac OS X 10.3 and later,
+allows an arbitrary bundle to be loaded into another process
+using <a class="reference external" href="http://rentzsch.com/mach_inject/">mach_inject</a>.</li>
+</ul>
+<p><tt class="docutils literal">objc.inject()</tt> can be used to implement some really interesting things, such as a &quot;pdb attach&quot; into a separate process, or a &quot;Python Anywhere&quot; like <a class="reference external" href="http://web.sabi.net/nriley/software/">F-Script Anywhere</a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal">objc.classAddMethods</tt> now recognizes and supports
+classmethods.</li>
+<li>GC is now correctly implemented for struct wrappers.</li>
+<li>The <tt class="docutils literal">NSNumber</tt> bridge has been removed, now you will get
+<tt class="docutils literal">NSNumber</tt> instances across the bridge instead of a
+Python representation.</li>
+</ul>
+<p>This allows you do use Objective-C conventions for dealing with numbers, i.e. <tt class="docutils literal">someNumber.doubleValue()</tt>.  The reason I did this was because <tt class="docutils literal">NSNumber</tt> only keeps track of the &quot;basic type&quot; of the value that goes in, so it will &quot;forget&quot; if the value was unsigned.  Since Python is really bad at emulating C conventions for signed/unsigned numbers, this was the obvious way to fix it.</p>
+{% endraw %}

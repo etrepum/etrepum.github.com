@@ -1,0 +1,30 @@
+---
+categories: [macosx, universal binaries]
+category: archives
+layout: post
+tags: [macosx, universal binaries]
+title: MacBook Pro first impressions
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>After over three years with a 1ghz 15&quot; titanium PowerBook I've finally upgraded to a 2ghz dual core 15&quot; MacBook Pro!  Compared to my old laptop, this machine is absolutely amazing.  I've been waiting a LONG time for:</p>
+<ul class="simple">
+<li>Built-in Bluetooth, 802.11g, USB 2.0</li>
+<li>Higher resolution, contrast, brightness display</li>
+<li>Trackpad with the two-finger scrolling</li>
+<li>Much much improved video subsystem</li>
+<li>A machine fast enough to effectively use spotlight</li>
+</ul>
+<p>Additionally, this new kit is going to save me a lot of VNC sessions since I can run other operating systems in virtualization via Parallels, and it will allow me to more easily build and properly test universal binaries.  Parallels seems to work pretty well for a beta product, but I'm definitely looking forward to seeing some competition (especially open source competition).</p>
+<p>Despite its awesomeness, there are still some issues with the MacBook Pro:</p>
+<ul class="simple">
+<li>The power supply whine is still there when the system isn't using a lot of juice, but apparently much less so than in earlier revisions.</li>
+<li>These machines run HOT.  I probably wouldn't try and put it on my lap if I wasn't wearing jeans, and it does make your hands a little uncomfortably warm when using the built-in keyboard (though I'm sure I'll get used to that).</li>
+<li>The display doesn't tilt back quite as far as the old titanium powerbooks.  Not a big deal, hopefully that just means they've solved the problem where the hinges would just snap after a year or two (and take out the backlight cable, argh).</li>
+<li>Intel code on Mac OS X supposedly uses more RAM than the PPC equivalent, which means you should buy more RAM than you are accustomed to from earlier machines.</li>
+</ul>
+<p>The RAM usage increase is somewhat surprising, because i386 binaries are more compact (the i386 libSystem is about 16% smaller than PPC).  I'm guessing the increase is due to the lack of usable registers on i386, which increases the amount of stack necessary per thread.  I doubt it's an alignment issue, because PPC definitely cares more about alignment than i386 does.  A quick sample shows that Terminal.app with one window does use about 5% more real memory than the PPC equivalent (and a LOT more virtual memory, but that might just be Quartz or something).</p>
+<p>5% doesn't sound like much, but I've heard bigger numbers for other kinds of applications.  I definitely plan to upgrade this machine from 1gb to 2gb, but the only times I've really felt RAM-hungry so far are when I'm using Parallels (which understandably needs a lot of real memory).</p>
+{% endraw %}

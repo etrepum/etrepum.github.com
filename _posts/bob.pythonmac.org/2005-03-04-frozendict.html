@@ -1,0 +1,28 @@
+---
+categories: [python]
+category: archives
+layout: post
+tags: [python]
+title: frozendict
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>Ever want to use a mapping as a key in a dict or an element in a set?  Me too.  Unfortunately, Python doesn't have a built-in mapping type that satisfies this requirement.  Fortunately, it's simple to do it:</p>
+<pre class="literal-block">
+try:
+    frozenset
+except NameError:
+    from sets import ImmutableSet as frozenset
+
+class frozendict(dict):
+    __slots__ = ('_hash',)
+    def __hash__(self):
+        rval = getattr(self, '_hash', None)
+        if rval is None:
+            rval = self._hash = hash(frozenset(self.iteritems()))
+        return rval
+</pre>
+<p>This implementation is for consenting adults only.  It's not actually immutable, so don't change it after you plan on needing it to be hashable.</p>
+{% endraw %}

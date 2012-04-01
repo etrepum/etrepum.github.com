@@ -1,0 +1,35 @@
+---
+categories: [python, vim]
+category: archives
+layout: post
+tags: [python, vim]
+title: Stupid vim tricks
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P11 -->
+<dl class="docutils">
+<dt>In some projects, like PyObjC, the coding style is to use tabs in C/Objective-C code, and spaces in Python.  I'm lazy, and haven't set it to do this on load, and I often forget to <cite>:set noet</cite> (not expand tabs) in vim.  The quick trick I use to convert tabs to spaces (or vice versa) is to:</dt>
+<dd><ul class="first last simple">
+<li>set/unset <cite>et</cite> as appropriate</li>
+<li>make sure my <cite>sw</cite> (shiftwidth) and <cite>ts</cite> (tabstop) are both 4 (this is in my .vimrc)</li>
+<li>indent the block of code once (this converts, but gives me extra indent) with <cite>&gt;</cite> in visual mode</li>
+<li>dedent it with <cite>&lt;</cite> in visual mode</li>
+</ul>
+</dd>
+</dl>
+<p>Voila, the whole mess is now converted from tabs to spaces or vice versa.  Here's what I find to be comfortable in my <cite>.vimrc</cite> (I do have some custom stuff for python, pyrex, coloring, etc. but that's not as important):</p>
+<pre class="literal-block">
+set ffs=unix,dos,mac
+set ts=4
+set bs=2
+set et
+set sw=4
+set sm
+set sta
+set sts=4
+set ai
+</pre>
+{% endraw %}

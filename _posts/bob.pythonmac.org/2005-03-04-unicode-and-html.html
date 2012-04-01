@@ -1,0 +1,22 @@
+---
+categories: [python]
+category: archives
+layout: post
+tags: [python]
+title: Unicode and HTML
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>If you've ever tried to use unicode in HTML, you've probably noticed that it sucks.  Some browsers trust the headers that the web server sends, and others trust the meta tag in the document itself.  The most reliable way is simply to use an ASCII representation of the document using entities.  Here's a trival implementation of a Python script that takes text of some encoding (UTF-8 by default) in and spits ASCII out, preserving the characters as far as browsers are concerned:</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+#
+# usage:
+# charref.py utf-8 &lt; infile &gt; outfile
+import sys
+encoding = (sys.argv[1:2] or ['utf-8'])[0]
+sys.stdout.write(sys.stdin.read().decode(encoding).encode('ascii', 'xmlcharrefreplace'))
+</pre>
+{% endraw %}

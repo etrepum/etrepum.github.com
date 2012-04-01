@@ -1,0 +1,15 @@
+---
+categories: [python, perl]
+category: archives
+layout: post
+tags: [perl, python]
+title: What happened to YAML?
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I remember hearing about <a class="reference external" href="http://yaml.org/">YAML</a> quite some time ago, but it seems to have completely disappeared from the Python radar.  However, it has become quite popular in Perl (where it's <a class="reference external" href="http://module-build.sourceforge.net/META-spec.html">used by Module::Build for metadata</a>) and Ruby (it's a <a class="reference external" href="http://www.ruby-doc.org/core/classes/YAML.html">standard feature</a>, even).  What's up with that?</p>
+<p>I can't even find a complete <a class="reference external" href="http://yaml.org/">YAML</a> parser/serializer for Python.  The stuff on <a class="reference external" href="http://python.yaml.org/">python.yaml.org</a> looks <a class="reference external" href="http://python.yaml.org/dist/">broken and old</a>, and I haven't seen anything anywhere else.</p>
+<p>The only reason I really care is that the <a class="reference external" href="http://openjsan.org/documentation/dists.html">JSAN distribution format</a> mirrors <a class="reference external" href="http://cpan.org/">CPAN</a> in many ways, <tt class="docutils literal">META.yml</tt> included, and I have to drop down to Perl or Ruby if I want to generate it programmatically!  That's not right.  Wasn't the <a class="reference external" href="http://www.clarkevans.com/">progenitor of YAML</a> a Python guy?  I remember seeing him on the <a class="reference external" href="http://twistedmatrix.com/">Twisted</a> lists years ago.  What happened?</p>
+{% endraw %}

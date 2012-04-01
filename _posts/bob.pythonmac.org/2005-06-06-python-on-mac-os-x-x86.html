@@ -1,0 +1,22 @@
+---
+categories: [python, PyObjC, py2app, macosx, c, universal binaries]
+category: archives
+layout: post
+tags: [c, macosx, py2app, pyobjc, python, universal binaries]
+title: Python on Mac OS X (Intel)...
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>Python on Mac OS X for Intel is not going to be a seamless transition.  Unlike Mathematica, there is going to be a lot more than 2 hours of effort involved.  Why?</p>
+<ul class="simple">
+<li>Python uses autoconf.  Autoconf is not Xcode.  It does not have a checkbox for universal binary compatibility.  Autoconf is a PITA.</li>
+<li>PyObjC depends on libffi.  libffi doesn't know what the Mach-O calling convention for x86 is, so it doesn't work.  libffi is very deep, magical, scary code. <em>This has been mostly solved by Ronald over the past few days in the universal binaries lab</em>.</li>
+<li>mach_inject (which PyObjC's objc.inject uses) depends on injecting code into other processes.  On an OS that can be running code for two different architectures, how the heck does that work?  How do you know which pid is running which architecture?  Anyway, injecting from x86-x86 isn't going to work because mach_inject doesn't know x86 yet.</li>
+<li>py2app's macholib doesn't really support fat binaries yet.  It understands them well enough to do the right thing with the PPC portion of the Mach-O header, but it ignores other architectures.  It will need a semi-major refactoring in order to support this cleanly.</li>
+<li>Bgen stuff breaks.  Specifically, all of your Carbon code that deals with four character codes is going to be broken due to endianness issues.  Yet another reason to stay the heck away from this stuff.</li>
+</ul>
+<p>So, thanks Apple, for giving us weeks worth of very hard and unintesting work to do.  The least you could've done is put out a nice new laptop that I could buy to do this work on :)</p>
+<p>I'm also not terribly interested in <em>renting</em> an Intel development machine from Apple so that I can do work that helps them more than me.  If they sold it, or stated that we would get a grand worth of credit towards a real Intel machine when they're available, then I wouldn't complain.  But no, we get to rent a machine from them, that we can't really talk about, publish benchmarks of, move to a location other than the shipped address (?!), etc.  They also say that they're under no obligation to fix it if it breaks, and there are no refunds.  Sweet deal!</p>
+{% endraw %}

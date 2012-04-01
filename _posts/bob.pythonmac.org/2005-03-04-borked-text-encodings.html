@@ -1,0 +1,33 @@
+---
+categories: [python, macosx]
+category: archives
+layout: post
+tags: [macosx, python]
+title: Borked Text Encodings
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>Unfortunately when you're dealing with text across platforms, you're likely to run into a situation where you see characters that don't belong.  When I need to fixup such text, I put a snippet of the borked text on the clipboard and break open a Python interpreter.  On platforms other than Mac OS X, you'll probably have to fiddle around with the I/O boundary codecs, but on Mac OS X it is generally going to be UTF-8 to and from standard I/O.</p>
+<pre class="literal-block">
+&gt;&gt;&gt; import sys, codecs
+&gt;&gt;&gt; sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+&gt;&gt;&gt; borked = 'CaliforniaÕs'.decode('utf-8')
+&gt;&gt;&gt; borked
+u'California\xd5s'
+</pre>
+<p>At this point we have the borked unicode text in a <tt class="docutils literal">unicode</tt> instance named <tt class="docutils literal">borked</tt>.  From there, I just guess at encode/decode pairs until I get sensible looking text without errors:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; print borked.encode('latin-1').decode('utf-8')
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in ?
+UnicodeDecodeError: 'utf8' codec can't decode bytes in position 10-11: invalid data
+&gt;&gt;&gt; print borked.encode('macroman').decode('latin-1')
+CaliforniaÍs
+&gt;&gt;&gt; print borked.encode('latin-1').decode('macroman')
+California’s
+</pre>
+<p>So apparently, this text originated in <tt class="docutils literal">macroman</tt> format, but ended up on a Windows machine and got marked as <tt class="docutils literal"><span class="pre">latin-1</span></tt>.  From here, I'll leave it as an exercise to the reader to do this treatment in batch.</p>
+<p>Are there any applications on the market that twiddle text encodings like this?  I've certainly run into the problem a number of times.  Would you pay for something that was really smart about guessing how to fix text encodings?  If it could do the fix for rich text documents?</p>
+{% endraw %}

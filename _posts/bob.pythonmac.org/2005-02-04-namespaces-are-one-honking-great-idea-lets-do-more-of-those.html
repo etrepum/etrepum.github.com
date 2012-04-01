@@ -1,0 +1,19 @@
+---
+categories: [python, PyObjC]
+category: archives
+layout: post
+tags: [pyobjc, python]
+title: Namespaces are one honking great idea -- let's do more of those!
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>According to <a class="reference external" href="http://www.python.org/peps/pep-0020.html">The Zen of Python</a> by Tim Peters:</p>
+<blockquote>
+<em>Namespaces are one honking great idea -- let's do more of those!</em></blockquote>
+<p>Apparently some of us weren't listening.  Both <a class="reference external" href="http://webware.sourceforge.net/">WebWare</a> and <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> use several global names in the module namespace.  <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> has <tt class="docutils literal">objc</tt>, <tt class="docutils literal">PyObjCTools</tt>, and one per framework it wraps.  <a class="reference external" href="http://webware.sourceforge.net/">WebWare</a> has a few of its own.  Unfortunately, <a class="reference external" href="http://tinyurl.com/6b87l">both have a package named WebKit</a>!</p>
+<p>Well, that sucks.  If either <a class="reference external" href="http://webware.sourceforge.net/">WebWare</a> or <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> change, then existing applications will break.  If they don't, new applications that take advantage of both aren't possible.  Unfortunately, it's entirely reasonable to want to use both <tt class="docutils literal">WebKit</tt> packages in the same application.  Oops!</p>
+<p>Clearly, something ought to change, but I'm not sure what.  <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> can and probably should grow a namespace for its wrapped frameworks, but should <a class="reference external" href="http://webware.sourceforge.net/">WebWare</a> also be &quot;polluting&quot; the global namespace?</p>
+<p>Should <a class="reference external" href="http://www.python.org/pypi">PyPI</a> grow a global registry for top level names, like Apple's <a class="reference external" href="http://developer.apple.com/datatype/">registry for creator codes</a>?</p>
+{% endraw %}

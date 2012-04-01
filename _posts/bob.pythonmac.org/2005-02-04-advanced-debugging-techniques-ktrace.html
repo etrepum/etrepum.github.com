@@ -1,0 +1,58 @@
+---
+categories: [python, py2app, macosx, c, wxPython, debugging]
+category: archives
+layout: post
+tags: [c, debugging, macosx, py2app, python, wxpython]
+title: 'Advanced Debugging Techniques: ktrace'
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I had spent the past few days on and off trying to help a <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> user with a very hairy problem:  when <a class="reference external" href="http://wxpython.org/">wxPython</a> 2.4.2.4 was bundled, the main menu didn't work.  Running the application as an alias bundle or with <tt class="docutils literal">pythonw</tt> worked just fine, but when built as standalone or semi-standalone, the menu no longer showed up.</p>
+<p>Right off the bat I (correctly) assumed it was a problem with <a class="reference external" href="http://wxpython.org/">wxPython</a> or his sample code, because <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> doesn't do anything that would cause this sort of behavior.  It does link to Cocoa, but it doesn't call into any AppKit functionality unless it needs to display an error message.  Somewhat trivially converting his source to work with <a class="reference external" href="http://wxpython.org/">wxPython</a> 2.5 solved this issue, so I was rather stumped.</p>
+<p>I had a hunch that perhaps there was something that <a class="reference external" href="http://wxpython.org/">wxPython</a> 2.4.2.4 wants that didn't end up in the bundle, so I broke out <a class="reference external" href="x-man-page://1/ktrace">ktrace</a>.  Using <a class="reference external" href="x-man-page://1/ktrace">ktrace</a> is rather simple:</p>
+<pre class="literal-block">
+% ktrace ./dist/test.app/Contents/MacOS/test
+</pre>
+<p>This will create a file in the current directory, <tt class="docutils literal">ktrace.out</tt>, with a log of just about everything that happened.  For efficiency, this file is in a binary format that you must process with <a class="reference external" href="x-man-page://1/kdump">kdump</a>.  The output of <a class="reference external" href="x-man-page://1/kdump">kdump</a> is quite lengthy, but it looks like this:</p>
+<pre class="literal-block">
+15121 ktrace   CALL  execve(0xbffffd1b,0xbffffc84,0xbffffc8c)
+15121 ktrace   NAMI  &quot;dist/test.app/Contents/MacOS/test&quot;
+15121 ktrace   NAMI  &quot;/usr/lib/dyld&quot;
+15121 test     RET   execve 0
+</pre>
+<p><tt class="docutils literal">CALL</tt> is the actual system call, <tt class="docutils literal">NAMI</tt> is a name to inode translation that the system call used, and <tt class="docutils literal">RET</tt> is the value returned to the application.  If there was an error during the system call, <a class="reference external" href="x-man-page://1/kdump">kdump</a> will gladly tell you everything you wanted to know:</p>
+<pre class="literal-block">
+15121 test     CALL  open(0xbfffe7f0,0,0x1b6)
+15121 test     NAMI  &quot;/Library/Preferences/org.pythonmac.unspecified.test.plist&quot;
+15121 test     RET   open -1 errno 2 No such file or directory
+</pre>
+<p>Since I suspected that <a class="reference external" href="http://wxpython.org/">wxPython</a> was missing a file, I wanted to narrow down the output, so I naturally used <a class="reference external" href="x-man-page://1/grep">grep</a> on the <a class="reference external" href="x-man-page://1/kdump">kdump</a> output to find errors:</p>
+<pre class="literal-block">
+% kdump | grep -B 2 errno | grep wx
+15121 test     NAMI  &quot;/Users/bob/Desktop/simple/dist/test.app/Contents/Resources/wxPython&quot;
+15121 test     NAMI  &quot;/Users/bob/Desktop/simple/dist/test.app/Contents/Resources/wxPython.so&quot;
+15121 test     NAMI  &quot;/Users/bob/Desktop/simple/dist/test.app/Contents/Resources/wxPythonmodule.so&quot;
+15121 test     NAMI  &quot;/Users/bob/Desktop/simple/dist/test.app/Contents/Resources/wxPython.py&quot;
+....
+</pre>
+<p>Unfortunately, what we're looking at here (and for the next 150 or so lines) is primarily just Python doing its module import search.  Since I knew that all of <tt class="docutils literal">sys.path</tt> pointed to locations under <tt class="docutils literal">Resources</tt>, I can just filter that out.  It is extremely unlikely that <a class="reference external" href="http://wxpython.org/">wxPython</a> wants anything from there:</p>
+<pre class="literal-block">
+% kdump | grep -B 2 errno | grep wx | grep -v Resources
+15121 test     NAMI  &quot;/Users/bob/Desktop/simple/dist/test.app/Contents/MacOS/../Frameworks/libwx_mac-2.4.0.rsrc&quot;
+15121 test     NAMI  &quot;/libwx_mac-2.4.0.rsrc&quot;
+</pre>
+<p>There it is!  So now I just need to make the <tt class="docutils literal">setup.py</tt> look like the following:</p>
+<pre class="literal-block">
+from distutils.core import setup
+import py2app
+setup(
+    app = ['test.py'],
+    data_files = [
+        ('../Frameworks', ['/usr/local/lib/libwx_mac-2.4.0.rsrc']),
+    ],
+)
+</pre>
+<p>Now the application works as expected.  <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.9 will include a recipe for <a class="reference external" href="http://wxpython.org/">wxPython</a> to make sure that this file ends up in the bundle automagically, among other new features.</p>
+{% endraw %}

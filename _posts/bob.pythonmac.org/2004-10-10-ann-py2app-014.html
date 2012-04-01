@@ -1,0 +1,39 @@
+---
+categories: [python, py2app]
+category: archives
+layout: post
+tags: [py2app, python]
+title: 'ANN: py2app 0.1.4'
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P78 -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>, that builds Mac OS X applications from Python scripts, extensions, and related data files.  It tries very hard to include all dependencies it can find so that your application can be distributed standalone, as Mac OS X applications should be.</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.4 is a refactoring and new features release:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal">altgraph</tt>, my fork of Istvan Albert's <a class="reference external" href="http://www.personal.psu.edu/staff/i/u/iua1/python/graphlib/html/">graphlib</a>, is now part of the distribution</li>
+<li><tt class="docutils literal">py2app.modulegraph</tt> has been refactored to use <tt class="docutils literal">altgraph</tt></li>
+<li><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> can now create <a class="reference external" href="http://www.research.att.com/sw/tools/graphviz/">GraphViz</a> DOT graphs with the <tt class="docutils literal"><span class="pre">-g</span></tt> option (<a class="reference external" href="http://undefined.org/~bob/TinyTinyEdit.pdf">TinyTinyEdit example</a>)</li>
+<li>Moved the filter stack into <tt class="docutils literal">py2app.modulegraph</tt></li>
+<li>Fixed a bug that may have been in 0.1.2 where explicitly included packages would not be scanned by <tt class="docutils literal">macholib</tt></li>
+<li><tt class="docutils literal">py2app.apptemplate</tt> now contains a stripped down <tt class="docutils literal">site</tt> module as opposed to a <tt class="docutils literal">sitecustomize</tt></li>
+<li>Alias builds are now the only ones that contain the system and user <tt class="docutils literal"><span class="pre">site-packages</span></tt> directory in <tt class="docutils literal">sys.path</tt></li>
+<li>The <tt class="docutils literal">pydoc</tt> recipe has been beefed up to also exclude <tt class="docutils literal">BaseHTTPServer</tt>, etc.</li>
+<li>The <tt class="docutils literal">altgraph</tt> from 0.1.3 had a pretty nasty bug in it that prevented filtering from working properly, so I fixed it and bumped to 0.1.4.</li>
+</ul>
+</blockquote>
+<p>Known issues:</p>
+<blockquote>
+<ul class="simple">
+<li>Commands marked with XXX in the help are not implemented</li>
+<li>Includes <em>all</em> files from packages, it should be smart enough to strip unused .py/.pyc/.pyo files (to save space, depending on which optimization flag is used)</li>
+<li><tt class="docutils literal">macholib</tt> should be refactored to use <tt class="docutils literal">altgraph</tt></li>
+<li><tt class="docutils literal">py2app.build_app</tt> and <tt class="docutils literal">py2app.modulegraph</tt> should be refactored to search for dependencies on a per-application basis</li>
+</ul>
+</blockquote>
+<p>Download and related links are here:
+<a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>
+{% endraw %}

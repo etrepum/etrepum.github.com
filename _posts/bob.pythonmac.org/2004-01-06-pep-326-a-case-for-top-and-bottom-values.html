@@ -1,0 +1,15 @@
+---
+categories: [python]
+category: archives
+layout: post
+tags: [python]
+title: PEP 326 -- A Case for Top and Bottom Values
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P24 -->
+<p><a class="reference external" href="http://www.python.org/peps/pep-0326.html">PEP 326</a> gets my vote, with one condition:  change cmp.high and cmp.low!  Why not just use max and min respectively?  This follows the <a class="reference external" href="http://www.livejournal.com/users/chouyu_31/138195.html">discussion</a> Josiah Carlson and I had on <a class="reference external" href="http://www.livejournal.com/users/chouyu_31/">his livejournal</a>.</p>
+<p>For the uninitiated, <a class="reference external" href="http://www.python.org/peps/pep-0326.html">PEP 326</a> proposes that Python should have builtins that represent the smallest and largest possible object values regardless of object type.  The smallest value will always return -1 for cmp unless it is compared with itself, in which case it returns 0.  It's rather obvious what the largest value will do :)</p>
+{% endraw %}

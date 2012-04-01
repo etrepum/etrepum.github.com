@@ -1,0 +1,17 @@
+---
+categories: [python, simplejson]
+category: archives
+layout: post
+tags: [python, simplejson]
+title: simplejson 2.0.9
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> (<a class="reference external" href="http://simplejson.googlecode.com/svn/tags/simplejson-2.0.9/docs/index.html">documentation</a>) is a simple, fast, complete, correct and extensible <a class="reference external" href="http://json.org/">JSON</a> (<a class="reference external" href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>) encoder/decoder for Python 2.4+.  It is pure Python code with no dependencies, but features an optional C extension for speed-ups.</p>
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> 2.0.9 is a major bug-fix update:</p>
+<ul class="simple">
+<li>Adds cyclic GC to the Encoder and Scanner speedups, which could've caused uncollectible cycles in some cases when using custom parser or encoder functions</li>
+</ul>
+{% endraw %}

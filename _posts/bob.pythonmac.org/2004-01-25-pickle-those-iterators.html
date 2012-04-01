@@ -1,0 +1,31 @@
+---
+categories: [python, stackless]
+category: archives
+layout: post
+tags: [python, stackless]
+title: pickle those iterators
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P33 -->
+<p>I made a small patch to the <a class="reference external" href="http://stackless.com/">Stackless</a> 2.3 branch today: iterator pickling.  It now pickles/unpickles all of the private iterator types (that I know of) in Python's builtins:  dictionary-iterator, listiterator, rangeiterator, tupleiterator.  I'm sure it will be in CVS pretty soon.</p>
+<pre class="literal-block">
+Python 2.3.3 Stackless 3.0 040119 (#5, Jan 25 2004, 11:26:07)
+[GCC 3.3 20030304 (Apple Computer, Inc. build 1495)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from pickle import loads, dumps
+&gt;&gt;&gt; a = iter(range(10))
+&gt;&gt;&gt; a
+&lt;stackless.listiterator object at 0x3d0d50&gt;&gt;&gt;&gt; a.next()
+0
+&gt;&gt;&gt; a.next()
+1
+&gt;&gt;&gt; b = loads(dumps(a))
+&gt;&gt;&gt; a.next()
+2
+&gt;&gt;&gt; b.next()
+2
+</pre>
+{% endraw %}

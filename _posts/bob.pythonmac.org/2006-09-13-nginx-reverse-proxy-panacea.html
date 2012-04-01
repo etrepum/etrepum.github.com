@@ -1,0 +1,16 @@
+---
+categories: [FreeBSD, nginx]
+category: archives
+layout: post
+tags: [freebsd, nginx]
+title: 'nginx: reverse proxy panacea'
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>A few weeks ago in <a class="reference external" href="http://bob.pythonmac.org/archives/2006/08/04/reverse-proxy-roundup/">Reverse Proxy Roundup</a> I was evaluating reverse HTTP proxy solutions. At the time I had settled on <a class="reference external" href="http://www.apsis.ch/pound/">Pound</a>, but frankly it wasn't good enough for the load I expected it to handle. Additionally, spawning so many threads used far more RAM and CPU than it should've.</p>
+<p>Not long after I wrote that post, a friend of mine pointed me at <a class="reference external" href="http://nginx.net/">nginx</a>. <a class="reference external" href="http://nginx.net/">nginx</a> is an extremely high performance HTTP server that offers reverse proxying, FastCGI, SSL, and even IMAP/POP3 proxying.</p>
+<p>I have had precisely zero problems with <a class="reference external" href="http://nginx.net/">nginx</a> so far after about 5 weeks and hundreds of millions of proxied requests. Forget about <a class="reference external" href="http://www.lighttpd.net/">lighttpd</a>, <a class="reference external" href="http://nginx.net/">nginx</a> uses less memory, doesn't leak, and has higher performance (in my FreeBSD configuration, anyway).</p>
+<p>The reason I didn't blog about it sooner is that the project is Russian and so was a large majority of its documentation at the time. With the 0.4 release, there's a much more complete draft of the English documentation available. Check it out; your high traffic servers will thank you for it.</p>
+{% endraw %}

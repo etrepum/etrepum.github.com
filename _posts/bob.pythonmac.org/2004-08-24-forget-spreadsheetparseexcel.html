@@ -1,0 +1,36 @@
+---
+categories: [python, perl, java]
+category: archives
+layout: post
+tags: [java, perl, python]
+title: Forget Spreadsheet::ParseExcel!
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P68 -->
+<p>I've been working on some automation scripts to take data out of excel and do useful things with it, and I hit a big stumbling block with <tt class="docutils literal"><span class="pre">Spreadsheet::ParseExcel</span></tt>.  Unicode SUCKS in Perl, and <tt class="docutils literal"><span class="pre">Spreadsheet::ParseExcel</span></tt> does nothing at all to help you with that.  Each cell gets its own encoding ('ucs2', '_native_' which I haven't seen, or it's simply undef.. which seems to be latin-1).  Anyway, it's completely bogus, so I started shopping around for another implementation.</p>
+<p><a class="reference external" href="http://andykhan.com/">Andy Khan</a>'s <a class="reference external" href="http://www.andykhan.com/jexcelapi/index.html">JExcelApi</a> does the trick and is light-years more correct and faster than the alternatives I have tried (other than the time it takes a JVM to start).  Not only that, but <em>by default</em> the jar does exactly what I want it to do.  It gets the unicode right, and everything worked perfectly the first time.  My dealings with Excel files have been reduced to the following:</p>
+<pre class="literal-block">
+java -jar -Djxl.encoding=latin1 jxl.jar -xml EXCELFILE.xls
+</pre>
+<p>And the Python code to parse the workbook xml document from jxl looks roughly like this:</p>
+<pre class="literal-block">
+from xml.dom import minidom
+
+def parseDocRows(doc):
+    for row in doc.getElementsByTagName(u'row'):
+        rowdata = [
+            u''.join([x.nodeValue for x in col.childNodes])
+            for col in row.getElementsByTagName(u'col')]
+        if rowdata:
+            yield rowdata
+
+if __name__ == '__main__':
+    import sys
+    for row in parseDocRows(minidom.parse(file(sys.argv[1]))):
+        print row
+</pre>
+<p>Thanks!</p>
+{% endraw %}

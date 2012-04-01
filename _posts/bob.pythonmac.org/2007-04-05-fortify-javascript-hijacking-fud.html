@@ -1,0 +1,30 @@
+---
+categories: [javascript, MochiKit, AJAX]
+category: archives
+layout: post
+tags: [ajax, javascript, mochikit]
+title: Fortify JavaScript Hijacking FUD
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>Recently, <a class="reference external" href="http://www.fortifysoftware.com/">Fortify Software</a> has claimed that there is a pervasive and critical vulnerability in Web 2.0 with their <a class="reference external" href="http://www.fortifysoftware.com/servlet/downloads/public/JavaScript_Hijacking.pdf">JavaScript Hijacking</a> paper. The way they wrote the paper is extremely misleading and was likely constructed this way on purpose to garner press and business for their company.</p>
+<p>The first egregious dishonesty in their paper is that it analyzes client-side Ajax frameworks. This is not where the vulnerability is, nor where it's fixed. The service's intended client-side JavaScript code is not even executed during ANY PART of the demonstrated exploit! However, client-side Ajax frameworks are a hot topic, so what the hell, let's blame them.</p>
+<p>The second is that they do not enumerate all of the preconditions required for the exploit. The client must support JavaScript setters. The only browser that I've found that supports these are Firefox. Internet Explorer 6, Safari, and Opera are NOT VULNERABLE to the specific exploit described in the paper. The paper claims that &quot;all of the examples in the paper could be adapted to work under Internet Explorer too&quot;. Oh yeah? Prove it.</p>
+<p>And MOST importantly the exploit is only applicable to JSON that also happens to be valid JavaScript code. The only type of JSON that is valid JavaScript code without parentheses is a JavaScript array (or bare primitives, but those are not interesting or exploitable). That's right, the simplest fix is to always make sure you send an object on the outside, not an array.</p>
+<p>Exploitable:</p>
+<pre class="literal-block">
+[{&quot;object&quot;: &quot;inside an array&quot;}]
+</pre>
+<p>NOT Exploitable:</p>
+<pre class="literal-block">
+{&quot;object&quot;: &quot;not inside an array&quot;}
+</pre>
+<p>Also NOT Exploitable:</p>
+<pre class="literal-block">
+{&quot;result&quot;: [{&quot;object&quot;: &quot;inside an array&quot;}]}
+</pre>
+<p>The simplest solution is to just change the JSON RFC to include a strong recommendation that only objects should be allowed as an envelope. <em>Server-side</em> frameworks should give error or provide warning when an array is serialized without a containing object. I notified them of this before the paper was published, but they ignored my suggestion and instead went for the more complicated suggestion of trying to add backwards-incompatible sludge to JSON.</p>
+<p>I've crafted a <a class="reference external" href="http://mochikit.com/fortify_fud/">little example</a> that shows which browser you're using and the attacks that were successful. The Fortify exploit is &quot;Array/Object JSON vulnerable&quot;. The two other tests are for JSON documents not contained by an array. The Fortify exploit is the only one that succeeds, and it only succeeds in Firefox.</p>
+{% endraw %}

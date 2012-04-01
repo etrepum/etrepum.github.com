@@ -1,0 +1,39 @@
+---
+categories: [javascript, MochiKit, AJAX]
+category: archives
+layout: post
+tags: [ajax, javascript, mochikit]
+title: MochiKit 0.60 Released
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I went ahead and created a mailing list for development of and with MochiKit: <a class="reference external" href="http://groups-beta.google.com/group/mochikit">Google Groups: MochiKit</a>.  No public <a class="reference external" href="http://www.edgewall.com/trac/">Trac</a> instance yet, but we're planning to have one soon.</p>
+<p><a class="reference external" href="http://mochikit.com/download.html">MochiKit 0.60</a> was released yesterday (coincidentally, also my birthday, from which I'm still recovering).  All of the changes are relatively minor; mostly just fixing distribution mistakes.  For those of you that have the subversion repository checked out, you'll notice that the layout of the distribution zips is slightly different (namely that <tt class="docutils literal">MochiKit</tt> is <tt class="docutils literal">lib/MochiKit</tt> in the zip).  That's because <a class="reference external" href="http://openjsan.org/">JSAN</a> expects a <a class="reference external" href="https://master.openjsan.org/documentation/dists.html">certain distribution layout</a>, and my repository is almost, but not quite, in that form.  So, if you had downloaded the zip, I apologize that the examples and tests didn't run out of the box.  I may rearrange the repository to match at some point, but for now, this works for me.</p>
+<p>Aside from the obligatory bug fixes, there are two new features: a more general version of <tt class="docutils literal">getElementsByTagAndClassName</tt> which doesn't assume you want to ask <tt class="docutils literal">window.document</tt> for tags, plus a &quot;packed&quot; version of <a class="reference external" href="http://mochikit.com/">MochiKit</a>.</p>
+<p>The &quot;packed&quot; version of <a class="reference external" href="http://mochikit.com/">MochiKit</a> lives at <tt class="docutils literal">packed/MochiKit/MochiKit.js</tt>.  It is the entirety  of <a class="reference external" href="http://mochikit.com/">MochiKit</a> concatenated together and comment-stripped.  This is about 108k (24k with <a class="reference external" href="http://httpd.apache.org/docs/2.0/mod/mod_deflate.html">gzip compression</a>) as-is, but run through a real whitespace-annihilating JavaScript packer it should get considerably smaller, since the coding conventions for <a class="reference external" href="http://mochikit.com/">MochiKit</a> dictate lots of whitespace (with spaces instead of tabs, at that).  While the style guide currently only resides somewhere between my brain and my fingers, it's more or less like what you'd get if <a class="reference external" href="http://python.org/peps/pep-0007.html">PEP 7</a> and <a class="reference external" href="http://python.org/peps/pep-0008.html">PEP 8</a> got drunk one night and a baby JavaScript style guide popped out several months later.</p>
+<p><tt class="docutils literal">packed/MochiKit/MochiKit.js</tt> is API compatible with <tt class="docutils literal">lib/MochiKit/MochiKit.js</tt>; meaning, you may refer to it directly with a <tt class="docutils literal">&lt;script&gt;</tt> tag, or you may import it with <tt class="docutils literal"><span class="pre">JSAN.use(&quot;MochiKit.MochiKit&quot;)</span></tt> or <tt class="docutils literal"><span class="pre">dojo.require(&quot;MochiKit.MochiKit&quot;)</span></tt> (<tt class="docutils literal">&quot;MochiKit.*</tt> should work in svn, but not 0.60 because I forgot to add a <tt class="docutils literal">__package__.js</tt>).  The reason to use the packed MochiKit is that it's a single file and saves a couple round-trips to the server.  The packed <a class="reference external" href="http://mochikit.com/">MochiKit</a> is <em>everything</em> though.  If you want an even smaller distribution consisting of a subset of <a class="reference external" href="http://mochikit.com/">MochiKit</a>, you'll have to roll your own.  I believe that <a class="reference external" href="http://dojotoolkit.org/">Dojo Toolkit</a> may already have this capability (though it's not documented so I don't know how to do it or what state it's in), and there's <a class="reference external" href="http://search.cpan.org/~adamk/JavaScript-Librarian/">JavaScript::Librarian</a> coming from the <a class="reference external" href="http://openjsan.org/">JSAN</a> front.  The current stupid packing script is just a temporary means to an end, I intend for it to be replaced by one of those two when they're ready and I've learned how to use them.</p>
+<p>I recommend the following process for developing with <a class="reference external" href="http://mochikit.com/">MochiKit</a> (if only because this is how we do it):</p>
+<dl class="docutils">
+<dt>Development:</dt>
+<dd>Use <a class="reference external" href="http://mochikit.com/">MochiKit</a> unpacked, as-is, from the trunk of the repository or the latest distribution.  You may even use <a class="reference external" href="http://svnbook.red-bean.com/en/1.1/ch07s04.html">svn:externals</a> to do this (we do).  Using your loading method of choice, load all of <a class="reference external" href="http://mochikit.com/">MochiKit</a> (e.g. <tt class="docutils literal"><span class="pre">JSAN.use(&quot;MochiKit.MochiKit&quot;)</span></tt> or <tt class="docutils literal">&lt;script <span class="pre">src=&quot;lib/MochiKit/MochiKit.js&quot;</span> <span class="pre">type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span></tt>).</dd>
+<dt>Production:</dt>
+<dd>In your staging branch, replace the <tt class="docutils literal">lib</tt> tree with the <tt class="docutils literal">packed</tt> tree from the latest release distribution of <a class="reference external" href="http://mochikit.com/">MochiKit</a> (or change the <a class="reference external" href="http://svnbook.red-bean.com/en/1.1/ch07s04.html">svn:externals</a> to point to a release tag in the repo).  Ensure that everything works as expected.  Deploy!</dd>
+</dl>
+<p>2005-07-29      v0.60</p>
+<ul class="simple">
+<li>Beefed up the MochiKit.DOM test suite</li>
+<li>Fixed return value for MochiKit.DOM.swapElementClass, could return
+false unexpectedly before</li>
+<li>Added an optional &quot;parent&quot; argument to
+MochiKit.DOM.getElementsByTagAndClassName</li>
+<li>Added a &quot;packed&quot; version in packed/MochiKit/MochiKit.js</li>
+<li>Changed build script to rewrite the URLs in tests to account for the
+JSAN-required reorganization</li>
+<li>MochiKit.Compat to potentially work around IE 5.5 issues
+(5.0 still not supported).  Test.Simple doesn't seem to work there,
+though.</li>
+<li>Several minor documentation corrections</li>
+</ul>
+{% endraw %}

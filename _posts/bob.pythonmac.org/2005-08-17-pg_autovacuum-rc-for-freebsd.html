@@ -1,0 +1,43 @@
+---
+categories: [FreeBSD, PostgreSQL]
+category: archives
+layout: post
+tags: [freebsd, postgresql]
+title: pg_autovacuum rc for FreeBSD
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>/usr/ports/databases/postgresql-contrib comes with the very useful (until 8.1, anyway) pg_autovacuum daemon, but no rc script.  Here's one I whipped up:</p>
+<p><tt class="docutils literal">/usr/local/etc/rc.d/019.pg_autovacuum.sh</tt></p>
+<pre class="literal-block">
+#!/bin/sh
+#
+# PROVIDE: pg_autovacuum
+# REQUIRE: postgresql
+# KEYWORD: FreeBSD shutdown
+
+# Add the following line to /etc/rc.conf to enable `pg_autovacuum':
+#
+# pg_autovacuum_enable=&quot;YES&quot;
+#
+#
+
+. /etc/rc.subr
+
+
+pg_autovacuum_enable=${pg_autovacuum_enable:-&quot;NO&quot;}
+pg_autovacuum_flags=${pg_autovacuum_flags:-&quot;-v 300 -V 0.5&quot;}
+
+name=pg_autovacuum
+rcvar=`set_rcvar`
+command=/usr/local/bin/pg_autovacuum
+load_rc_config ${name}
+command_args=&quot;-D ${pg_autovacuum_flags}&quot;
+pg_autovacuum_user=pgsql
+
+run_rc_command &quot;$1&quot;
+</pre>
+<p>I did submit a PR with this by way of <tt class="docutils literal"><span class="pre">send-pr</span></tt>, but it doesn't seem to have ended up in the PR repository.  I'm not sure what to do about that, as it's the recommended way to submit PRs!</p>
+{% endraw %}

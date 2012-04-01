@@ -1,0 +1,23 @@
+---
+categories: [python, aeve]
+category: archives
+layout: post
+tags: [aeve, python]
+title: Using aeve to make iTunes talk to iChat
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<!-- original id: P10 -->
+<p>I was originally going to write a little bit about the <a class="reference external" href="http://www.python.org/doc/current/lib/module-unicodedata.html">unicodedata module</a>, but google tells me that <a class="reference external" href="http://www.asiatica.org/~ludo/archive/2003/10/Python_unicodedata.html">Ludoo already did</a>.  So instead, here's a quick <a class="reference external" href="http://pythonmac.org/wiki/aeve">aeve</a> script that will set your iChat status message to the current track in iTunes (make sure to <a class="reference external" href="http://pythonmac.org/wiki/FAQ#head-3d33c488ad44d45fb3fffae5119fe74441982b7d">run with pythonw</a>, it needs WindowManager access).</p>
+<pre class="literal-block">
+import aeve
+ichat = aeve.talkto('com.apple.iChat')
+itunes = aeve.talkto('com.apple.iTunes')
+ichat.status_message = u'\N{BEAMED EIGHTH NOTES} %s - %s' % (
+    itunes.current_track.name,
+    itunes.current_track.artist)
+</pre>
+<p>Also see Donovan Preston's <a class="reference external" href="http://soundfarmer.com/content/code/TunesStatus.py">iTunesStatus</a> script (requires <a class="reference external" href="http://www.twistedmatrix.com/">Twisted</a> and <a class="reference external" href="http://www.divmod.org/Quotient/">Quotient</a>) that makes the same information available from a web browser!</p>
+{% endraw %}

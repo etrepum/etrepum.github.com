@@ -1,0 +1,28 @@
+---
+categories: [python, py2app]
+category: archives
+layout: post
+tags: [py2app, python]
+title: Python23Compat
+---
+{% include JB/setup %}
+
+{% raw %}
+<!-- -*- mode: rst -*- -->
+<p>I've put together a quick set of packages that brings a few new/updated
+modules from Python 2.4 to Python 2.3:</p>
+<p>Cross-platform:</p>
+<ul class="simple">
+<li>new subprocess module (Windows support NOT included)</li>
+<li>new decimal module</li>
+</ul>
+<p>For Mac OS X:</p>
+<ul class="simple">
+<li>new LaunchServices wrapper</li>
+<li>new OSA wrapper</li>
+<li>updated QuickTime package</li>
+</ul>
+<p>Binary installers built with bdist_mpkg are available from <a class="reference external" href="http://pythonmac.org/packages/">pythonmac.org packages</a></p>
+<p>Sources are available by svn at:
+<a class="reference external" href="http://svn.red-bean.com/bob/Python23Compat/trunk/">http://svn.red-bean.com/bob/Python23Compat/trunk/</a></p>
+{% endraw %}
