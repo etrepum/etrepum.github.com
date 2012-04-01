@@ -1,0 +1,245 @@
+---
+categories: [mochi media, erlang]
+category: archives
+layout: post
+tags: [erlang, mochi media, opensource, riak, statebox]
+title: statebox, an eventually consistent data model for Erlang (and Riak)
+---
+{% include JB/setup %}
+
+{% raw %}
+<p><em>Cross-posted from the Mochi Labs blog</em>: <a class="reference external" href="http://labs.mochimedia.com/archive/2011/05/08/statebox/">statebox, an eventually consistent data model for Erlang (and Riak)</a>.</p>
+<p>A few weeks ago when I was on call at work I was chasing down a bug in
+friendwad <a class="footnote-reference" href="#id6" id="id1">[1]</a> and I realized that we had made a big mistake. The data
+model was broken, it could only work with transactions but we were using
+<a class="reference external" href="http://www.basho.com/products_riak_overview.php">Riak</a>. The original prototype was built with Mnesia, which would've
+been able to satisfy this constraint, but when it was refactored for
+an eventually consistent data model it just wasn't correct anymore.
+Given just a little bit of concurrency, such as a popular user, it would
+produce inconsistent data. Soon after this discovery, I found another
+service built with the same invalid premise and I also realized
+that a general solution to this problem would allow us to migrate several
+applications from Mnesia to Riak.</p>
+<p>When you choose an eventually consistent data store you're
+prioritizing availability and partition tolerance over consistency,
+but this doesn't mean your application has to be inconsistent. What it
+does mean is that you have to move your conflict resolution from
+writes to reads. <a class="reference external" href="http://www.basho.com/products_riak_overview.php">Riak</a> does almost all of the hard work for you <a class="footnote-reference" href="#id7" id="id2">[2]</a>,
+but if it's not acceptable to discard some writes then you will have to
+set <tt class="docutils literal">allow_mult</tt> to <tt class="docutils literal">true</tt> on your bucket(s) and handle siblings
+<a class="footnote-reference" href="#id8" id="id3">[3]</a> from your application. In some cases, this might be trivial.
+For example, if you have a set and only support adding to that set,
+then a merge operation is just the union of those two sets.</p>
+<p><a class="reference external" href="http://github.com/mochi/statebox">statebox</a> is my solution to this problem. It bundles the value with
+repeatable operations <a class="footnote-reference" href="#id9" id="id4">[4]</a> and provides a means to automatically
+resolve conflicts. Usage of statebox feels much more declarative
+than imperative. Instead of modifying the values yourself, you
+provide statebox with a list of operations and it will apply them
+to create a new statebox. This is necessary because it may apply
+this operation again at a later time when resolving a conflict between
+siblings on read.</p>
+<p>Design goals (and non-goals):</p>
+<ul class="simple">
+<li>The intended use case is for data structures such as dictionaries
+and sets</li>
+<li>Direct support for counters is not required</li>
+<li>Applications must be able to control the growth of a statebox so that
+it does not grow indefinitely over time</li>
+<li>The implementation need not support platforms other than Erlang and
+the data does not need to be portable to nodes that do not share
+code</li>
+<li>It should be easy to use with Riak, but not be dependent on it
+(clear separation of concerns)</li>
+<li>Must be comprehensively tested, mistakes at this level are very expensive</li>
+<li>It is ok to require that the servers' clocks are in sync with NTP
+(but it should be aware that timestamps can be in the future or past)</li>
+</ul>
+<p>Here's what typical statebox usage looks like for a trivial
+application (note: Riak metadata is not merged <a class="footnote-reference" href="#id10" id="id5">[5]</a>). In this case we
+are storing an orddict in our statebox, and this orddict has the keys
+<tt class="docutils literal">following</tt> and <tt class="docutils literal">followers</tt>.</p>
+<pre class="erlang literal-block">
+-module(friends).
+-export([add_friend/2, get_friends/1]).
+
+-define(BUCKET, &lt;&lt;&quot;friends&quot;&gt;&gt;).
+-define(STATEBOX_MAX_QUEUE, 16).     %% Cap on max event queue of statebox
+-define(STATEBOX_EXPIRE_MS, 300000). %% Expire events older than 5 minutes
+-define(RIAK_HOST, &quot;127.0.0.1&quot;).
+-define(RIAK_PORT, 8087).
+
+-type user_id() :: atom().
+-type orddict(T) :: [T].
+-type ordsets(T) :: [T].
+-type friend_pair() :: {followers, ordsets(user_id())} |
+                       {following, ordsets(user_id())}.
+
+-spec add_friend(user_id(), user_id()) -&gt; ok.
+add_friend(FollowerId, FolloweeId) -&gt;
+    statebox_riak:apply_bucket_ops(
+    ?BUCKET,
+    [{[friend_id_to_key(FollowerId)],
+          statebox_orddict:f_union(following, [FolloweeId])},
+     {[friend_id_to_key(FolloweeId)],
+          statebox_orddict:f_union(followers, [FollowerId])}],
+    connect()).
+
+-spec get_friends(user_id()) -&gt; [] | orddict(friend_pair()).
+get_friends(Id) -&gt;
+    statebox_riak:get_value(?BUCKET, friend_id_to_key(Id), connect()).
+
+
+%% Internal API
+
+connect() -&gt;
+    {ok, Pid} = riakc_pb_client:start_link(?RIAK_HOST, ?RIAK_PORT),
+    connect(Pid).
+
+connect(Pid) -&gt;
+    statebox_riak:new([{riakc_pb_client, Pid},
+                       {max_queue, ?STATEBOX_MAX_QUEUE},
+                       {expire_ms, ?STATEBOX_EXPIRE_MS},
+                       {from_values, fun statebox_orddict:from_values/1}]).
+
+friend_id_to_key(FriendId) when is_atom(FriendId) -&gt;
+    %% NOTE: You shouldn't use atoms for this purpose, but it makes the
+    %% example easier to read!
+    atom_to_binary(FriendId, utf8).
+</pre>
+<p>To show how this works a bit more clearly, we'll use the following
+sequence of operations:</p>
+<pre class="light erlang literal-block">
+add_friend(alice, bob),       %% AB
+add_friend(bob, alice),       %% BA
+add_friend(alice, charlie).   %% AC
+</pre>
+<p>Each of these add_friend calls can be broken up into four separate
+atomic operations, demonstrated in this pseudocode:</p>
+<pre class="light erlang literal-block">
+%% add_friend(alice, bob)
+Alice = get(alice),
+put(update(Alice, following, [bob])),
+Bob = get(bob),
+put(update(Bob, followers, [alice])).
+</pre>
+<p>Realistically, these operations may happen with some concurrency and
+cause conflict. For demonstration purposes we will have <em>AB</em> happen
+concurrently with <em>BA</em> and the conflict will be resolved during <em>AC</em>.
+For simplicity, I'll only show the operations that modify the key for
+<tt class="docutils literal">alice</tt>.</p>
+<pre class="light erlang literal-block">
+AB = get(alice),                              %% AB (Timestamp: 1)
+BA = get(alice),                              %% BA (Timestamp: 2)
+put(update(AB, following, [bob])),            %% AB (Timestamp: 3)
+put(update(BA, followers, [bob])),            %% BA (Timestamp: 4)
+AC = get(alice),                              %% AC (Timestamp: 5)
+put(update(AC, following, [charlie])).        %% AC (Timestamp: 6)
+</pre>
+<dl class="docutils">
+<dt>Timestamp 1:</dt>
+<dd>There is no data for <tt class="docutils literal">alice</tt> in Riak yet, so
+<tt class="docutils literal"><span class="pre">statebox_riak:from_values([])</span></tt> is called and we get a statebox
+with an empty orddict.</dd>
+</dl>
+<pre class="light erlang literal-block">
+Value = [],
+Queue = [].
+</pre>
+<dl class="docutils">
+<dt>Timestamp 2:</dt>
+<dd>There is no data for <tt class="docutils literal">alice</tt> in Riak yet, so
+<tt class="docutils literal"><span class="pre">statebox_riak:from_values([])</span></tt> is called and we get a statebox
+with an empty orddict.</dd>
+</dl>
+<pre class="light erlang literal-block">
+Value = [],
+Queue = [].
+</pre>
+<dl class="docutils">
+<dt>Timestamp 3:</dt>
+<dd>Put the updated <em>AB</em> statebox to Riak with the updated value.</dd>
+</dl>
+<pre class="light erlang literal-block">
+Value = [{following, [bob]}],
+Queue = [{3, {fun op_union/2, following, [bob]}}].
+</pre>
+<dl class="docutils">
+<dt>Timestamp 4:</dt>
+<dd>Put the updated <em>BA</em> statebox to Riak with the updated value. Note
+that this will be a sibling of the value stored by <em>AB</em>.</dd>
+</dl>
+<pre class="light erlang literal-block">
+Value = [{followers, [bob]}],
+Queue = [{4, {fun op_union/2, followers, [bob]}}].
+</pre>
+<dl class="docutils">
+<dt>Timestamp 5:</dt>
+<dd>Uh oh, there are two stateboxes in Riak now... so
+<tt class="docutils literal"><span class="pre">statebox_riak:from_values([AB,</span> BA])</tt> is called. This will apply
+all of the operations from both of the event queues to one of the
+current values and we will get a single statebox as a result.</dd>
+</dl>
+<pre class="light erlang literal-block">
+Value = [{followers, [bob]},
+         {following, [bob]}],
+Queue = [{3, {fun op_union/2, following, [bob]}},
+         {4, {fun op_union/2, followers, [bob]}}].
+</pre>
+<dl class="docutils">
+<dt>Timestamp 6:</dt>
+<dd>Put the updated <em>AC</em> statebox to Riak. This will resolve siblings
+created at Timestamp 3 by <em>BA</em>.</dd>
+</dl>
+<pre class="light erlang literal-block">
+Value = [{followers, [bob]},
+         {following, [bob, charlie]}],
+Queue = [{3, {fun op_union/2, following, [bob]}},
+         {4, {fun op_union/2, followers, [bob]}},
+         {6, {fun op_union/2, following, [charlie]}}].
+</pre>
+<p>Well, that's about it! <tt class="docutils literal">alice</tt> is following both <tt class="docutils literal">bob</tt> and
+<tt class="docutils literal">charlie</tt> despite the concurrency. No locks were harmed during this
+experiment, and we've arrived at eventual consistency by using
+<a class="reference external" href="http://github.com/mochi/statebox_riak">statebox_riak</a>, <a class="reference external" href="http://github.com/mochi/statebox">statebox</a>, and <a class="reference external" href="http://www.basho.com/products_riak_overview.php">Riak</a> without having to write any
+conflict resolution code of our own.</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>friendwad manages our social graph for Mochi Social and MochiGames.
+It is also evidence that naming things is a hard problem in
+computer science.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>See Basho's articles on <a class="reference external" href="http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/">Why Vector Clocks are Easy</a> and
+<a class="reference external" href="http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/">Why Vector Clocks are Hard</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td>When multiple writes happen to the same place and they have
+branching history, you'll get multiple values back on read.
+These are called siblings in <a class="reference external" href="http://www.basho.com/products_riak_overview.php">Riak</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td>An operation <tt class="docutils literal">F</tt> is repeatable if and only if <tt class="docutils literal">F(V) = F(F(V))</tt>.
+You could also call this an <a class="reference external" href="http://en.wikipedia.org/wiki/Idempotence#Unary_operation">idempotent unary operation</a>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td>The default conflict resolution algorithm in statebox_riak
+chooses metadata from one sibling arbitrarily. If you use
+metadata, you'll need to come up with a clever way to merge it
+(such as putting it in the statebox and specifying a custom
+<tt class="docutils literal">resolve_metadatas</tt> in your call to <tt class="docutils literal">statebox_riak:new/1</tt>).</td></tr>
+</tbody>
+</table>
+{% endraw %}
