@@ -1,0 +1,115 @@
+/* Large type enspired by the Zeldman.com Embiggen v1.1.2 layout */
+
+/* Remove browser styles (see http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/) */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+html { 
+    min-width: 770px;
+    background: #fafaff;
+}
+
+body {
+    text-align: center;
+    color: #333;
+    font: 32px/42px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+}
+
+div.container {
+    width: 770px;
+    margin: 0 auto;
+    text-align: left;
+    overflow: visible;
+}
+
+@media all and (min-device-width:768px) {   
+    body { font: 24px/32px "Helvetica Neue", Arial, Helvetica, sans-serif; }
+}
+
+div.content h1, div.content h2, div.content h3, div.content h4 {
+    font-weight: bold;
+    line-height: normal;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    margin: 36px 0 18px 0;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+}
+
+div.content tt {
+    font-family: Monaco, "Andale Mono", monospace;
+    font-size: 75%;
+}
+
+div.content pre {
+    font-family: Monaco, "Andale Mono", monospace;
+    font-size: 67%;
+    line-height: normal;
+    margin-bottom: 1em;
+
+}
+
+div.content a.footnote-reference {
+    vertical-align: super;
+    font-size: 75%;
+    line-height: 100%;
+}
+
+div.content ul { padding-left: 1em; }
+
+div.content h1 { font-size: 300%; }
+
+div.content h2 { font-size: 200%; }
+
+div.content h3 { font-size: 150%; }
+
+div.content h4 { font-size: 125%; }
+
+div.content p { margin-bottom: 1em; }
+
+div.content dl { margin-bottom: 1em; }
+div.content dl dt { font-weight: bold; }
+
+div.content table.footnote { font-size: 67%; }
+div.content table.footnote td.label { padding-right: 1em; }
+
+em { font-style: italic; }
+
+/* TODO: style the nav bar */
+div.navbar {
+    background: #ccc;
+    padding: 0.25em 0 0.25em 0;
+    width: 100%;
+}
+
+div.navbar .brand {
+    text-align: center;
+    color: #333;
+    font: 64px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+    font-weight: normal;
+    display: block;
+    text-decoration: none;
+}
+div.navbar .tagline {
+    display: block;
+    text-align: center;
+}
+
+div.navbar ul { list-style: none; width: 100%; clear: both; }
+div.navbar ul li { display: inline; }
+div.navbar ul li a { width: 25%; text-align:center; display: block; float: left; }
