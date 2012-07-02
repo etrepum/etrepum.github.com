@@ -33,6 +33,7 @@ body {
     font: 24px/32px Georgia, Times, serif;
     font-weight: normal;
     word-wrap: break-word;
+    position:  relative;
     padding-bottom: 100px; /* pagination buffer */
 }
 
@@ -50,24 +51,24 @@ a, a:visited, a:active, a:hover {
     overflow: visible;
 }
 
-h1, h2, h3, h4 {
+article h1, article h2, article h3, article h4 {
     color: #555;
     font-weight: bold;
     line-height: normal;
     text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
 }
 
-h1 { font-size: 125%; }
+article h1 { font-size: 125%; }
 
-tt, code, pre {
+article tt, article code, article pre {
     font-family: Monaco, "Andale Mono", monospace;
 }
 
-tt, code { font-size: 75%; }
+article tt, article code { font-size: 75%; }
 
-pre code { font-size: 60%; }
+pre code { font-size: 100%; }
 
-pre {
+article pre {
     font-size: 60%;
     line-height: normal;
     white-space: pre-wrap;
@@ -84,19 +85,20 @@ a.footnote-reference {
     margin-left: -0.35em;
 }
 
-p, ul, dl, pre, h1, h2, h3, h4, div.tag-box, article {
-    margin: 0.75em inherit;
+article p, article ul, article dl, article pre, article h1, article h2, article h3, article h4, div.tag-box, article {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
 }
 
-ul { padding-left: 1em; }
-dt { font-weight: bold; }
+article ul { padding-left: 1em; }
+article dt { font-weight: bold; }
 
 table.footnote { font-size: 67%; line-height: 150%; }
 table.footnote td.label { padding-right: 1em; }
 table.footnote:target { background-color: #eee; }
 table.footnote:target td.label { font-weight: bold; }
 
-em { font-style: italic; }
+article em { font-style: italic; }
 
 header.site {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
