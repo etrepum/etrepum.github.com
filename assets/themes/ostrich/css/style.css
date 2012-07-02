@@ -55,7 +55,6 @@ h1, h2, h3, h4 {
     color: #555;
     font-weight: bold;
     line-height: normal;
-    margin: 36px 0 18px 0;
     text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
 }
 
@@ -68,7 +67,7 @@ tt, pre {
 tt { font-size: 75%; }
 
 pre {
-    font-size: 67%;
+    font-size: 60%;
     line-height: normal;
 }
 
@@ -82,7 +81,9 @@ div.content a.footnote-reference {
     padding-left: 0em;
 }
 
-p, ul, dl, pre { margin-bottom: 1em; }
+p, ul, dl, pre, h1, h2, h3, h4 {
+    margin: 1em inherit;
+}
 
 ul { padding-left: 1em; }
 dt { font-weight: bold; }
