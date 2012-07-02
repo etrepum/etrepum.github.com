@@ -25,36 +25,32 @@
   </head>
 
   <body>
-    <div id="wrapper">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <div class="brand"><a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a></div>
-            <div class="tagline"><span class="tagline">{{ site.tagline }}</span></div>
-            <ul class="nav">
-              {% assign pages_list = site.pages %}
-              {% assign group = 'navigation' %}
-              {% include JB/pages_list %}
-            </ul>
-          </div>
-        </div>
+    <header class="site">
+      <div class="centered-container">
+        <div class="brand"><a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a></div>
+        <div class="tagline"><span class="tagline">{{ site.tagline }}</span></div>
+      </div><!-- .centered-container -->
+    </header>
+
+    <div class="centered-container">
+      <div class="content">
+        {{ content }}
       </div>
+    </div><!-- .centered-container -->
 
-      <div class="container">
+    <footer>
+      <div class="centered-container">
+        <ul class="nav">
+          {% assign pages_list = site.pages %}
+          {% assign group = 'navigation' %}
+          {% include JB/pages_list %}
+        </ul>
+        <p>&copy; {{ site.author.name }} 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+        </p>
+      </div><!-- .centered-container -->
+    </footer>
 
-        <div class="content">
-          {{ content }}
-        </div>
-
-        <footer>
-          <p>&copy; {{ site.author.name }} 2012 
-            with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
-            and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
-          </p>
-        </footer>
-
-      </div> <!-- .container -->
-    </div><!-- #wrapper -->
     {% include JB/analytics %}
   </body>
 </html>

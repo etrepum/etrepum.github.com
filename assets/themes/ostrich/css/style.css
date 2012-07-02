@@ -29,22 +29,21 @@ html {
 }
 
 body {
-    text-align: center;
     color: #333;
     font: 24px/32px Georgia, Times, serif;
     font-weight: normal;
     word-wrap: break-word;
     padding-bottom: 100px; /* pagination buffer */
-    position: relative;
 }
 
-a, a:visited, a:active {
+a, a:visited, a:active, a:hover {
     color: #5454aa;
     text-decoration: underline;
-    cursor: auto;
+    cursor: pointer;
 }
 
-.container {
+
+.centered-container {
     width: 770px;
     margin: 0 auto;
     text-align: left;
@@ -60,29 +59,33 @@ h1, h2, h3, h4 {
 
 h1 { font-size: 125%; }
 
-tt, pre {
+tt, code, pre {
     font-family: Monaco, "Andale Mono", monospace;
 }
 
-tt { font-size: 75%; }
+tt, code { font-size: 75%; }
+
+pre code { font-size: 60%; }
 
 pre {
     font-size: 60%;
     line-height: normal;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
 }
 
-div.content a.footnote-reference {
+a.footnote-reference {
     vertical-align: super;
     font-family: Monaco, "Andale Mono", monospace;
     text-decoration: none;
     font-size: 60%;
     line-height: 100%;
-    margin-left: -0.5em;
-    padding-left: 0em;
+    margin-left: -0.35em;
 }
 
-p, ul, dl, pre, h1, h2, h3, h4 {
-    margin: 1em inherit;
+p, ul, dl, pre, h1, h2, h3, h4, div.tag-box, article {
+    margin: 0.75em inherit;
 }
 
 ul { padding-left: 1em; }
@@ -95,7 +98,7 @@ table.footnote:target td.label { font-weight: bold; }
 
 em { font-style: italic; }
 
-.navbar {
+header.site {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     background: #f8f8f8;
     padding: 0.25em 0 0.25em 0;
@@ -106,23 +109,18 @@ em { font-style: italic; }
     background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
 }
 
-.navbar-inner {
-    width: 770px;
-    margin: 0 auto;
-}
-
-.navbar div.brand {
+header.site div.brand {
     float: left;
     width: 55%;
 }
 
-.navbar div.tagline {
+header.site div.tagline {
     display: block;
     float: right;
     width: 45%;
 }
 
-.navbar .container:after {
+.centered-container:after {
     clear: both;
     content: ".";
     display: block;
@@ -130,7 +128,7 @@ em { font-style: italic; }
     visibility: hidden;
 }
 
-.navbar a.brand {
+header.site a.brand {
     padding-left: 10px;
     color: #555;
     text-decoration: none;
@@ -140,12 +138,84 @@ em { font-style: italic; }
     font-weight: normal;
 }
 
-
-.navbar span.tagline {
+header.site span.tagline {
     padding-right:  10px;
     vertical-align: middle;
     color: #555;
 }
+
+div.tag-box {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 0.25em 0em;
+}
+
+ul.tag-box:before {
+    content: "Filed under: ";
+}
+
+ul.tag-box {
+    display: inline;
+    font-size:  80%;
+    list-style: none;
+}
+
+ul.tag-box li {
+    display: inline;
+}
+
+ul.tag-box li span {
+    display: none;
+}
+
+ul.tag-box li:nth-of-type(n + 2):before {
+    content: ", ";
+    margin-left: -4px;
+}
+
+ul.tag-box a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav.pagination ul {
+    list-style: none;
+    padding: 0em;
+}
+
+nav.pagination li {
+    width: 49%;
+    margin: 1em 0;
+}
+
+nav.pagination a {
+    border-radius: 1em;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    border: 2px solid #aaa;
+    padding: 1em 0;
+    display: inline-block;
+    text-decoration: none;
+}
+
+nav.pagination li.prev {
+    float:  left;
+}
+
+nav.pagination li.next {
+    float:  right;
+}
+
+nav.pagination:after {
+    clear:  both;
+    content: ".";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+}
+
 
 .navbar ul { list-style: none; width: 100%; clear: both; display: none;}
 .navbar ul li { display: inline; }
