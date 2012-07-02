@@ -1,4 +1,8 @@
-/* Large type enspired by the Zeldman.com Embiggen v1.1.2 layout */
+/* @override 
+	http://127.0.0.1:8000/assets/themes/ostrich/css/style.css */
+
+/* Large type enspired by the Zeldman.com Embiggen v1.1.2 layout
+   Otherwise inspired by Instapaper */
 
 /* Remove browser styles (see http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/) */
 html, body, div, span, applet, object, iframe,
@@ -21,14 +25,17 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 html { 
     min-width: 770px;
-    background: #fafaff;
+    background: #fff;
 }
 
 body {
     text-align: center;
     color: #333;
-    font: 32px/42px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font: 24px/32px Georgia, Times, serif;
     font-weight: normal;
+    word-wrap: break-word;
+    padding-bottom: 100px; /* pagination buffer */
+    position: relative;
 }
 
 div.container {
@@ -38,16 +45,12 @@ div.container {
     overflow: visible;
 }
 
-@media all and (min-device-width:768px) {   
-    body { font: 24px/32px "Helvetica Neue", Arial, Helvetica, sans-serif; }
-}
-
 div.content h1, div.content h2, div.content h3, div.content h4 {
+    color: #555;
     font-weight: bold;
     line-height: normal;
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     margin: 36px 0 18px 0;
-    text-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+    text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
 }
 
 div.content tt {
@@ -71,45 +74,72 @@ div.content a.footnote-reference {
 
 div.content ul { padding-left: 1em; }
 
-div.content h1 { font-size: 300%; }
-
-div.content h2 { font-size: 200%; }
-
-div.content h3 { font-size: 150%; }
-
-div.content h4 { font-size: 125%; }
+div.content h1 { font-size: 125%; }
 
 div.content p { margin-bottom: 1em; }
 
 div.content dl { margin-bottom: 1em; }
 div.content dl dt { font-weight: bold; }
 
-div.content table.footnote { font-size: 67%; }
+div.content table.footnote { font-size: 67%; line-height: 150%; }
 div.content table.footnote td.label { padding-right: 1em; }
 
 em { font-style: italic; }
 
-/* TODO: style the nav bar */
 div.navbar {
-    background: #ccc;
+    background: #f8f8f8;
     padding: 0.25em 0 0.25em 0;
     width: 100%;
+    border-bottom: 1px solid #aaa;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+    background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
 }
 
-div.navbar .brand {
-    text-align: center;
-    color: #333;
-    font: 64px "Helvetica Neue", Arial, Helvetica, sans-serif;
-    text-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
-    font-weight: normal;
+div.navbar:after {
+    clear: both;
+    content: ".";
     display: block;
+    height: 0px;
+    visibility: hidden;
+}
+
+div.navbar-inner {
+    width: 770px;
+    margin: 0 auto;
+}
+
+div.navbar {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+div.navbar div.brand {
+    float: left;
+    width: 55%;
+}
+
+div.navbar a.brand {
+    padding-left: 10px;
+    color: #555;
     text-decoration: none;
-}
-div.navbar .tagline {
-    display: block;
-    text-align: center;
+    text-align: left;
+    font: 64px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+    font-weight: normal;
 }
 
-div.navbar ul { list-style: none; width: 100%; clear: both; }
+div.navbar span.tagline {
+    padding-right:  10px;
+    vertical-align: middle;
+    color: #555;
+}
+
+div.navbar div.tagline {
+    display: block;
+    float: right;
+    width: 45%;
+}
+
+div.navbar ul { list-style: none; width: 100%; clear: both; display: none;}
 div.navbar ul li { display: inline; }
 div.navbar ul li a { width: 25%; text-align:center; display: block; float: left; }
