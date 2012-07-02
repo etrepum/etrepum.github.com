@@ -66,7 +66,7 @@ article tt, article code, article pre {
 
 article tt, article code { font-size: 75%; }
 
-pre code { font-size: 100%; }
+article pre code { font-size: 100%; }
 
 article pre {
     font-size: 60%;
@@ -85,7 +85,7 @@ a.footnote-reference {
     margin-left: -0.35em;
 }
 
-article p, article ul, article dl, article pre, article h1, article h2, article h3, article h4, div.tag-box, article {
+article p, article ul, article dl, article pre, article h1, article h2, article h3, article h4, article div.tag-box, article {
     margin-top: 0.75em;
     margin-bottom: 0.75em;
 }
@@ -109,6 +109,7 @@ header.site {
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
     background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
     background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+	background-image: -moz-linear-gradient(top,  #f8f8f8,  #eaeaea);
 }
 
 header.site div.brand {
@@ -191,7 +192,6 @@ nav.pagination li {
 }
 
 nav.pagination a {
-    border-radius: 1em;
     text-align: center;
     width: 100%;
     height: 100%;
@@ -200,6 +200,16 @@ nav.pagination a {
     padding: 1em 0;
     display: inline-block;
     text-decoration: none;
+    outline: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    border-radius: 1em;
+    font: 32px/100% "Helvetica Neue", Arial, Helvetica, sans-serif;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+    background-image: -moz-linear-gradient(top, #f8f8f8, #eaeaea);
 }
 
 nav.pagination li.prev {
