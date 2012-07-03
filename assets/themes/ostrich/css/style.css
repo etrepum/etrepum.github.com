@@ -319,6 +319,10 @@ footer li a {
     background-image: -moz-linear-gradient(top, #f8f8f8, #eaeaea);
 }
 
+footer li a:visited {
+    color: #555;
+}
+
 footer li a:hover, footer li a:active {
     background-image: -webkit-linear-gradient(#fafafa, #f0f0f0);
     background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
