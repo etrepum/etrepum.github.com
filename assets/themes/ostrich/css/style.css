@@ -1,0 +1,328 @@
+/* @override 
+	http://127.0.0.1:8000/assets/themes/ostrich/css/style.css */
+
+/* Large type enspired by the Zeldman.com Embiggen v1.1.2 layout
+   Otherwise inspired by Instapaper */
+
+/* Remove browser styles (see http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/) */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+html { 
+    min-width: 770px;
+    background: #fafafa;
+}
+
+body {
+    color: #333;
+    font: 24px/32px Georgia, Times, serif;
+    font-weight: normal;
+    word-wrap: break-word;
+    position:  relative;
+    padding-bottom: 100px; /* pagination buffer */
+}
+
+a, a:visited, a:active, a:hover {
+    color: #5454aa;
+    cursor: pointer;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+a:active, a:hover {
+    text-decoration: underline;
+}
+
+.centered-container {
+    width: 770px;
+    margin: 0 auto;
+    text-align: left;
+    overflow: visible;
+}
+
+article h1, article h2, article h3, article h4 {
+    color: #555;
+    font-weight: bold;
+    line-height: normal;
+    text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+}
+
+article h1 { font-size: 125%; }
+
+article.archive h1, article.tags h1 {
+     font-size: 200%;
+}
+
+article.tags ul.tag_box span {
+    font-size: 75%;
+}
+
+article.tags ul.tag_box span:before {
+    content:  "(";
+}
+
+article.tags ul.tag_box span:after {
+    content:  ")";
+}
+
+article.archive h2, article.tags h2 {
+     font-size: 150%;
+     width: 100%;
+     border-bottom: 1px solid black;
+     margin-bottom: 0em;
+}
+
+article tt, article code, article pre {
+    font-family: Monaco, "Andale Mono", monospace;
+}
+
+article tt, article code { font-size: 75%; }
+
+article pre code { font-size: 100%; }
+
+article pre {
+    font-size: 60%;
+    line-height: normal;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+}
+
+a.footnote-reference {
+    vertical-align: super;
+    font-family: Monaco, "Andale Mono", monospace;
+    font-size: 60%;
+    line-height: 100%;
+    margin-left: -0.35em;
+}
+
+article p, article ul, article dl, article pre, article h1, article h2, article h3, article h4, article div.tag-box, article {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+article ul { padding-left: 1em; }
+article dt { font-weight: bold; }
+
+table.footnote { font-size: 67%; line-height: 150%; }
+table.footnote td.label { padding-right: 1em; }
+table.footnote:target { background-color: #eee; }
+table.footnote:target td.label { font-weight: bold; }
+
+article em { font-style: italic; }
+
+header.site {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    background: #f8f8f8;
+    padding: 0.25em 0 0.25em 0;
+    width: 100%;
+    border-bottom: 1px solid #aaa;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+    background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+	background-image: -moz-linear-gradient(top,  #f8f8f8,  #eaeaea);
+}
+
+header.site div.brand {
+    float: left;
+    width: 55%;
+}
+
+header.site div.tagline {
+    display: block;
+    float: right;
+    width: 45%;
+}
+
+.centered-container:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+}
+
+header.site a.brand {
+    padding-left: 10px;
+    color: #555;
+    text-decoration: none;
+    text-align: left;
+    font: 64px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    text-shadow: rgba(0, 0, 0, 0.25) 0px 2px 2px;
+    font-weight: normal;
+}
+
+header.site span.tagline {
+    padding-right:  10px;
+    vertical-align: middle;
+    font-size: 90%;
+    color: #555;
+}
+
+div.tag-box {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 0.25em 0em;
+}
+
+ul.tag-box:before {
+    content: "Filed under: ";
+}
+
+ul.tag-box {
+    display: inline;
+    font-size:  80%;
+    list-style: none;
+}
+
+ul.tag-box li {
+    display: inline;
+}
+
+ul.tag-box li span {
+    display: none;
+}
+
+ul.tag-box li:nth-of-type(n + 2):before {
+    content: ", ";
+    margin-left: -4px;
+}
+
+ul.tag-box a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav.pagination ul {
+    list-style: none;
+    padding: 0em;
+}
+
+nav.pagination li {
+    width: 49%;
+    margin: 1em 0;
+}
+
+nav.pagination a {
+    text-align: center;
+    width: 98%;
+    height: 100%;
+    color: #555;
+    background-color: #ccc;
+    border: 2px solid #aaa;
+    padding: 1em 0;
+    display: inline-block;
+    text-decoration: none;
+    outline: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    border-radius: 1em;
+    font: 32px/100% "Helvetica Neue", Arial, Helvetica, sans-serif;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+    background-image: -moz-linear-gradient(top, #f8f8f8, #eaeaea);
+}
+
+nav.pagination a:hover, nav.pagination a:active {
+    background-image: -webkit-linear-gradient(#fafafa, #f0f0f0);
+    background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
+    background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+    color: #1977CA;
+}
+
+nav.pagination li.prev {
+    float:  left;
+}
+
+nav.pagination li.next {
+    float:  right;
+}
+
+nav.pagination:after {
+    clear:  both;
+    content: ".";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+}
+
+footer p {
+    font-size: 75%;
+}
+
+footer ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+    margin: 1em 0;
+}
+
+footer ul li {
+    display:  inline-block;
+    width: 49%;
+}
+
+footer ul li:nth-of-type(1) {
+    float: left;
+}
+
+footer ul li:nth-of-type(2) {
+    float: right;
+}
+
+footer ul:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+}
+
+footer li a {
+    text-align: center;
+    width: 98%;
+    height: 100%;
+    color: #555;
+    background-color: #ccc;
+    border: 2px solid #aaa;
+    padding: 1em 0;
+    display: inline-block;
+    text-decoration: none;
+    outline: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    border-radius: 1em;
+    font: 32px/100% "Helvetica Neue", Arial, Helvetica, sans-serif;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+    background-image: -moz-linear-gradient(top, #f8f8f8, #eaeaea);
+}
+
+footer li a:hover, footer li a:active {
+    background-image: -webkit-linear-gradient(#fafafa, #f0f0f0);
+    background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
+    background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+    color: #1977CA;
+    text-decoration: none;
+}
