@@ -39,10 +39,16 @@ body {
 
 a, a:visited, a:active, a:hover {
     color: #5454aa;
-    text-decoration: underline;
     cursor: pointer;
 }
 
+a, a:visited {
+    text-decoration: none;
+}
+
+a:active, a:hover {
+    text-decoration: underline;
+}
 
 .centered-container {
     width: 770px;
@@ -79,7 +85,6 @@ article pre {
 a.footnote-reference {
     vertical-align: super;
     font-family: Monaco, "Andale Mono", monospace;
-    text-decoration: none;
     font-size: 60%;
     line-height: 100%;
     margin-left: -0.35em;
@@ -195,6 +200,7 @@ nav.pagination a {
     text-align: center;
     width: 100%;
     height: 100%;
+    color: #555;
     background-color: #ccc;
     border: 2px solid #aaa;
     padding: 1em 0;
@@ -210,6 +216,13 @@ nav.pagination a {
     background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
     background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
     background-image: -moz-linear-gradient(top, #f8f8f8, #eaeaea);
+}
+
+nav.pagination a:hover, nav.pagination a:active {
+    background-image: -webkit-linear-gradient(#fafafa, #f0f0f0);
+    background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
+    background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+    color: #1977CA;
 }
 
 nav.pagination li.prev {
