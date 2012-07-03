@@ -97,6 +97,10 @@ article tt, article code { font-size: 75%; }
 
 article pre code { font-size: 100%; }
 
+article .syntaxhighlighter {
+    font-size: 14px !important;
+}
+
 article pre {
     font-size: 60%;
     line-height: normal;
