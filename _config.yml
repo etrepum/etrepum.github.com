@@ -10,7 +10,7 @@ pygments: false
 # so be sure to set them if your theme uses them.
 #
 title : bob.ippoli.to
-tagline: "Bob Ippolito on Python, Erlang, JavaScript, etc."
+tagline: "Bob Ippolito (@etrepum) on Python, Erlang, JavaScript, etc."
 author :
   name : Bob Ippolito
   email : bob@redivi.com

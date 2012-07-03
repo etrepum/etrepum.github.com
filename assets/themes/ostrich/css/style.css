@@ -149,6 +149,7 @@ header.site a.brand {
 header.site span.tagline {
     padding-right:  10px;
     vertical-align: middle;
+    font-size: 90%;
     color: #555;
 }
 
