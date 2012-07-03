@@ -66,6 +66,34 @@ article h1, article h2, article h3, article h4 {
 
 article h1 { font-size: 125%; }
 
+article.archive h1, article.tags h1 {
+     font-size: 200%;
+}
+
+ul.tag_box {
+    display: inline;
+    list-style: none;
+}
+
+ul.tag_box span {
+    font-size: 75%;
+}
+
+ul.tag_box span:before {
+    content:  "(";
+}
+
+ul.tag_box span:after {
+    content:  ")";
+}
+
+article.archive h2, article.tags h2 {
+     font-size: 150%;
+     width: 100%;
+     border-bottom: 1px solid black;
+     margin-bottom: 0em;
+}
+
 article tt, article code, article pre {
     font-family: Monaco, "Andale Mono", monospace;
 }
