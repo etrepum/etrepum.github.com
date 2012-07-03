@@ -70,20 +70,15 @@ article.archive h1, article.tags h1 {
      font-size: 200%;
 }
 
-ul.tag_box {
-    display: inline;
-    list-style: none;
-}
-
-ul.tag_box span {
+article.tags ul.tag_box span {
     font-size: 75%;
 }
 
-ul.tag_box span:before {
+article.tags ul.tag_box span:before {
     content:  "(";
 }
 
-ul.tag_box span:after {
+article.tags ul.tag_box span:after {
     content:  ")";
 }
 
