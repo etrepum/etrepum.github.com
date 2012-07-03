@@ -198,7 +198,7 @@ nav.pagination li {
 
 nav.pagination a {
     text-align: center;
-    width: 100%;
+    width: 98%;
     height: 100%;
     color: #555;
     background-color: #ccc;
@@ -241,7 +241,63 @@ nav.pagination:after {
     visibility: hidden;
 }
 
+footer p {
+    font-size: 75%;
+}
 
-.navbar ul { list-style: none; width: 100%; clear: both; display: none;}
-.navbar ul li { display: inline; }
-.navbar ul li a { width: 25%; text-align:center; display: block; float: left; }
+footer ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+    margin: 1em 0;
+}
+
+footer ul li {
+    display:  inline-block;
+    width: 49%;
+}
+
+footer ul li:nth-of-type(1) {
+    float: left;
+}
+
+footer ul li:nth-of-type(2) {
+    float: right;
+}
+
+footer ul:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0px;
+    visibility: hidden;
+}
+
+footer li a {
+    text-align: center;
+    width: 98%;
+    height: 100%;
+    color: #555;
+    background-color: #ccc;
+    border: 2px solid #aaa;
+    padding: 1em 0;
+    display: inline-block;
+    text-decoration: none;
+    outline: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    border-radius: 1em;
+    font: 32px/100% "Helvetica Neue", Arial, Helvetica, sans-serif;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    background-image: -webkit-linear-gradient(#f8f8f8, #eaeaea);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+    background-image: -moz-linear-gradient(top, #f8f8f8, #eaeaea);
+}
+
+footer li a:hover, footer li a:active {
+    background-image: -webkit-linear-gradient(#fafafa, #f0f0f0);
+    background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
+    background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
+    color: #1977CA;
+}
