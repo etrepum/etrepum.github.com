@@ -300,4 +300,5 @@ footer li a:hover, footer li a:active {
     background-image: linear-gradient(to bottom, #fafafa, #f0f0f0);
     background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0);
     color: #1977CA;
+    text-decoration: none;
 }
