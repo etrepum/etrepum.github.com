@@ -334,3 +334,7 @@ footer li a:hover, footer li a:active {
     color: #1977CA;
     text-decoration: none;
 }
+
+footer .email-domain:before {
+    content: "@";
+}
