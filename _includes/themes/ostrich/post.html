@@ -2,7 +2,9 @@
   <a href="{{ BASE_PATH }}{{ page.url }}" title="{{ page.title }}" class="permalink">
     # <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
   </a>
+  <div class="hide"> « </div><!-- wrapper to make content look better on FB -->
   <h1>{{ page.title }}</h1>
+  <div class="hide"> » </div><!-- wrapper to make content look better on FB -->
   <div class="body">
     {{ content }}
   </div>

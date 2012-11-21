@@ -343,3 +343,5 @@ footer li a:hover, footer li a:active {
 footer .email-domain:before {
     content: "@";
 }
+
+.hide { display: none; }
