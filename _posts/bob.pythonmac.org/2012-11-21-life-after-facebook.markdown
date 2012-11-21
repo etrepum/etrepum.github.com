@@ -23,7 +23,7 @@ no longer paying me. The work is challenging, and everyone I worked with there
 is amazing. I'd highly recommend working at Facebook (if you
 plan to live near of one of their campuses: Menlo Park, Seattle, 
 New York, London, &hellip;).  I learned a tremendous amount about how a large
-organization can be run well, but favorite part of the whole experience was
+organization can be run well, but my favorite part of the whole experience was
 [Bryan's](https://twitter.com/bos31337 "Bryan O'Sullivan (@bos31337)")
 Haskell class. I'll have more to say about Haskell and why I think
 it's interesting later. I'm also really going to miss the great
