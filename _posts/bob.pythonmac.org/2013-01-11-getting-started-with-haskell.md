@@ -433,7 +433,7 @@ trying to learn Haskell myself.
 <a href="http://www.amazon.com/gp/product/1593272839/ref=as_li_ss_tl?ie=UTF8&tag=etrepum-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=1593272839">Learn You a Haskell for Great Good!: A Beginner's Guide</a>
 <img src="http://www.assoc-amazon.com/e/ir?t=etrepum-20&l=as2&o=1&a=1593272839" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 <br />
-I found this one to be a great starting point, would would recommend that you
+I found this one to be a great starting point, I would recommend that you
 read it first. It doesn't go so deep that you feel like you REALLY understand
 GHC works, but I felt pretty comfortable reading and writing Haskell after
 getting through this.
