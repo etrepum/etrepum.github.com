@@ -18,6 +18,7 @@
                 'delphi pascal          @shBrushDelphi.js',
                 'diff patch pas         @shBrushDiff.js',
                 'erl erlang             @shBrushErlang.js',
+                'hs haskell             @shBrushHaskell.js',
                 'groovy                 @shBrushGroovy.js',
                 'java                   @shBrushJava.js',
                 'jfx javafx             @shBrushJavaFX.js',
@@ -46,7 +47,7 @@
                 SyntaxHighlighter.defaults.toolbar = false;
                 SyntaxHighlighter.autoloader.apply(null, script_list);
                 SyntaxHighlighter.all();
-            })
+            });
         });
     };
     load_syntaxHighlighter();
