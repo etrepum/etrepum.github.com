@@ -91,7 +91,7 @@ $ cabal install cabal-install
 
 <h1 id="install-ghc-mod">Install ghc-mod (better Emacs/Vim support)</h1>
 
-[ghc-mod](http://www.mew.org/~kazu/proj/ghc-mod/en/) is what you want to install to integrate GHC with Emacs or Vim. You might also be able to use Sublime Text 2 and ghc-mod via [SublimeHaskell](https://github.com/SublimeHaskell/SublimeHaskell). I've only tried the Emacs integration so far. 
+[ghc-mod](http://www.mew.org/~kazu/proj/ghc-mod/en/) is what you want to install to integrate GHC with Emacs or Vim. You might also be able to use Sublime Text 2 and ghc-mod via [SublimeHaskell](https://github.com/SublimeHaskell/SublimeHaskell). I've only tried the Emacs integration so far. Vim users may want to try [hdevtools](https://github.com/bitc/hdevtools) as it's much faster and just as accurate (see [kamatsu's comment](http://www.reddit.com/r/haskell/comments/16fegr/getting_started_with_haskell/c7viysx)).
 
 <pre class="light bash literal-block">
 $ cabal install ghc-mod
@@ -482,6 +482,10 @@ this one, but it's a must-read.
 * [stackoverflow - haskell](http://stackoverflow.com/questions/tagged/haskell)
   The questions tagged Haskell on stackoverflow are often worth
   reading (although to be honest I usually end up here from HWN)
+* [C9 Lectures: FP Fundamentals](http://channel9.msdn.com/Series/C9-Lectures-Erik-Meijer-Functional-Programming-Fundamentals/Lecture-Series-Erik-Meijer-Functional-Programming-Fundamentals-Chapter-1)
+  13 lectures on Functional Programming Fundamentals (in Haskell) by
+  Dr. Erik Meijer (I haven't watched them yet, but they were
+  [suggested by Adam Breen](https://www.facebook.com/etrepum/posts/10151380112306253?comment_id=26337628&offset=0&total_comments=1)).
 
 ## IRC
 
