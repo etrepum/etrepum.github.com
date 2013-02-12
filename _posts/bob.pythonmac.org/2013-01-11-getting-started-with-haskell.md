@@ -17,6 +17,7 @@ want to get GHC installed on your own machine.
 
 * [Install the Haskell Platform (GHC)](#install-ghc)
 * [Set up Cabal](#setup-cabal)
+* [Install Cabal-dev (sandbox build tool)](#install-cabal-dev)
 * [Install ghc-mod (better Emacs/Vim support)](#install-ghc-mod)
 * [How to install tools with cabal-dev](#how-to-install-tools-with-cabal-dev)
 * [Configure GHCi](#configure-ghci)
