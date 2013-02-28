@@ -106,12 +106,17 @@ You'll obviously have to configure it for your Emacs, and I'll leave that up to 
 
 Use `cabal-dev` instead of just `cabal` to build stuff whenever possible. The major trade-off is that you will spend (a lot) more time compiling packages that you already have installed somewhere else (and waste some disk), but this is almost certainly a fair trade.
 
+<!--
 Normally installing cabal-dev would be a simple `cabal install cabal-dev`, but until [cabal-dev #74](https://github.com/creswick/cabal-dev/issues/74) is fixed, you'll need to build and install from source:
 
 <pre class="light bash literal-block">
 $ git clone https://github.com/creswick/cabal-dev.git /tmp/cabal-dev-src && \
     (cd /tmp/cabal-dev-src; cabal install) && \
     rm -rf /tmp/cabal-dev-src
+</pre>
+-->
+<pre class="light bash literal-block">
+$ cabal install cabal-dev
 </pre>
 
 There's some work in progress for adding
