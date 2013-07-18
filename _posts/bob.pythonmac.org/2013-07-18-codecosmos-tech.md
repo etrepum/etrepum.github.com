@@ -12,7 +12,7 @@ in why I bothered to do this in the first place, start there. This
 post is just about the software itself, there will be another post
 soon with some details on the content of the course and my experience teaching it.
 
-[Why I made CodeCosmos]: http://bob.ippoli.to/archives/2013/07/08/codecosmos-day-1/
+[Why I made CodeCosmos]: /archives/2013/07/08/codecosmos-day-1/
 
 <abbr title="too long; didn't read">TL;DR</abbr>: this is the open
 source "stack" I used to build the first version of CodeCosmos. I've
@@ -474,3 +474,6 @@ Processing.js that we used. I have a bug or two in CodeMirror to track
 down, and there's a lot of work I can do to clean up the web app code
 and to make the persistence more robust. I'd also like to swap out the
 hosting choices with [Rackspace Cloud].
+
+Top priority right now is to do some more follow-up with the students,
+and to write the post about my experience actually teaching the course!
