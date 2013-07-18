@@ -190,8 +190,8 @@ lesson plans. The books I brought with me to the lab were:
 * [The Nature of Code]
 * [Form+Code]
 * [Getting Started with Processing]
-* [The Computational Beauty of Nature] (not Processing-specific, as it
-  predates Processing, but interesting nonetheless)
+* [The Computational Beauty of Nature] - not Processing-specific, as it
+  predates Processing, but interesting nonetheless
 
 After reverse engineering some of Khan Academy CS I saw that they were
 using a Web Worker with a mock version of Processing.js to
