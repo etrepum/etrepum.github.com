@@ -56,35 +56,34 @@ an intro coding class.
 </a>
 
 I've been doing some research on CS education since I left Facebook last year.
-I took some [Coursera courses], read some books on LOGO and
-Scratch<sup id="cite_ref-1"><a href="#cite_note-1">1</a></sup>,
-started curating [@DijkstraQuotes] after discovering the [EWD Archive],
-and basically just started chatting
-about education with friends and new people I'd meet. I'm certainly not an
-expert, and had no experience really teaching anyone else, but I have been
-teaching myself how to code for more than 20 years, so there's that.
+I took some [Coursera courses], read some books<sup id="cite_ref-1"><a href="#cite_note-1">1</a></sup>,
+started curating [@DijkstraQuotes] (after discovering the
+[EWD Archive]), and started chatting
+about education with friends and new people I'd meet. I had no real
+experience teaching anyone other than myself, and no expertise in any
+other facet of education.
 
 I attended [EG 7] back in April and met
 [Cat Crumpler]<sup id="cite_ref-2"><a href="#cite_note-2">2</a></sup>.
 She's the COO of [The College Initiative], a
 non-profit after school program that prepares disadvantaged
 students for life after high school and ensures that they have the
-opportunity to attend and graduate from college. A few weeks later, she
+opportunity to attend and graduate from college. A few weeks later she
 asked me to come teach their students how to code. I was certainly not
-prepared to actually teach at this point, and was very much hesitant
+prepared to actually teach at this point and was very much hesitant
 at first, but she was persistent and eventually succeeded in convincing me
 to do it. The rationale was that it would be a good opportunity for the
-students even if I wasn't great at teaching, and I really just didn't have
+students even if I wasn't great at teaching. I really just didn't have
 a good enough excuse not to do it.
 
 So&hellip; I had less than two months to come up with some kind of lesson plan to
-teach a computer lab full of students. I had no prior experience teaching,
+teach a computer lab full of students. I had no prior experience teaching
 and the students had no prior experience with coding. I settled on the
 premise that I would just try and inspire the students to want to learn more
 about programming. I hypothesized that the best way to do that was to leave
-the formal Computer Science out of it, and just give them a fun project-based 
-learning environment where they would essentially be teaching themselves what
-to do. I'd also spend a bit of the time we had on videos to give the students
+the formal Computer Science out of it. I wanted to give them a fun project-based 
+learning environment where they would essentially be teaching
+themselves. I'd also spend a bit of the time we had on videos to give the students
 some background on why coding is awesome with some historical context. A bit
 more about that process is in the previous two posts: [Why I made CodeCosmos]
 and [How I built CodeCosmos].
