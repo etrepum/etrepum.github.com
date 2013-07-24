@@ -165,8 +165,8 @@ how the UI works, and pointed them at some built-in example code that draws
 familiar with a bit of JavaScript syntax, the coordinate system, and accustomed
 to playing around rather than following step by step instructions.
 Some students finished quickly went ahead and played with some of the
-other examples that I had prepared, others took their one. One student spelled
-out her entire name. That was a lot of lines!
+other examples that I had prepared, others decided to go further with
+the challenge. One student spelled out her entire name. That was a lot of lines!
 
 <img src="/assets/images/2013-07-24/challenge-monday-line.png"
     class="imgfull"
