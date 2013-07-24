@@ -35,11 +35,18 @@ html {
 
 body {
     color: #333;
-    font: 24px/32px Georgia, Times, serif;
+    font: 18px/24px Georgia, Times, serif;
     font-weight: normal;
     word-wrap: break-word;
     position:  relative;
     padding-bottom: 100px; /* pagination buffer */
+}
+
+/* Bigger font for phones */
+@media screen and (max-device-width: 480px) {
+  body {
+    font: 24px/32px Georgia, Times, serif;
+  }
 }
 
 a, a:visited, a:active, a:hover {

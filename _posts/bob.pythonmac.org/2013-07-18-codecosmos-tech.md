@@ -9,10 +9,11 @@ title: How I built CodeCosmos
 
 This is the continuation to [Why I made CodeCosmos]. If you're interested
 in why I bothered to do this in the first place, start there. This
-post is just about the software itself, there will be another post
-soon with some details on the content of the course and my experience teaching it.
+post is just about the software itself, there's more about how I used
+it to teach a class in [Teaching with CodeCosmos].
 
 [Why I made CodeCosmos]: /archives/2013/07/08/codecosmos-day-1/
+[Teaching with CodeCosmos]: /archives/2013/07/24/teaching-with-codecosmos/
 
 <abbr title="too long; didn't read">TL;DR</abbr>: this is the open
 source "stack" I used to build the first version of CodeCosmos. I've
