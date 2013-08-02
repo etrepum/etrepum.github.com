@@ -437,8 +437,7 @@ after looking at some of the coding fonts I liked this one the best.
 
 I don't recall where I first saw [Font Awesome], but it was an easy
 choice for all of the iconography in the menus. The type in the menus
-is [Ubuntu Regular] \(again, because Mac and Windows fonts are so
-different). [Kontrapunkt Bold] is used for the "CodeCosmos" logotype
+is [Ubuntu Regular]. [Kontrapunkt Bold] is used for the "CodeCosmos" logotype
 in the menu.
 
 For the login screen, I blatantly ripped off the look of Twitter's.
