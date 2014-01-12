@@ -7,11 +7,7 @@ title: Getting Started with Haskell
 ---
 {% include JB/setup %}
 
-UPDATE: See
-[Getting Started with Haskell (Nov 2013)](/archives/2013/11/07/getting-started-with-haskell/)
-for an update which includes information about Mac OS X 10.9 and Cabal Sandbox.
-
-I've been having a lot of fun learning Haskell these past few months, but
+I've been having a lot of fun learning Haskell for the past year, but
 getting started isn't quite as straight-forward as it could be. I had the
 good fortune to work at the right place at the right time and was able to take
 [Bryan O'Sullivan's](http://www.serpentine.com/) Haskell class at Facebook,
@@ -21,13 +17,15 @@ want to get GHC installed on your own machine.
 
 * [Install the Haskell Platform (GHC)](#install-ghc)
 * [Set up Cabal](#setup-cabal)
-* [Install Cabal-dev (sandbox build tool)](#install-cabal-dev)
+* [Using cabal sandbox](#using-cabal-sandbox)
 * [Install ghc-mod (better Emacs/Vim support)](#install-ghc-mod)
-* [How to install tools with cabal-dev](#how-to-install-tools-with-cabal-dev)
+* [How to install tools with cabal sandbox](#how-to-install-tools-with-cabal-dev)
 * [Configure GHCi](#configure-ghci)
 * [Hackage is fragile, but there are (unofficial) mirrors](#hackage-mirrors)
-* [Starting a project (with cabal-dev)](#starting-a-project)
+* [Starting a project (with cabal sandbox)](#starting-a-project)
 * [GHCi basics](#ghci-basics)
+* [Common Pitfalls](#common-pitfalls)
+* [Practice](#practice)
 * [Recommended Reading](#recommended-reading)
 
 <h1 id="install-ghc">Install the Haskell Platform (GHC)</h1>
@@ -38,11 +36,13 @@ but this is the one that you want to learn. Another implementation of note is
 [Hugs](http://www.haskell.org/hugs/), which is more for teaching than for
 production code.
 
-These instructions are written for Mac OS X 10.8 using
-[Homebrew](http://mxcl.github.com/homebrew/) (and a recent version of Xcode),
-but it should be easy to figure out how to do it on other platforms starting from
-[Haskell Platform](http://www.haskell.org/platform/). The current version of
-Haskell Platform at this time is 2012.4.0.0.
+These instructions are written for Mac OS X 10.9 (Mavericks) using
+[Homebrew](http://mxcl.github.com/homebrew/) and Xcode 5. 
+It's normally easy to figure out how to do it on other platforms starting from
+[Haskell Platform](http://www.haskell.org/platform/). On Mac without
+Homebrew, you'll want to see
+[GHC on OS X 10.9](http://justtesting.org/post/64947952690/the-glasgow-haskell-compiler-ghc-on-os-x-10-9)
+for a workaround until Haskell Platform 2013.4.0.0 ships.
 
 <pre class="light bash literal-block">
 $ brew install haskell-platform
@@ -106,9 +106,6 @@ You'll obviously have to configure it for your Emacs, and I'll leave that up to 
 
 <h1 id="install-cabal-dev">Install Cabal-dev (sandbox build tool)</h1>
 
-UPDATE: See [Getting Started with Haskell (Nov 2013)] for updated info
-on Cabal's new sandbox feature.
-
 [Cabal-dev](https://github.com/creswick/cabal-dev) is a tool that helps you sandbox installation of Haskell software. It is similar in purpose to virtualenv for Python or rvm for Ruby, but the usage is quite a bit different. This is the tool that will save you from "Cabal Hell", where you can't install a package because some other package you have installed has conflicting dependencies.
 
 Use `cabal-dev` instead of just `cabal` to build stuff whenever possible. The major trade-off is that you will spend (a lot) more time compiling packages that you already have installed somewhere else (and waste some disk), but this is almost certainly a fair trade.
@@ -132,9 +129,6 @@ support to cabal-install, so the cabal-dev material here will likely
 bit rot in a few months (years?).
 
 <h1 id="how-to-install-tools-with-cabal-dev">How to install tools with cabal-dev</h1>
-
-UPDATE: See [Getting Started with Haskell (Nov 2013)] for updated info
-on Cabal's new sandbox feature.
 
 If you want to try out a tool, but don't want to pollute your Haskell installation, you can just use cabal-dev! By default, cabal-dev's sandbox is `./cabal-dev`, but you can put it anywhere. In this example I'll install [darcs](http://darcs.net/) 2.8.2 (a distributed version control system written in Haskell) into ``/usr/local/Cellar/darcs/2.8.2`` and have Homebrew create the symlinks for me. On other platforms you might want to use your own directory structure and manage your `PATH` instead. 
 
