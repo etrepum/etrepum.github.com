@@ -1,12 +1,8 @@
 ---
 categories: [PostgreSQL, SQL, MySQL]
-category: archives
-layout: post
 tags: [mysql, postgresql, sql]
 title: MySQL Hate
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>We've been using MySQL for <a class="reference external" href="http://mochibot.com/">MochiBot</a> for a while.  It worked OK, until this week.</p>
 <p>MySQL replication is unreliable.  We had two MySQL servers running, one as a master, and one as a slave; the simplest of all replication scenearios.  The slave was used only for redundancy and load balancing.  It receives only SELECT queries and never mutates data (none of the connections connecting to it even have permission to mutate!).  What happened?  Replication stopped -- but only on one table, with no errors.  The binlogs are all synchronized, it just decided not to update that table anymore.  The workaround for this was easy, we stopped using replication.  Granted, I consulted a few people who are running really high profile and high traffic sites on MySQL and they've never seen this before, but I can no longer trust MySQL to replicate our data.</p>

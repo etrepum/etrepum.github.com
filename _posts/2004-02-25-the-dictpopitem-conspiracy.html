@@ -1,12 +1,8 @@
 ---
 categories: [python]
-category: archives
-layout: post
 tags: [python]
 title: The dict.popitem conspiracy
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <!-- original id: P51 -->
 <p>I was creating <a class="reference external" href="http://peak.telecommunity.com/PyProtocols.html">PyProtocols</a> interfaces for dict-like objects today, and I got stuck trying to decide whether <tt class="docutils literal">dict.popitem</tt> is worthy of including in the interface for a mutable mapping.  I have never used it, and I couldn't remember ever seeing it in use, so I checked the standard library.  Other than objects that expose the same interface as dict, it seems that popitem is used once and only once in the entire standard library:</p>

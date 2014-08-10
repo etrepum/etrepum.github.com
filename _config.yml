@@ -1,5 +1,3 @@
-# This is the default format.
-# For more see: https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink: /:categories/:year/:month/:day/:title
 
 exclude: ["README.md"]
@@ -7,55 +5,30 @@ exclude: ["README.md"]
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : bob.ippoli.to
+title: bob.ippoli.to
 tagline: "Bob Ippolito (@etrepum) on Haskell, Python, Erlang, JavaScript, etc."
-author :
-  name : Bob Ippolito
-  email : bob@redivi.com
-  github : etrepum
-  twitter : etrepum
+author:
+  name: Bob Ippolito
+  email: bob@redivi.com
+  github: etrepum
+  twitter: etrepum
 services:
   google_analytics: 'UA-30504730-1'
   disqus: 'fromfutureimport'
+defaults:
+  - scope:
+      path: ""
+      type: "post"
+    values:
+      layout: "post"
+      category: 'archives'
 
-# The production_url is only used when full-domain names are needed
-# such as sitemap.txt
-# Most places will/should use BASE_PATH to make the urls
-#
-# If you have set a CNAME (pages.github.com) set your custom domain here.
-# Else if you are pushing to username.github.com, replace with your username.
-# Finally if you are pushing to a GitHub project page, include the project name at the end.
-#
-production_url : http://bob.ippoli.to
+production_url: http://bob.ippoli.to
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
 JB :
   version : 0.2.13
-
-  # All links will be namespaced by BASE_PATH if defined.
-  # Links in your website should always be prefixed with {{BASE_PATH}}
-  # however this value will be dynamically changed depending on your deployment situation.
-  #
-  # CNAME (http://yourcustomdomain.com)
-  #   DO NOT SET BASE_PATH
-  #   (urls will be prefixed with "/" and work relatively)
-  #
-  # GitHub Pages (http://username.github.com)
-  #   DO NOT SET BASE_PATH
-  #   (urls will be prefixed with "/" and work relatively)
-  #
-  # GitHub Project Pages (http://username.github.com/project-name)
-  #
-  #   A GitHub Project site exists in the `gh-pages` branch of one of your repositories.
-  #  REQUIRED! Set BASE_PATH to: http://username.github.com/project-name
-  #
-  # CAUTION:
-  #   - When in Localhost, your site will run from root "/" regardless of BASE_PATH
-  #   - Only the following values are falsy: ["", null, false]
-  #   - When setting BASE_PATH it must be a valid url.
-  #     This means always setting the protocol (http|https) or prefixing with "/"
-  BASE_PATH : false
 
   # By default, the asset_path is automatically defined relative to BASE_PATH plus the enabled theme.
   # ex: [BASE_PATH]/assets/themes/[THEME-NAME]

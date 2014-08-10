@@ -1,12 +1,8 @@
 ---
 categories: [python, py2app, macosx]
-category: archives
-layout: post
 tags: [macosx, py2app, python]
 title: Fix Mac OS X 10.3's Python 2.3.0
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>The way that Python builds extensions on Mac OS X was very <a class="reference external" href="http://mail.python.org/pipermail/python-dev/2004-December/050324.html">flawed</a> (note that this isn't the most recent thread) until very recently (Python 2.3.5 and 2.4.1 <em>should</em> finally be correct).  Although <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is able to work around the deficiencies of these extensions, it's a particularly good idea to correct your build environment as soon as possible.  Especially if you plan on creating redistributable components with them, or if you intend to have multiple versions of Python installed.</p>
 <p>Jack Jansen <a class="reference external" href="http://mail.python.org/pipermail/pythonmac-sig/2004-December/012499.html">prepared an installer package</a> (note that the download link in that email is incorrect) that monkeypatches the standard Python 2.3.0 installation that ships with Mac OS X 10.3 (Panther).  Although the installer package is officially in &quot;testing&quot;, it's been around for a month and no issues have been reported.  Worst case, it fixes <em>most</em> of the problems :)</p>

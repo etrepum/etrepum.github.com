@@ -1,12 +1,8 @@
 ---
 categories: [python, perl, java]
-category: archives
-layout: post
 tags: [java, perl, python]
 title: Forget Spreadsheet::ParseExcel!
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <!-- original id: P68 -->
 <p>I've been working on some automation scripts to take data out of excel and do useful things with it, and I hit a big stumbling block with <tt class="docutils literal"><span class="pre">Spreadsheet::ParseExcel</span></tt>.  Unicode SUCKS in Perl, and <tt class="docutils literal"><span class="pre">Spreadsheet::ParseExcel</span></tt> does nothing at all to help you with that.  Each cell gets its own encoding ('ucs2', '_native_' which I haven't seen, or it's simply undef.. which seems to be latin-1).  Anyway, it's completely bogus, so I started shopping around for another implementation.</p>

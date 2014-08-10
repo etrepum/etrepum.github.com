@@ -1,12 +1,8 @@
 ---
 categories: [python, macosx, debugging, iPod]
-category: archives
-layout: post
 tags: [debugging, ipod, macosx, python]
 title: iPod model detection
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>For various reasons, I have a need to determine the version of an iPod.  Previously, I only needed to know if an iPod was &quot;firmware version 2&quot; or later (aka &quot;Dock-connector&quot;), and there's a whole slew of obvious ways to determine that (presence of a <tt class="docutils literal">Notes</tt> folder would be the most obvious).  There are also ways to grab iPod information with SPI (via COM on win32 or the private <tt class="docutils literal">iPod.framework</tt> on Mac OS X), but I like to avoid that whenever possible.</p>
 <p>So far, the most reliable method I've found was with a little parsing of the <tt class="docutils literal">SysInfo</tt> file.  This file is located at &quot;<tt class="docutils literal"><span class="pre">$(IPOD_VOLUME)/iPod_Control/Device/SysInfo</span></tt>&quot;.  The <tt class="docutils literal">iPod_Control</tt> folder is going to be hidden on either platform, so you may not have noticed it before.  Many examples of <tt class="docutils literal">SysInfo</tt> files can be found by googling for some of the keys, such as <tt class="docutils literal">buildID</tt>, <tt class="docutils literal">visibleBuildID</tt>, <tt class="docutils literal">boardHwName</tt>, etc.  The most complete resource I've found is the on the <a class="reference external" href="http://www.ipodlinux.org/forums/viewtopic.php?t=1583">iPodLinux forums</a>.</p>

@@ -1,11 +1,7 @@
 ---
-category: archives
 tags: [facebook, haskell, ios]
-layout: post
 title: Life after Facebook
 ---
-{% include JB/setup %}
-
 I no longer work at Facebook. I tried it for four months, but I just couldn't
 find anything there that made it worth two hours on the road to spend
 another eight hours at a desk. I've been spoiled with a walk/bike

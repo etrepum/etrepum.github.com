@@ -1,12 +1,8 @@
 ---
 categories: [javascript, teaching, processingjs, education]
-category: archives
-layout: post
 tags: [javascript, teaching, processingjs, processing, education]
 title: Teaching with CodeCosmos
 ---
-{% include JB/setup %}
-
 <style scoped>
 .imgright { float: right; margin-left: 1em; margin-bottom: 0.5em; width: 40%; clear: right; }
 .imgright2 { float: right; margin-left: 1em; margin-bottom: 0.5em; width: 25%; clear: right; }

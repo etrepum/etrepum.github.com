@@ -1,12 +1,8 @@
 ---
 categories: [javascript, MochiKit, AJAX]
-category: archives
-layout: post
 tags: [ajax, javascript, mochikit]
 title: Fortify JavaScript Hijacking FUD
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>Recently, <a class="reference external" href="http://www.fortifysoftware.com/">Fortify Software</a> has claimed that there is a pervasive and critical vulnerability in Web 2.0 with their <a class="reference external" href="http://www.fortifysoftware.com/servlet/downloads/public/JavaScript_Hijacking.pdf">JavaScript Hijacking</a> paper. The way they wrote the paper is extremely misleading and was likely constructed this way on purpose to garner press and business for their company.</p>
 <p>The first egregious dishonesty in their paper is that it analyzes client-side Ajax frameworks. This is not where the vulnerability is, nor where it's fixed. The service's intended client-side JavaScript code is not even executed during ANY PART of the demonstrated exploit! However, client-side Ajax frameworks are a hot topic, so what the hell, let's blame them.</p>

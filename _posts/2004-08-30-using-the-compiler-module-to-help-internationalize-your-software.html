@@ -1,12 +1,8 @@
 ---
 categories: [python]
-category: archives
-layout: post
 tags: [python]
 title: Using the compiler module to help internationalize your software
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <!-- original id: P69 -->
 <p>While working on I18N for the <a class="reference external" href="http://talkingpanda.com/">Talking Panda iLingo</a> installers I needed a reliable way to extract strings from Python code.  I decided to use the <tt class="docutils literal">_(u'string')</tt> pattern, even though I'm not using <a class="reference external" href="http://docs.python.org/lib/module-gettext.html">gettext</a>.  This simple class uses the AST facilities in Python to extract such strings, as long as they are constants in the code.</p>

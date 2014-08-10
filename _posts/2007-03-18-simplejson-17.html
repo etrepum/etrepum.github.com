@@ -1,12 +1,8 @@
 ---
 categories: [python, simplejson]
-category: archives
-layout: post
 tags: [python, simplejson]
 title: simplejson 1.7
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> is a simple, fast, complete, correct and extensible <a class="reference external" href="http://json.org/">JSON</a> (<a class="reference external" href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>) encoder/decoder for Python 2.3+.  It is pure Python code with no dependencies.</p>
 <p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> 1.7 is a minor update that improves encoding performance with an optional C extension to speed up str/unicode encoding (by 10-150x or so), which yields an overall speed boost of 2x+ (JSON is string-heavy). Additionally 1.7 adds support for encoding unicode code points outside the BMP to UTF-16 surrogate code pairs (specified by the Strings section of <a class="reference external" href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>).</p>

@@ -1,12 +1,8 @@
 ---
 categories: [FreeBSD, nginx]
-category: archives
-layout: post
 tags: [freebsd, nginx]
 title: 'nginx: reverse proxy panacea'
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>A few weeks ago in <a class="reference external" href="http://bob.pythonmac.org/archives/2006/08/04/reverse-proxy-roundup/">Reverse Proxy Roundup</a> I was evaluating reverse HTTP proxy solutions. At the time I had settled on <a class="reference external" href="http://www.apsis.ch/pound/">Pound</a>, but frankly it wasn't good enough for the load I expected it to handle. Additionally, spawning so many threads used far more RAM and CPU than it should've.</p>
 <p>Not long after I wrote that post, a friend of mine pointed me at <a class="reference external" href="http://nginx.net/">nginx</a>. <a class="reference external" href="http://nginx.net/">nginx</a> is an extremely high performance HTTP server that offers reverse proxying, FastCGI, SSL, and even IMAP/POP3 proxying.</p>

@@ -1,12 +1,8 @@
 ---
 categories: [javascript, teaching, processingjs, education]
-category: archives
-layout: post
 tags: [javascript, teaching, processingjs, processing, education]
 title: Why I made CodeCosmos
 ---
-{% include JB/setup %}
-
 I never really thought much about my career until recently. From my first internship at [Bethesda Softworks] in 1997 to my short tenure at [Facebook] in 2012 I basically just followed my interests and made changes whenever I was no longer passionate about what I was doing.
 
 This optimization strategy served me very well, but I ended up at a local maxima. I'm very fortunate to have seen such success with [Mochi Media], but now that I'm choosing from the set of all jobs that I'm interested in and physically capable of, it's hard to even think about how to evaluate such a decision. For the past few months I've been enjoying my roles as "startup advisor" and "thinking about what to do next as an entrepreneur". Neither of which pay very well, but that's not what I'm optimizing for anymore.

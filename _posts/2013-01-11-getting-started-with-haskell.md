@@ -1,12 +1,8 @@
 ---
 categories: [haskell]
-category: archives
-layout: post
 tags: [haskell]
 title: Getting Started with Haskell
 ---
-{% include JB/setup %}
-
 I've been having a lot of fun learning Haskell these past few months, but
 getting started isn't quite as straight-forward as it could be. I had the
 good fortune to work at the right place at the right time and was able to take

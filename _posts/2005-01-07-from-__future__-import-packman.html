@@ -1,12 +1,8 @@
 ---
 categories: [python, PyObjC, py2app, packman, pygame]
-category: archives
-layout: post
 tags: [packman, py2app, pygame, pyobjc, python]
 title: from __future__ import packman
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>For quite some time I've been neglecting my packman repository.  I find it hard to make time and the infrastructure for maintainers and users alike are quite archaic.</p>
 <p>Ideally I would like to move everything over to using <a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/SoftwareDistribution/index.html">Apple's installation tools</a> with <tt class="docutils literal">.mpkg</tt> based distributions.  That, along with replacing some ugly distribution scripts in <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a>, were why I wrote <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>'s <tt class="docutils literal">bdist_mpkg</tt> command.  This opens up several doors and has a few immediate advantages:</p>

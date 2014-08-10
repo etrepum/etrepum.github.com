@@ -1,12 +1,8 @@
 ---
 categories: [flash, actionscript]
-category: archives
-layout: post
 tags: [actionscript, flash]
 title: System.falseSenseOfSecurity
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>The (in)security model <a class="footnote-reference" href="#id2" id="id1">[1]</a> available to ActionScript at runtime in Macromedia Flash is absolutely worthless.  The only capability that off-domain loaded movies <em>don't</em> have is the ability to read variables out of movie clips elsewhere in the hierarchy.  This is almost entirely useless, and is really weak default behavior.  If you loaded a movie, you damn well better already trust it!  It could be a key logger, a denial of service attack (<tt class="docutils literal">while (true) {}</tt>, <tt class="docutils literal"><span class="pre">getURL(&quot;somewhere</span> else&quot;)</tt>), etc.  If you don't trust it, DON'T LOAD IT.  You have already lost if you're loading untrusted movies.</p>
 <p>If you do trust the movie, and you end up needing the movies to communicate, you have to remember to add the <tt class="docutils literal">System.security.allowDomain</tt> call.  This means that you're writing more code for the common case, and the uncommon case is broken anyway.</p>

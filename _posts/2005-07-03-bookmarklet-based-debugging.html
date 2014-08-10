@@ -1,12 +1,8 @@
 ---
 categories: [debugging, javascript, MochiKit, AJAX]
-category: archives
-layout: post
 tags: [ajax, debugging, javascript, mochikit]
 title: Bookmarklet Based Debugging
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>I haven't seen this discussed much, but one of the techniques I've found really useful for debugging JavaScript is what we've been calling BBD: Bookmarklet Based Debugging.  The reason we've settled on this is that it's entirely unobtrusive.  Our pages look exactly how they're supposed to look, with no extra &quot;debugging&quot; widgets or text sitting around on the page.  However, if I need more information, I just whack a bookmarklet and I get all of the information I need.  I'm aware that there are various bookmarklets out there that display various kinds of JavaScript information that might be useful for debugging, but not in such a way that you instrument your page for application specific BBD.  Also, most of the JavaScript debugging bookmarklets out there only work in Mozilla, and I do most of my development in Safari.</p>
 <img alt="http://undefined.org/mochikit/img/mochikit_bbd_1.png" src="http://undefined.org/mochikit/img/mochikit_bbd_1.png" />

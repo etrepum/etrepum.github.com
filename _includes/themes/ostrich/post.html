@@ -1,5 +1,5 @@
 <article>
-  <a href="{{ BASE_PATH }}{{ page.url }}" title="{{ page.title }}" class="permalink">
+  <a href="{{ page.url }}" title="{{ page.title }}" class="permalink">
     # <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
   </a>
   <div class="hide"> « </div><!-- wrapper to make content look better on FB -->
@@ -19,10 +19,10 @@
   <nav class="pagination">
     <ul>
       {% if page.previous %}
-      <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a></li>
+      <li class="prev"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a></li>
       {% endif %}
       {% if page.next %}
-      <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &rarr;</a></li>
+      <li class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}">Next &rarr;</a></li>
       {% endif %}
     </ul>
   </nav>

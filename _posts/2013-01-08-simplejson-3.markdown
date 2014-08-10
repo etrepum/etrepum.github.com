@@ -1,12 +1,8 @@
 ---
 categories: [python, simplejson, python3]
-category: archives
-layout: post
 tags: [python, simplejson, python3]
 title: simplejson now for Python 3.3 (and Python 2.5+!)
 ---
-{% include JB/setup %}
-
 [simplejson](http://github.com/simplejson/simplejson)
 ([documentation](http://simplejson.readthedocs.org/en/latest/))
 is a simple, fast, complete, correct and extensible

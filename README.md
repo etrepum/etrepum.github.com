@@ -46,13 +46,9 @@ the naming scheme `YYYY-MM-DD-title.{html,md}` with the appropriate
 ```markdown
 ---
 categories: [example]
-category: archives
-layout: post
 tags: [example]
 title: Minimal post example
 ---
-{% include JB/setup %}
-
 This is a minimal post.
 ```
 

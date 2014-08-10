@@ -1,12 +1,8 @@
 ---
 categories: [python, PyObjC, py2app, macosx, universal binaries, setuptools]
-category: archives
-layout: post
 tags: [macosx, py2app, pyobjc, python, setuptools, universal binaries]
 title: Python and Universal Binaries on Mac OS X
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>It's been a pretty long haul getting Python to do the right thing on Mac OS X with regard to Universal Binaries.  The dust is settling, and it's about time to start publicizing the results.</p>
 <p>In order to compile extensions with Universal MacPython, you absolutely must have the latest version of Xcode installed.  When you install it, make absolutely sure that you Customize the installation and install the Mac OS X 10.4 Universal SDK.  Universal MacPython <em>requires</em> this SDK to be installed, as it instructs the compiler and linker to use this specific SDK.  There is a hook that will remove these special flags, but ONLY for legacy Mac OS X 10.3.9 users.  Mac OS X 10.3.9 users should still be able to compile extensions, but the resultant binaries will be PPC only and shouldn't be distributed (as they will not work on Intel).</p>

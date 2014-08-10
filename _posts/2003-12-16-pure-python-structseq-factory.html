@@ -1,12 +1,8 @@
 ---
 categories: [python, aeve]
-category: archives
-layout: post
 tags: [aeve, python]
 title: Pure python &quot;structseq&quot; factory
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <!-- original id: P18 -->
 <p>This is a pattern I've been playing with lately (to be used in the next version of <a class="reference external" href="http://undefined.org/python/#aeve">aeve</a>, in the aeut/aete decoder).  Basically it's a factory for &quot;tuples with a little metadata that can be used a little bit like dicts too&quot;.  Yeah I know that dict-like methods will stomp on names if there's a clash, but I don't have any use cases where that happens so my implementation doesn't consider that.</p>

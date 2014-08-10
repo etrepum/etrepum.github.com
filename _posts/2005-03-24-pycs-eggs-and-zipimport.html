@@ -1,12 +1,8 @@
 ---
 categories: [python]
-category: archives
-layout: post
 tags: [python]
 title: .pyc's, eggs, and zipimport
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>I've been working on the <a class="reference external" href="http://peak.telecommunity.com/DevCenter/PythonEggs">PythonEggs</a> runtime during <a class="reference external" href="http://pycon.org/">PyCon</a>, and I ran across a bug in the <tt class="docutils literal">zipimport</tt> built-in module.  It's not a proper <a class="reference external" href="http://python.org/peps/pep-0302.html">PEP 302</a> loader, so it can't be used on <tt class="docutils literal">sys.meta_path</tt>.  Unfortunately, due to some features we want to implement, we need this to work.</p>
 <p>Because <tt class="docutils literal">zipimport</tt> is written in C, is a built-in, and has no Python reference implementation, it's quite hard to fix.  My current approach is to rewrite it in pure Python, determine the correct logic, and probably backport the correct behavior back to C.</p>

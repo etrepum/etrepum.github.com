@@ -1,12 +1,8 @@
 ---
 categories: [python]
-category: archives
-layout: post
 tags: [python]
 title: meta/instance method descriptor
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <!-- original id: P15 -->
 <p>This is odd, but I ran into a situation where I wanted to have a method be callable from both the class (as a metamethod) and the instance (as a normal instance method).  The only decent way I could think of was to use a descriptor, here's an example:</p>

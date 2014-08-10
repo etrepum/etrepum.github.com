@@ -1,12 +1,8 @@
 ---
 categories: [javascript]
-category: archives
-layout: post
 tags: [javascript]
 title: Browser Tab Visible Event
 ---
-{% include JB/setup %}
-
 Sadly there's no web standard that I could find to determine when a tab
 becomes visible. My use case was to delay loading of Flash content until
 the tab is visible for the first time. Safari seems to do this by default,

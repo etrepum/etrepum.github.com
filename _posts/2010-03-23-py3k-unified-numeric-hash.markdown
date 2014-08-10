@@ -1,12 +1,8 @@
 ---
 categories: [python, math, hash]
-category: archives
-layout: post
 tags: [hash, math, python]
 title: Py3k Unified Numeric Hash Proposal
 ---
-{% include JB/setup %}
-
 There has been a recent and interesting set of discussions on python-dev
 [(Decimal <-> float comparisons)][]
 for what the best behavior for numeric type interoperability would be. The

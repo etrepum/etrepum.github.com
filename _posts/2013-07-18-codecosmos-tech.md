@@ -1,12 +1,8 @@
 ---
 categories: [javascript, teaching, processingjs, education]
-category: archives
-layout: post
 tags: [javascript, teaching, processingjs, processing, education]
 title: How I built CodeCosmos
 ---
-{% include JB/setup %}
-
 This is the continuation to [Why I made CodeCosmos]. If you're interested
 in why I bothered to do this in the first place, start there. This
 post is just about the software itself, there's more about how I used

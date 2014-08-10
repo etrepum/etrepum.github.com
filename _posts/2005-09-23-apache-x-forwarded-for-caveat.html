@@ -1,12 +1,8 @@
 ---
 categories: [python, debugging]
-category: archives
-layout: post
 tags: [debugging, python]
 title: Apache X-Forwarded-For caveat
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p>When using Apache's mod_proxy in a reverse proxying scenario, usually you'll want to take a look at the (seemingly undocumented) X-Forwarded-For header.  This header contains <em>whatever the client sent for X-Forwarded-For</em> (if anything), plus the remote IP address of the client.</p>
 <p>So, if you're trying to do anything with this header, check for commas and pick out the <em>last</em> piece, because the client can send anything they want to, and you shouldn't ever trust the client:</p>

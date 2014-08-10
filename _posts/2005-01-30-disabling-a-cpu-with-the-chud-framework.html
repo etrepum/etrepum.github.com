@@ -1,12 +1,8 @@
 ---
 categories: [macosx, c, debugging]
-category: archives
-layout: post
 tags: [c, debugging, macosx]
 title: Disabling a CPU with the CHUD framework
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <p><a class="reference external" href="http://developer.apple.com/tools/macosxtools.html">Xcode Tools</a> has an optional component, <a class="reference external" href="http://developer.apple.com/tools/performance/">CHUD Tools</a> (Computer Hardware Understanding Development Tools), that consists of some useful performance tools and low-level hardware facilities.  My Dual 2ghz G5 has been having some serious stability problems lately, with what I believe is a dying CPU or logic board.  When I saw errant CPU messages in the system log after experiencing unexplicable kernel panics and crashes I decided to see what would happen if I toggled the second CPU off with the Hardware preference pane that ships with CHUD.  It worked!  My G5 is now usable (though I will of course still get it repaired, but it's not convenient to do so at this time).</p>
 <p>Unfortunately, when I reboot the machine, this setting is lost and all bets are off as to whether I'll be able to disable the second CPU before the machine crashes, so I decided to look into what I could do.  I opened up the Hardware preference pane nib with Interface Builder to see what message was sent to change the CPU count (unsurprisingly, <tt class="docutils literal">setCPUCount:</tt>), then I used <a class="reference external" href="http://homepage.mac.com/nygard/Projects/">class-dump</a> to find the implementation address of that message.  I then did an <a class="reference external" href="x-man-page://1/otool">otool</a> disassembly of the Hardware preference pane (<tt class="docutils literal">otool <span class="pre">-tVv</span> ...</tt>) so that I could see what the code looked like at that address.  It called an unconspicuously named function <tt class="docutils literal">chudSetNumProcessors</tt> from the <tt class="docutils literal">CHUDCore.framework</tt> subframework of the umbrella <tt class="docutils literal">CHUD.framework</tt>, which happens to ship with <em>documented headers</em>!</p>

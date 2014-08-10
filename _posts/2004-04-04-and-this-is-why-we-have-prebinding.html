@@ -1,12 +1,8 @@
 ---
 categories: [python, py2app]
-category: archives
-layout: post
 tags: [py2app, python]
 title: And this is why we have prebinding...
 ---
-{% include JB/setup %}
-
 <!-- -*- mode: rst -*- -->
 <!-- original id: P55 -->
 <p>I thought it would be interesting to see some <a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/MachORuntime/">Mach-O</a> dependency graphs, so I whipped up a quick Python script to generate <a class="reference external" href="http://www.pixelglow.com/graphviz/">GraphViz</a> output using my <a class="reference external" href="http://mail.python.org/pipermail/pythonmac-sig/2004-February/010158.html">macholib</a> module.  These graphs are built using only the LC_LOAD_DYLIB command.  If I were to include the LC_PREBOUND_DYLIB command, they get a whole order of magnitude uglier.  Now you can see why it's a good idea to have lazy loading of symbols and prebinding, at least when you link to Foundation!</p>
