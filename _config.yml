@@ -8,13 +8,15 @@ exclude: ["README.md"]
 # so be sure to set them if your theme uses them.
 #
 title : bob.ippoli.to
-tagline: "Bob Ippolito (@etrepum) on Python, Erlang, JavaScript, etc."
+tagline: "Bob Ippolito (@etrepum) on Haskell, Python, Erlang, JavaScript, etc."
 author :
   name : Bob Ippolito
   email : bob@redivi.com
   github : etrepum
   twitter : etrepum
-#  feedburner : feedname
+services:
+  google_analytics: 'UA-30504730-1'
+  disqus: 'fromfutureimport'
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt
@@ -72,52 +74,3 @@ JB :
   categories_path : /categories.html
   tags_path : /tags.html
 
-  # Settings for comments helper
-  # Set 'provider' to the comment provider you want to use.
-  # Set 'provider' to false to turn commenting off globally.
-  #
-  comments :
-    provider : disqus
-    disqus :
-      short_name : fromfutureimport
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
-    facebook :
-      appid : 123
-      num_posts: 5
-      width: 580
-      colorscheme: light
-
-  # Settings for analytics helper
-  # Set 'provider' to the analytics provider you want to use.
-  # Set 'provider' to false to turn analytics off globally.
-  #
-  analytics :
-    provider : google
-    google :
-        tracking_id : 'UA-30504730-1'
-    getclicky :
-      site_id :
-    mixpanel :
-        token : '_MIXPANEL_TOKEN_'
-
-  # Settings for sharing helper.
-  # Sharing is for things like tweet, plusone, like, reddit buttons etc.
-  # Set 'provider' to the sharing provider you want to use.
-  # Set 'provider' to false to turn sharing off globally.
-  #
-  sharing :
-    provider : false
-
-  # Settings for all other include helpers can be defined by creating
-  # a hash with key named for the given helper. ex:
-  #
-  #   pages_list :
-  #     provider : "custom"
-  #
-  # Setting any helper's provider to 'custom' will bypass the helper code
-  # and include your custom code. Your custom file must be defined at:
-  #   ./_includes/custom/[HELPER]
-  # where [HELPER] is the name of the helper you are overriding.
