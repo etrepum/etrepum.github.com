@@ -1,19 +1,19 @@
 ---
 layout: page
 title: Tags
-header: Posts By Tag
-group: navigation
 class: tags
 ---
 <ul class="tag_box">
-  {% assign tags_list = site.tags %}  
-  {% include JB/tags_list %}
+{% for tag in site.tags %}
+  <li><a href="{{ site.tags_path }}#{{ tag[0] | handleize }}-ref">{{ tag[0] }} <span>{{ tag[1].size }}</span></a></li>
+{% endfor %}
 </ul>
 
 {% for tag in site.tags %} 
   <h2 id="{{ tag[0] | handleize }}-ref">{{ tag[0] }}</h2>
   <ul>
-    {% assign pages_list = tag[1] %}  
-    {% include JB/pages_list %}
+    {% for node in tag[1] %}
+    <li><a href="{{node.url}}">{{node.title}}</a></li>
+    {% endfor %}
   </ul>
 {% endfor %}
