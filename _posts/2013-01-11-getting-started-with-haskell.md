@@ -439,7 +439,8 @@ I found this one to be a great starting point, I would recommend that you
 read it first. It doesn't go so deep that you feel like you REALLY understand
 GHC works, but I felt pretty comfortable reading and writing Haskell after
 getting through this.
-<div style="float: clear"></div>
+
+<div style="clear: left"></div><br>
 
 <a style="float: left; padding-right: 10px; width: 130px;" href="http://www.amazon.com/gp/product/0596514980/ref=as_li_ss_il?ie=UTF8&tag=etrepum-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596514980"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&Format=_SL160_&ASIN=0596514980&MarketPlace=US&ID=AsinImage&WS=1&tag=etrepum-20&ServiceVersion=20070822" width="122" height="160"></a>
 <a href="http://www.amazon.com/gp/product/0596514980/ref=as_li_ss_tl?ie=UTF8&tag=etrepum-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=0596514980">Real World Haskell</a>
@@ -449,7 +450,8 @@ This book is massive in size and scope, but is still very accessible for
 beginners. It'll teach you how to do Real World things with Haskell:
 writing tests, profiling, IO, concurrency, etc. I'm still working through
 this one, but it's a must-read.
-<div style="float: clear"></div>
+
+<div style="clear: left"></div><br>
 
 ## Sites
 
