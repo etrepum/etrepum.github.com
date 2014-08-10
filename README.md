@@ -1,42 +1,66 @@
-# Jekyll-Bootstrap
+This is the source for bob.ippoli.to!
 
-The quickest way to start and publish your Jekyll powered blog. 100% compatible with GitHub pages
+I use [Jekyll] to help us generate bob.ippoli.to because that's
+what [GitHub Pages] uses. This lets us build a site with a lot of
+pages without having to repeat so much over and over.
 
-## Usage
+It uses the following JavaScript, CSS, and font libraries to make the
+site work well and look good:
+* [jQuery]
+* [SyntaxHighlighter]
+* [Jekyll Bootstrap] - although this is mostly vestigial
 
-For all usage and documentation please see: <http://jekyllbootstrap.com>
+The site depends on the following third party services:
+* [Disqus] - for comments
+* [Google Analytics]
 
-## Version
+# Setup
 
-0.2.13 - stable and versioned using [semantic versioning](http://semver.org/).
+Install [Jekyll] by opening Terminal and typing the following command:
 
-## Contributing 
+```bash
+gem install jekyll
+```
 
-This repository tracks 2 projects:
+# HACKING
 
-- **Jekyll-Bootstrap Framework.**  
-  The framework for which users should clone and build their blog on top of is available in the master branch.
-  
-  To contribute to the framework please make sure to checkout your branch based on `jb-development`!!
-  This is very important as it allows me to accept your pull request without having to publish a public version release.
-  
-  Small, atomic Features, bugs, etc.   
-  Use the `jb-development` branch but note it will likely change fast as pull requests are accepted.   
-  Please rebase as often as possible when working.   
-  Work on small, atomic features/bugs to avoid upstream commits affecting/breaking your development work.
-  
-  For Big Features or major API extensions/edits:   
-  This is the one case where I'll accept pull-requests based off the master branch.
-  This allows you to work in isolation but it means I'll have to manually merge your work into the next public release.
-  Translation : it might take a bit longer so please be patient! (but sincerely thank you).
- 
-- **Jekyll-Bootstrap Documentation Website.**    
-  The documentation website at <http://jekyllbootstrap.com> is maintained in the gh-pages branch.
-  Please fork and contribute documentation additions to this branch only.
+Open a Terminal and change to the directory where you've checked out
+`etrepum.github.com`, then run this command to start the [Jekyll]
+preview server:
 
-The master and gh-pages branch do not share the same ancestry. Please treat them as completely separate git repositories!
+```bash
+jekyll serve --watch --safe
+```
 
+This will run a webserver on your computer at http://127.0.0.1:4000/
+and automatically rebuild the site when you make changes to the files.
+You will have to reload the pages in your browser to see the changes.
 
-## License
+# Creating a post
 
-[Creative Commons](http://creativecommons.org/licenses/by-nc-sa/3.0/)
+To write a post, create a file in `_posts/bob.pythonmac.org/` with
+the naming scheme `YYYY-MM-DD-title.{html,md}` with the appropriate
+[YAML Front Matter]. A small example post would look like this:
+
+*2014-08-10-minimal-post.md*
+```markdown
+---
+categories: [example]
+category: archives
+layout: post
+tags: [example]
+title: Minimal post example
+---
+{% include JB/setup %}
+
+This is a minimal post.
+```
+
+[Jekyll]: http://jekyllrb.com/
+[GitHub Pages]: https://pages.github.com/
+[jQuery]: http://jquery.com/
+[SyntaxHighlighter]: http://alexgorbatchev.com/SyntaxHighlighter/
+[Jekyll Bootstrap]: http://jekyllbootstrap.com/
+[YAML Front Matter]: http://jekyllrb.com/docs/frontmatter/
+[Disqus]: https://disqus.com/
+[Google Analytics]: http://www.google.com/analytics/
