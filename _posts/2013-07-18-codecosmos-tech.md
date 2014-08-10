@@ -25,7 +25,7 @@ refactoring some of the code.
 * *[Web app](#web)*: [AngularJS], [Font.js], [jQuery], [JSZipTools], [Underscore]
 * *[Persistence](#persistence)*: [PouchDB], [CouchDB], [follow], [request], [node-static]
 * *[Hosting](#hosting)*: My laptop, [Github Pages], [Iris Couch], [nodejitsu]
-* *[Build tools](#build)*: [Grunt] (with a few grunt-contrib tasks), [Bower]
+* *[Build tools](#build)*: [Grunt]&#32;(with a few grunt-contrib tasks), [Bower]
 * *[CSS and Fonts](#css)*: [Pure], [Font Awesome], [Kontrapunkt Bold], [Source Code Pro], [Ubuntu Regular]
 * *[Post-mortem](#postmortem)*
 
@@ -359,7 +359,7 @@ with something in Erlang or Haskell where it is far easier to reason about
 failure scenarios.
 
 For the class, everything was hosted on the LAN from my laptop with
-[CouchDBX] (what you get when you download CouchDB for Mac OS X),
+[CouchDBX]&#32;(what you get when you download CouchDB for Mac OS X),
 codecosmos-node to create databases, and a static file webserver. The first
 day I used mochiweb as the webserver, but I later added static file serving
 to codecosmos-node using [node-static] so that I had fewer things to keep

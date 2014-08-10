@@ -6,7 +6,6 @@ markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
-  html_to_native: true
 
 safe: true
 lsi: false

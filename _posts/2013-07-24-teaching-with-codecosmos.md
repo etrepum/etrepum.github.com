@@ -37,7 +37,7 @@ an intro coding class.
 * *[Epilogue](#epilogue)*
 * *[Footnotes](#footnotes)*
 
-<a id="prologue" name="prologue" href="#prologue"><h1>Prologue</h1></a>
+<h1><a id="prologue" name="prologue" href="#prologue">Prologue</a></h1>
 
 <blockquote cite="http://www.cs.utexas.edu/users/EWD/transcriptions/EWD07xx/EWD709.html">
 <p>It does not suffice to hone your own intellect (that will join you in your grave), you must teach others how to hone theirs.</p>
@@ -91,7 +91,7 @@ and [How I built CodeCosmos].
 [Cat Crumpler]: https://twitter.com/catcrumpler
 [The College Initiative]: http://www.thecollegeinitiative.org/
 
-<a id="monday" name="monday" href="#monday"><h1>Monday</h1></a>
+<h1><a id="monday" name="monday" href="#monday">Monday</a></h1>
 <a href="https://www.facebook.com/photo.php?fbid=272865049520270"
    title="The Courier-Index front-page featuring Jamie and me">
 <img src="/assets/images/2013-07-24/946585_272865049520270_623477349_n.jpg"
@@ -205,7 +205,7 @@ do a very good job sleeping or preparing a coherent lesson plan.
 [translate()]: http://processingjs.org/reference/translate_/
 [Alchemy]: http://alchemymemphis.com/
 
-<a id="tuesday" name="tuesday" href="#tuesday"><h1>Tuesday</h1></a>
+<h1><a id="tuesday" name="tuesday" href="#tuesday">Tuesday</a></h1>
 
 <a href="http://www.youtube.com/watch?v=eBV14-3LT-g"
    title="PBS Off Book - The Art of Creative Coding">
@@ -284,7 +284,7 @@ got some much needed rest.
 [sin()]: http://processingjs.org/reference/sin_/
 [Jim Neely's Interstate Barbecue]: http://www.interstatebarbecue.com/
 
-<a id="wednesday" name="wednesday" href="#wednesday"><h1>Wednesday</h1></a>
+<h1><a id="wednesday" name="wednesday" href="#wednesday">Wednesday</a></h1>
 
 <div class="clear">
 <a href="https://www.youtube.com/watch?v=uBbVbqRvqTM"
@@ -362,7 +362,7 @@ We didn't run into Morgan Freeman<sup id="cite_ref-10"><a href="#cite_note-10">1
 [Challenges of Getting to Mars: Curiosity's Seven Minutes of Terror]: https://www.youtube.com/watch?v=Ki_Af_o9Q9s
 [Ground Zero Blues Club]: http://www.groundzerobluesclub.com/
 
-<a id="thursday" name="thursday" href="#thursday"><h1>Thursday</h1></a>
+<h1><a id="thursday" name="thursday" href="#thursday">Thursday</a></h1>
 
 <div class="clear">
 <a href="http://www.youtube.com/watch?v=RQ_HdHSpDEg"
@@ -464,7 +464,7 @@ it<sup id="cite_ref-11"><a href="#cite_note-11">11</a></sup>!
 [Sierpinski Triangle]: https://en.wikipedia.org/wiki/Sierpinski_triangle
 [Fat Baby's Catfish House]: http://www.fatbabyscatfishhouse.com/
 
-<a id="friday" name="friday" href="#friday"><h1>Friday</h1></a>
+<h1><a id="friday" name="friday" href="#friday">Friday</a></h1>
 
 <div class="clear">
 <a href="http://www.apple.com/ios/videos/#developers"
@@ -550,7 +550,7 @@ worth checking out.
 [Daniel Shiffman]: http://www.shiffman.net/
 [thank you card]: https://www.facebook.com/photo.php?fbid=10151726640286253
 
-<a id="epilogue" name="epilogue" href="#epilogue"><h1>Epilogue</h1></a>
+<h1><a id="epilogue" name="epilogue" href="#epilogue">Epilogue</a></h1>
 <a href="https://www.facebook.com/photo.php?fbid=10151726866646253"
     title="Madison Hotel's rooftop bar in Memphis at sunset">
 <img src="/assets/images/2013-07-24/1001874_10151726866646253_1491639192_n.jpg"
@@ -589,7 +589,7 @@ out-of-pocket). Just get in touch!
 [Custom Ink]: http://www.customink.com/
 [Rackspace Cloud]: http://www.rackspace.com/cloud
 
-<a name="footnotes" href="#footnotes" id="footnotes"><h1>Footnotes</h1></a>
+<h1><a name="footnotes" href="#footnotes" id="footnotes">Footnotes</a></h1>
 <aside id="footnotes">
 <ol>
 <li id="cite_note-1">
