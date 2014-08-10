@@ -38,7 +38,7 @@ You will have to reload the pages in your browser to see the changes.
 
 # Creating a post
 
-To write a post, create a file in `_posts/bob.pythonmac.org/` with
+To write a post, create a file in `_posts/` with
 the naming scheme `YYYY-MM-DD-title.{html,md}` with the appropriate
 [YAML Front Matter]. A small example post would look like this:
 
