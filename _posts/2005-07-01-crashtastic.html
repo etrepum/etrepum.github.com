@@ -1,0 +1,10 @@
+---
+categories: [debugging, javascript, AJAX]
+tags: [ajax, debugging, javascript]
+title: Crashtastic
+---
+<!-- -*- mode: rst -*- -->
+<p>It's amazing that anyone trusts web browsers.  On more than one occasion, I've written perfectly valid and correct JavaScript code that works fine in one browser, and crashes another.  Crashes are bad.</p>
+<p>The fixes for these issues are always the hardest because it's not your fault.  Normally when I have a problem in my JavaScript code, I take it to Firefox (I normally develop in Safari), as its debugging tools and JavaScript exceptions are about twelve billion times better than Safari and IE combined.  That option is useless when the code works fine in Firefox.</p>
+<p>The most recent problem I had was with Safari.  Admittedly, this is the first time I've had a crashfest with Safari, so that's good, but this particular bug was quite nasty.  I managed to track it down to the JavaScript function it was happening in with a series of alert() statements (why browsers have modal dialogs available beats the hell out of me; can anyone say denial of service?).  However, when I started instrumenting the crashing function with alert statements, it didn't crash anymore.  Heisenbugs that aren't your fault make you wish very bad things to happen to whomever deserves it.</p>
+<p>In the end, the workaround was to replace some perfectly valid code with different perfectly valid code that had the same overall macro effect, but was locally quite distinct.  I filed a few crash reports, but as I wasn't able to reproduce the heisenbug in less-then-2kloc-of-javascript scenario, I don't see a Radar happening any time soon.</p>

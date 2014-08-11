@@ -1,0 +1,18 @@
+---
+categories: [python]
+tags: [python]
+title: Accessing environment information from bundles/dylibs (OS X)
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P20 -->
+<p>The way that dylib works on OS X prevents you from directly referencing things defined in the executable from an external library (there are <a class="reference external" href="http://www.hmug.org/man/1/ld.html">kludge linker flags</a>, but I don't recommend their usage).</p>
+<p>The way to do it is to use crt_externs.h.  I didn't come up with this by the way, it's all over OS X (and NeXT, the header is from 1995) compatible software, such as Python and TCL (just <a class="reference external" href="http://www.google.com/search?q=_NSGetEnviron&amp;ie=UTF-8&amp;oe=UTF-8">google for _NSGetEnviron</a>).  You can even setup macros to make it feel like you have &quot;unix-like&quot; access to your environment, for example:</p>
+<pre class="literal-block">
+#if defined(__APPLE__)
+#include &lt;crt_externs.h&gt;
+#define environ (*_NSGetEnviron())
+#else
+extern char **environ;
+#endif /* __APPLE __ */
+</pre>
+<p>It seems that a few projects have tried to do this the wrong way, such as <a class="reference external" href="http://www.4suite.org/">4Suite</a>.  They use one of the kludge linker flags and an extern pointer to environ, but that doesn't actually work because they missed a different kludge linker flag ;)  It may have worked under some conditions, such as with Apple's Python 2.2.0, but nobody should've been using that anyway.</p>

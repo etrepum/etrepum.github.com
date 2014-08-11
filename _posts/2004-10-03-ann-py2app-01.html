@@ -1,0 +1,12 @@
+---
+categories: [python, py2app]
+tags: [py2app, python]
+title: 'ANN: py2app 0.1'
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P73 -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>.</p>
+<p>Even at this early stage, it's probably the most advanced python packaging utility out there with regard to dependency analysis.  It's at a &quot;works for me and the two other people that have tried it&quot; stage.  It's not particularly documented, and I don't have time to document it today, but you should be able to get along given the examples.  Since it is very similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a> in design, you can also borrow ideas from there.</p>
+<p>If you have any issues with <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>, please let me know.  Provide source if possible.  I'm particularly interested in problematic packages which use import tricks or in-package data files such as <a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a> or <a class="reference external" href="http://pygame.org/">pygame</a>.  These two are explicitly supported by the extensible &quot;recipe&quot; mechanism of <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>, but there are surely others.  I believe <a class="reference external" href="http://peak.telecommunity.com/">PEAK</a>, <a class="reference external" href="http://www.zope.org/Members/fdrake/zconfig/">ZConfig</a>, <a class="reference external" href="http://twistedmatrix.com/">Twisted</a>, etc. may do one or both of these things.  Until a recipe is created for a particular problematic package, you may always just include it wholesale with the -p argument.</p>
+<p>Download and related links are here:
+<a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>

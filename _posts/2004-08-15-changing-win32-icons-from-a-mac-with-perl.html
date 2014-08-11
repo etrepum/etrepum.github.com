@@ -1,0 +1,20 @@
+---
+categories: [python, perl]
+tags: [perl, python]
+title: Changing win32 icons from a Mac with Perl
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P63 -->
+<p>The current build procedure for <a class="reference external" href="http://talkingpanda.com/">Talking Panda</a> involves taking two stub applications (Mac OS X, Win2K/XP) and replacing their resources.  This is extremely easy for the Mac installer, because it's just a bunch of folders.  It's actually so convenient that I use the Mac application bundle to house the majority of resources that the Windows installer uses.  Unfortunately, I do have to change one in-exe resource for the Win32 installer: the application's icon.</p>
+<p>The Win32 application icons are still created &quot;by hand&quot; using <a class="reference external" href="http://www.axialis.com/axicons/">Axialis IconWorkshop</a>, which I highly recommend.  It understands the Mac OS X icns format and does everything in a few shortcut keystrokes.  Eventually I hope to write a script to generate the Windows icons on the fly with <a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a>, but I had a bit of trouble trying to find updated specs for the Windows XP additions to the <a class="reference external" href="http://www.iconolog.net/info/icoFormat.html">ICO format</a>.</p>
+<p>I did some research into the <a class="reference external" href="http://www.microsoft.com/whdc/system/platform/firmware/PECOFF.mspx">Microsoft</a> <a class="reference external" href="http://msdn.microsoft.com/msdnmag/issues/02/02/PE/default.aspx">Portable</a> <a class="reference external" href="http://msdn.microsoft.com/msdnmag/issues/02/03/PE2/default.aspx">Executable</a> <a class="reference external" href="http://www.windowsitlibrary.com/Content/356/11/toc.html">File Format</a>, but was unable to find any portable C or Python libraries that could create a new executable using an existing one as a template.  <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a> does this, but it uses a non-portable C library.  Whenever this happens, I generally turn to Perl.  <a class="reference external" href="http://www.cpan.org/">CPAN</a> is pretty good about having modules to read/write various file formats (the only other Perl I've used in the past few years is for reading/writing Excel spreadsheets).</p>
+<p>Unsurprisingly, <a class="reference external" href="http://www.cpan.org/">CPAN</a> did indeed have what I needed in a module called <a class="reference external" href="http://search.cpan.org/~autrijus/Win32-Exe-0.08/lib/Win32/Exe.pm">Win32::Exe</a>, which has a pretty painless API.  And here it is, my most recent Perl monstrosity.  It takes 3 arguments, the source executable, the new icon, and the destination executable.  If someone wrote an equivalent Python module, I'd love to switch, but this does the job quite nicely for now.</p>
+<pre class="literal-block">
+#!/usr/bin/perl
+
+use Win32::Exe;
+use strict;
+my $exe = Win32::Exe-&gt;new(shift());
+$exe-&gt;update(icon =&gt; shift());
+$exe-&gt;write(shift());
+</pre>

@@ -1,0 +1,46 @@
+---
+categories: [python, PyObjC, macosx]
+tags: [macosx, pyobjc, python]
+title: PyObjC and unicode
+---
+<!-- -*- mode: rst -*- -->
+<p>There's a constant battle in <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> about what to do about regular <tt class="docutils literal">str</tt> instances, since Foundation doesn't have a data type that's unencoded bytes (<tt class="docutils literal">NSData</tt>) and text (<tt class="docutils literal">NSString</tt>) at the same time.  Up to now, <tt class="docutils literal">str</tt> instances were be converted to <tt class="docutils literal">NSString</tt> using Python's default encoding (<tt class="docutils literal">sys.getdefaultencoding()</tt>), which is basically always <tt class="docutils literal">ascii</tt> and will raise an exception, which is really never what you want.  I committed a change this week that will hopefully be a least worst of both worlds solution:</p>
+<ul class="simple">
+<li>Added <tt class="docutils literal">OC_PythonUnicode</tt> and <tt class="docutils literal">OC_PythonString</tt> classes that
+preserve the identity of <tt class="docutils literal">str</tt> and <tt class="docutils literal">unicode</tt> objects across
+the bridge.  Additionally, bridge for <tt class="docutils literal">str</tt> now uses the default
+encoding of <tt class="docutils literal">NSString</tt>, rather than <tt class="docutils literal">sys.getdefaultencoding()</tt>
+from Python.  For Mac OS X, this is typically MacRoman.  The reason
+for this is that not all Python <tt class="docutils literal">str</tt> instances could cross the
+bridge at all previously.  <tt class="docutils literal">objc.setStrBridgeEnabled(False)</tt> will
+still trigger warnings, if you are attempting to track down an
+encoding bug.  However, the symptoms of the bug will be incorrectly
+encoded text, not an exception.</li>
+</ul>
+<p>This lets <tt class="docutils literal">NSString</tt> decide what encoding to use (generally, MacRoman), so you still get garbage in garbage out, but:</p>
+<ul class="simple">
+<li>It's lossless (garbage in, same garbage out)</li>
+<li>7-bit ASCII safe (usually when str is used for text, it is just ascii)</li>
+<li>Doesn't raise exceptions in strange places</li>
+<li>If it was data (not text) and you were just putting it in a container or something, it will still be data when you get it back</li>
+</ul>
+<p>NeXT/Apple definitely did strings in a very nice way.  Rather than deciding there should be one and only one way to do them, they made <tt class="docutils literal">NSString</tt> a class cluster where you can have any concrete implementation you want.  The only methods your concrete classes <em>have</em> to implement are:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">-(unsigned)length</span></tt>:</dt>
+<dd>Return the number of characters in the string</dd>
+<dt><tt class="docutils literal"><span class="pre">-(unichar)characterAtIndex:(unsigned)index</span></tt>:</dt>
+<dd>Return the character at that index (or raise an exception)</dd>
+</dl>
+<p>There are, of course, additional methods that a concrete subclass of <tt class="docutils literal">NSString</tt> can implement for efficiency.</p>
+<p>Doing strings in this way has some nice advantages:</p>
+<ul class="simple">
+<li>If they wanted to trade up <tt class="docutils literal">unichar</tt> to 32 bits, it would require minimal changes to the source code</li>
+<li>You can use whatever backing store you need to use, with whatever properties it needs to have (i.e. mmap backed store, a constant in the code that never gets freed, a length-prefixed string, whatever!)</li>
+<li>You can use whatever encoding you want to use, and conversion doesn't take place until you do something with it</li>
+</ul>
+<p>In Python's case, <tt class="docutils literal">OC_PythonUnicode</tt> is actually a zero-copy concrete subclass of <tt class="docutils literal">NSString</tt> (if Python's unicode characters are the same size as unichar, anyway).  Python can't do ANYTHING like this:</p>
+<ul class="simple">
+<li>The backing store of a Python unicode object must be controlled by Python (i.e. you can't point to a constant string, you can't point to a slice of another unicode object, etc.).  This throws zero-copy strategies out the window.</li>
+<li>The encoding of a Python unicode object must be UCS-2 (or UCS-4, depending on configure time options)</li>
+</ul>
+<p>So, that sucks... but at least Python does have good unicode support, unlike some other languages with similar heritage.</p>

@@ -1,0 +1,50 @@
+---
+categories: [python]
+tags: [python]
+title: Abusing __getitem__ is fun
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P23 -->
+<pre class="literal-block">
+class SliceAbuser(object):
+    def __init__(self, value):
+        self.value = value
+        self.items = []
+
+    def __getitem__(self, items):
+        if not isinstance(items, tuple):
+            items = items,
+        append = self.items.append
+        for item in items:
+            append((item.start, item.stop))
+        return self
+</pre>
+<p>It doesn't look like much, right?  Well, this hack basically allows you to use dict syntax on a __getitem__!  Check this out:</p>
+<pre class="literal-block">
+s = SliceAbuser
+resource, index, help, style, more, moreindex = 'resource', 'index', 'help', 'style', 'more', 'moreindex'
+o = s(resource)[
+    'index.html': s(index),
+    'help.html': s(help),
+    'style.css': s(style),
+    'more': s(more)[
+        'index.html': s(moreindex),
+    ],
+]
+</pre>
+<p>Yeah, it's a whole sitemap in Python syntax.  Instead of strings, pretend that resource, index, etc. are all whatever kind of Resource objects your web framework uses (I'm thinking in <a class="reference external" href="http://twistedmatrix.com/">Twisted</a>).  Don't believe me?  Look at this:</p>
+<pre class="literal-block">
+def printSiteMap(obj, parents = ()):
+    print '    ' * len(parents), '/'.join(parents), '-&gt;', obj.value
+    for key, value in obj.items:
+        printSiteMap(value, parents+(key,))
+printSiteMap(o)
+</pre>
+<pre class="literal-block">
+-&gt; resource
+   index.html -&gt; index
+   help.html -&gt; help
+   style.css -&gt; style
+   more -&gt; more
+       more/index.html -&gt; moreindex
+</pre>

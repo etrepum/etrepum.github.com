@@ -1,0 +1,37 @@
+---
+categories: [python, macosx]
+tags: [macosx, python]
+title: xattr - Darwin 8 Extended Filesystem Attributes from Python
+---
+<!-- -*- mode: rst -*- -->
+<p>Darwin 8.0, the underpinnings of Mac OS X 10.4 (Tiger) ships with a new API at the filesystem layer: Extended Attributes.  I haven't really seen much documentation thrown about, but effectively they can be used to associate arbitrary metadata with files (note that this is <em>entirely separate</em> from <a class="reference external" href="http://developer.apple.com/documentation/Carbon/Reference/MetadataAttributesRef/index.html">Spotlight Metadata Attributes</a>).  Extended attributes are the new way that the resource fork and finder information is looked up and stored.  They're also used by the obscure <a class="reference external" href="http://bob.pythonmac.org/archives/2005/05/03/mac-os-x-104-tigers-copyfile/">copyfile</a> that lives beneath all of the changes to cp, mv, tar, etc.</p>
+<p>I whipped up a quick wrapper for the APIs today, <a class="reference external" href="http://undefined.org/python/#xattr">xattr</a>.  This extension module exposes an <tt class="docutils literal">xattr</tt> object that wraps paths or file descriptors (either as an <tt class="docutils literal">int</tt>, or as an object with a <tt class="docutils literal">fileno()</tt>), and it acts like a <tt class="docutils literal">dict</tt>.  Usage looks like this:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; import xattr
+&gt;&gt;&gt; x = xattr.xattr('tiger_8a428_userdvd.dmg')
+&gt;&gt;&gt; x
+&lt;xattr file='tiger_8a428_userdvd.dmg'&gt;
+&gt;&gt;&gt; x.keys()
+[u'com.apple.diskimages.recentcksum']
+&gt;&gt;&gt; dict(x)
+{u'com.apple.diskimages.recentcksum': 'i:969254 ...more stuff'}
+&gt;&gt;&gt; x['com.apple.diskimages.recentcksum']
+'i:969254 ...more stuff'
+&gt;&gt;&gt; x['com.apple.adc'] = 'select'
+&gt;&gt;&gt; dict(x)
+{u'com.apple.adc': 'select',
+ u'com.apple.diskimages.recentcksum': 'i:969254 ...more stuff'}
+&gt;&gt;&gt; del x['com.apple.adc']
+&gt;&gt;&gt; dict(x)
+{u'com.apple.diskimages.recentcksum': 'i:969254 ...more stuff'}
+</pre>
+<p>Note that keys are limited to 128 bytes and values appear to be limited to 3800 bytes.  I think the resource fork is special cased to be longer, though.</p>
+<p>You can download xattr 0.1 from <a class="reference external" href="http://pythonmac.org/packages/">http://pythonmac.org/packages/</a> for Tiger's Python 2.3.5 or Python 2.4.1 (installed on Tiger).</p>
+<dl class="docutils">
+<dt>svn trunk:</dt>
+<dd><a class="reference external" href="http://svn.red-bean.com/bob/xattr/trunk/">http://svn.red-bean.com/bob/xattr/trunk/</a></dd>
+<dt>0.1 source:</dt>
+<dd><a class="reference external" href="http://svn.red-bean.com/bob/xattr/releases/xattr-0.1/">http://svn.red-bean.com/bob/xattr/releases/xattr-0.1/</a></dd>
+<dt>UPDATE:</dt>
+<dd>It looks like there is some relevant information and an xattr command line tool in the <a class="reference external" href="http://arstechnica.com/reviews/os/macosx-10.4.ars/7">arstechnica tiger review</a>.</dd>
+</dl>

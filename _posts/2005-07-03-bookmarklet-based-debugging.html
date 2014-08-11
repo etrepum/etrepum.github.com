@@ -1,0 +1,28 @@
+---
+categories: [debugging, javascript, MochiKit, AJAX]
+tags: [ajax, debugging, javascript, mochikit]
+title: Bookmarklet Based Debugging
+---
+<!-- -*- mode: rst -*- -->
+<p>I haven't seen this discussed much, but one of the techniques I've found really useful for debugging JavaScript is what we've been calling BBD: Bookmarklet Based Debugging.  The reason we've settled on this is that it's entirely unobtrusive.  Our pages look exactly how they're supposed to look, with no extra &quot;debugging&quot; widgets or text sitting around on the page.  However, if I need more information, I just whack a bookmarklet and I get all of the information I need.  I'm aware that there are various bookmarklets out there that display various kinds of JavaScript information that might be useful for debugging, but not in such a way that you instrument your page for application specific BBD.  Also, most of the JavaScript debugging bookmarklets out there only work in Mozilla, and I do most of my development in Safari.</p>
+<img alt="http://undefined.org/mochikit/img/mochikit_bbd_1.png" src="http://undefined.org/mochikit/img/mochikit_bbd_1.png" />
+<p>The reason this works for us is because we use a common logging infrastructure across our whole web app:  MochiKit.Logging.  This, and the rest of <a class="reference external" href="http://mochikit.com/">MochiKit</a>, will be liberally licensed open source (likely MIT) in less than two weeks.  MochiKit.Logging is vaguely similar to Python's logging module or Apache's log4j, but without all of the headaches and mindless configuration sludge.</p>
+<p>Typical usage for our Logger object looks like this:</p>
+<pre class="literal-block">
+// these are global functions for convenience:
+log(&quot;some&quot;, &quot;objects&quot;, &quot;here&quot;, &quot;at&quot;, &quot;the&quot;, &quot;INFO&quot;, &quot;level&quot;);
+logDebug(&quot;some&quot;, &quot;objects&quot;, &quot;here&quot;, &quot;at&quot;, &quot;the&quot;, &quot;DEBUG&quot;, &quot;level&quot;);
+// or more generally:
+logger.baseLog(logLevel, objects...);
+</pre>
+<p>When one of these log methods are called, two things happen:</p>
+<ol class="arabic simple">
+<li>Any attached listeners to the logger are notified (which may or may not do something interesting with the log message)</li>
+<li>The global logger stuffs the log message away in a log buffer (of configurable size, by default it's infinite) for easy retrieval</li>
+</ol>
+<p>Listeners are really just for future enhancements (i.e. &quot;real-time&quot; log window by bookmarklet), but our current bookmarklet simply formats the last 40 messages or so as an alert message and spits it to the browser.</p>
+<p>Currently, the bookmarklet URL for MochiKit.Logging's brain dump is simply: <tt class="docutils literal">javascript:logger.debuggingBookmarklet()</tt>, which allows for future improvements (i.e. something better than <tt class="docutils literal"><span class="pre">alert(...)</span></tt>) without &quot;upgrading&quot; the bookmarkets in everyone's browser.</p>
+<dl class="docutils">
+<dt>UPDATE:</dt>
+<dd><a class="reference external" href="http://mochikit.com/">MochiKit</a> is now available.  Check it out at <a class="reference external" href="http://mochikit.com/">mochikit.com</a>!</dd>
+</dl>

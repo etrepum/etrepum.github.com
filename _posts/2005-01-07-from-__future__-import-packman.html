@@ -1,0 +1,22 @@
+---
+categories: [python, PyObjC, py2app, packman, pygame]
+tags: [packman, py2app, pygame, pyobjc, python]
+title: from __future__ import packman
+---
+<!-- -*- mode: rst -*- -->
+<p>For quite some time I've been neglecting my packman repository.  I find it hard to make time and the infrastructure for maintainers and users alike are quite archaic.</p>
+<p>Ideally I would like to move everything over to using <a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/SoftwareDistribution/index.html">Apple's installation tools</a> with <tt class="docutils literal">.mpkg</tt> based distributions.  That, along with replacing some ugly distribution scripts in <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a>, were why I wrote <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>'s <tt class="docutils literal">bdist_mpkg</tt> command.  This opens up several doors and has a few immediate advantages:</p>
+<ul class="simple">
+<li>Installer can authenticate.  packman can't.  Several packages need this, especially those requiring headers.  The current PackageManager UI requires the user to drop to shell and change permissions on these folders in a very obnoxious and unintuitive way.</li>
+<li>Installer creates receipts.</li>
+<li>Installer packages are standard.  Other things use them.  For example, <a class="reference external" href="http://libsdl.org/">SDL</a>, a dependency of <a class="reference external" href="http://pygame.org/">pygame</a>, is already available in <tt class="docutils literal">.pkg</tt> format from the source.  That means less maintenance and more accountability.</li>
+<li>Installer (as of Mac OS X 10.3, anyway) can <a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/SoftwareDistribution/Concepts/sd_spec_install_req.html">safely detect certain kinds of dependencies</a>, where packman runs arbitrary code (uh oh!).</li>
+<li>Some people don't like the PackageManager UI.  These people could download the packages themselves and simply double-click to install (though they would have to manage dependencies themselves).</li>
+<li>Installer can allow the user to customize an installation (to disable installation of scripts or documentation, for example).  <tt class="docutils literal">bdist_mpkg</tt> already organizes packages in a manner suitable for this.</li>
+<li>Installer will show important information such as the License and ReadMe before installation.</li>
+<li><a class="reference external" href="x-man-page://8/installer">installer</a> can alternatively be used (but this does require authentication) for a hassle-free installation, or when installing by command-line (think <a class="reference external" href="x-man-page://1/ssh">ssh</a>).</li>
+<li>Installer is understood by Apple's tools.  Think <a class="reference external" href="http://www.versiontracker.com/dyn/moreinfo/macosx/24178&amp;mode=info">custom installation DVDs</a>, <a class="reference external" href="http://www.apple.com/server/macosx/">Mac OS X Server</a>, <a class="reference external" href="http://www.apple.com/remotedesktop/">Apple Remote Desktop</a>, Apple's internal build process, etc.</li>
+<li>Installer may be improved in future versions of Mac OS X, which means that the packman infrastructure would get an upgrade for free (well, cheap).</li>
+<li>Using <tt class="docutils literal">bdist_mpkg</tt>, packman could &quot;record&quot; (not perform) an installation so that it may be performed later or elsewhere.  For a given package, packman would download it and all of its dependencies and create a self-contained <tt class="docutils literal">.mpkg</tt> for simple installation and transport.  People who have broadband at work or school and dial-up at home would probably be particularly fond of this feature.</li>
+</ul>
+<p>... Of course, even after this is developed, it's no promise that I'll have a long-term interest in maintaining my own repository.  However, with this kind of infrastructure and the right tools, I think that someone else (hopefully several others) will!</p>

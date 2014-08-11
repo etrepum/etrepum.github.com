@@ -1,0 +1,78 @@
+---
+categories: [python]
+tags: [python]
+title: graphviz on the Mac, LaunchServices
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P47 -->
+<p>For an excellent example of what it takes to do a great port of UNIX software to OS X, look no further than Glen Low's port of <a class="reference external" href="http://www.pixelglow.com/graphviz/">graphviz for OS X</a>.  For good reasons to take a look at graphviz, check out <a class="reference external" href="http://radio.weblogs.com/0104369/">John Schull's Weblog</a>, especially entries such as <a class="reference external" href="http://radio.weblogs.com/0104369/2004/02/18.html#a552">Outline to graphviz</a>.</p>
+<p>This port and GUI front-end adds features such as rendering via the native OS X APIs (finally, good fast PDFs!), and it can actually use kqueue on OS X 10.3 to automatically re-render when a file changes!</p>
+<p>Not only does at add a slew of cool new features (most of which I didn't mention), but all of the CLI tools are wrapped up in a nice little application bundle; making installation and removal painless, and relocation no longer becomes a problem.</p>
+<p>If all OS X with significant UNIX heritage were distributed this way, one might think it would become difficult to add them all to your <tt class="docutils literal">PATH</tt>.  Fortunately, that's just not true <a class="footnote-reference" href="#id4" id="id1">[1]</a>.  Here's a nice little snippet of LaunchServices <a class="footnote-reference" href="#id5" id="id2">[2]</a> code that will return the full path of an application by name regardless of where it happens to be or if it has moved <a class="footnote-reference" href="#id6" id="id3">[3]</a>:</p>
+<pre class="literal-block">
+#!/usr/bin/python
+from LaunchServices.Launch import LSFindApplicationForInfo
+from Carbon.CoreFoundation import kCFURLPOSIXPathStyle
+# this would normally come from LaunchServices.LaunchServices
+# but bgen isn't perfect, and doesn't make this constant a
+# four char code.
+kLSUnknownCreator = '\x00\x00\x00\x00'
+
+def pathForName(appName):
+    &quot;&quot;&quot;
+    Returns the file system path for an application by name.
+    NOTE: You should include the suffix, as in &quot;Python.app&quot;.
+    &quot;&quot;&quot;
+    fsRef, cfURL = LSFindApplicationForInfo(kLSUnknownCreator, None, appName)
+    return cfURL.CFURLCopyFileSystemPath(kCFURLPOSIXPathStyle).toPython()
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) == 1:
+        import os
+        raise SystemExit, &quot;Usage: %s SomeApplication.app&quot; % (
+            os.path.basename(sys.argv[0])
+        )
+    for appName in sys.argv[1:]:
+        print pathForName(appName.decode('utf8')).encode('utf8')
+</pre>
+<p>Usage looks like this (note: I use tcsh not bash):</p>
+<pre class="literal-block">
+[crack:~/bin] bob% setenv PATH ${PATH}:`./findapp.py GraphViz.app`/Contents/MacOS
+[crack:~/bin] bob% rehash
+[crack:~/bin] bob% which dot
+/Applications/GraphViz/Graphviz.app/Contents/MacOS/dot
+[crack:~/bin] bob% dot --help
+dot: option -- unrecognized
+
+Usage: dot [-Vv?] [-(GNE)name=val] [-(Tlso)&lt;val&gt;] &lt;dot files&gt;
+ -V          - Print version and exit
+ -v          - Enable verbose mode
+ -Gname=val  - Set graph attribute 'name' to 'val'
+ -Nname=val  - Set node attribute 'name' to 'val'
+ -Ename=val  - Set edge attribute 'name' to 'val'
+ -Tv         - Set output format to 'v'
+ -lv         - Use external library 'v'
+ -ofile      - Write output to 'file'
+ -q[l]       - Set level of message suppression (=1)
+ -s[v]       - Scale input by 'v' (=72)
+ -y          - Invert y coordinate in output
+</pre>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Well, so long as application developers can agree on where those binaries should go in a bundle.  The dust hasn't quite settled on this issue yet, it's a toss-up between MacOS, Resources, and arbitrary subfolders of Resources (probably mirroring a &quot;usr prefix&quot;, like Resources/bin, Resources/lib, etc.)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>This code for LaunchServices from Python 2.4, not my LaunchServices wrapper.  It is backwards compatible to Python 2.3, but is not yet available from a PackageManager repository.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td>There are some limitations to the power of Launch Services.  For example, The application must have been launched via the Launch Services API (i.e. through Finder) at least once since it has been on that volume, or it must reside in a standard Applications folder such as <tt class="docutils literal">/Applications</tt> or <tt class="docutils literal">/Network/Applications</tt>.</td></tr>
+</tbody>
+</table>

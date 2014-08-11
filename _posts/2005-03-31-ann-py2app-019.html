@@ -1,0 +1,20 @@
+---
+categories: [python, PyObjC, py2app]
+tags: [py2app, pyobjc, python]
+title: 'ANN: py2app 0.1.9'
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>, that builds Mac OS X applications from Python scripts, extensions, and related data files.  It tries very hard to include all dependencies it can find so that your application can be distributed standalone, as Mac OS X applications should be.</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.9 is included in the installer for <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> 1.3.  If you have installed <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> 1.3, then you already have <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.9 installed.</p>
+<p>Download and related links are here: <a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>
+<p>py2app 0.1.9 is a minor bug fix release:</p>
+<p>Bugs fixed:</p>
+<ul class="simple">
+<li>bdist_mpkg now builds zip files that are correctly unzipped
+by all known tools.</li>
+<li>The behavior of the bootstrap has changed slightly such that
+<tt class="docutils literal">__file__</tt> should now point to your main script, rather than
+the bootstrap.  The main script has also moved to <tt class="docutils literal">Resources</tt>,
+from <tt class="docutils literal">Resources/Python</tt>, so that <tt class="docutils literal">__file__</tt> relative resource
+paths should still work.</li>
+</ul>

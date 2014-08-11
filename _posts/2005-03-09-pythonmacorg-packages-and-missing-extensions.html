@@ -1,0 +1,24 @@
+---
+categories: [python, py2app, packman, macosx]
+tags: [macosx, packman, py2app, python]
+title: pythonmac.org packages and missing extensions
+---
+<!-- -*- mode: rst -*- -->
+<p>The Python 2.3.0 distributed with Mac OS X 10.3 is missing three extensions typically found on other platforms:</p>
+<pre class="literal-block">
+_bsddb
+_tkinter
+readline
+</pre>
+<p>Since these are part of the standard library, it is somewhat annoying to build them after the fact.  I have put together a little svn repository with the relevant setup scripts and sources:</p>
+<p><a class="reference external" href="http://svn.red-bean.com/bob/MacPythonPantherExtras/trunk/">http://svn.red-bean.com/bob/MacPythonPantherExtras/trunk/</a></p>
+<p>Installer packages for these three extensions are available at:</p>
+<p><a class="reference external" href="http://pythonmac.org/packages/">http://pythonmac.org/packages/</a></p>
+<p>Note that <tt class="docutils literal">_bsddb</tt> and <tt class="docutils literal">readline</tt> include their respective dependencies statically, where <tt class="docutils literal">_tkinter</tt> requires <a class="reference external" href="http://tcltkaqua.sf.net/">TclTkAqua</a> 8.4.</p>
+<p>Many other packages are also available from this repository, including <a class="reference external" href="http://bob.pythonmac.org/archives/2005/02/04/fix-mac-os-x-103s-python-230/">PantherPythonFix</a>, <a class="reference external" href="http://wxpython.org/">wxPython</a>, <a class="reference external" href="http://numeric.scipy.org/">Numeric</a> and <a class="reference external" href="http://www.stsci.edu/resources/software_hardware/numarray">numarray</a> (with AltiVec support via Apple's <a class="reference external" href="http://developer.apple.com/hardware/ve/vector_libraries.html">Accelerate</a> framework), <a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a> (with tiff, jpeg, and Tkinter support), and <a class="reference external" href="http://matplotlib.sourceforge.net/">matplotlib</a> (with Agg, wxPython, and Tkinter support contributed by Chris Barker).</p>
+<p>The majority of these packages are only available for the Python 2.3.0 that ships with Mac OS X 10.3 (Panther), but a few are available for Mac OS X 10.2 (Jaguar).  These Jaguar packages are compatible with the <a class="reference external" href="http://homepages.cwi.nl/~jack/macpython/">MacPython 2.3 distribution</a> (even if used on Mac OS X 10.3 or later).</p>
+<p>Most of the packages in this repository were built with the <a class="reference external" href="http://undefined.org/python/py2app.html#bdist-mpkg-documentation">bdist_mpkg</a> command of <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>.  Building your own redistributable package installers can be as easy as:</p>
+<pre class="literal-block">
+bdist_mpkg setup.py --zipdist
+</pre>
+<p>The <tt class="docutils literal"><span class="pre">--zipdist</span></tt> option is currently only available in <a class="reference external" href="http://svn.red-bean.com/bob/py2app/trunk/">py2app svn trunk</a>, but will be part of the 0.1.8 release later this month.</p>

@@ -1,0 +1,23 @@
+---
+categories: [subversion, macosx, universal binaries, FreeBSD]
+tags: [freebsd, macosx, subversion, universal binaries]
+title: 'svnsync: mirror your svn repository'
+---
+<!-- -*- mode: rst -*- -->
+<p>Since the svnsync tool in <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> 1.4 still lacks documentation, here's a quick example to get you started with it:</p>
+<pre class="literal-block">
+$ svnadmin create svn.mochikit.com
+$ echo '#!/bin/sh' &gt; svn.mochikit.com/hooks/pre-revprop-change
+$ chmod +x svn.mochikit.com/hooks/pre-revprop-change
+$ svnsync init file://$PWD/svn.mochikit.com http://svn.mochikit.com/
+$ svnsync sync file://$PWD/svn.mochikit.com
+</pre>
+<p>The example performs the following tasks:</p>
+<ul class="simple">
+<li>Creates a new local repository named <tt class="docutils literal">svn.mochikit.com</tt></li>
+<li>Adds a trivial <tt class="docutils literal"><span class="pre">pre-revprop-change</span></tt> hook to the repository (required for svnsync)</li>
+<li>Initializes the <tt class="docutils literal">svn.mochikit.com</tt> repository to be a mirror of <a class="reference external" href="http://svn.mochikit.com/">http://svn.mochikit.com/</a></li>
+<li>Synchronizes the <tt class="docutils literal">svn.mochikit.com</tt> repository with its initialized source</li>
+</ul>
+<p>Note that this is point-in-time synchronization. To keep an up to date mirror you'll have to run <tt class="docutils literal">svnsync sync</tt> on a regular basis (e.g. by cron job or post-commit hook).</p>
+<p>If you're looking for an especially easy to install set of svn binaries for Mac OS X, I recommend <a class="reference external" href="http://www.codingmonkeys.de/mbo/">Martin Ott's</a> (of <a class="reference external" href="http://www.codingmonkeys.de/subethaedit/">SubEthaEdit</a> fame) build. I've been using it on all of my Macs for quite some time with no issues. Much less hassle than building it myself or using <a class="reference external" href="http://www.macports.org/">MacPorts</a> (previously known as DarwinPorts).</p>

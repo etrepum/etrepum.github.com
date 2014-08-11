@@ -1,0 +1,52 @@
+---
+categories: [python, PyObjC, macosx]
+tags: [macosx, pyobjc, python]
+title: New PyObjC Protocols
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> now (in svn) has a new protocol that makes it significantly easier to handle the special cases of Python -&gt; Objective-C bridging:</p>
+<ul class="simple">
+<li>The Python to Objective-C bridge now looks for a <tt class="docutils literal">__pyobjc_object__</tt>
+attribute to get a PyObjC object from a Python object.</li>
+</ul>
+<p>Although the news item is short, it has far-reaching implications.  I'm pretty certain that I've been able to remove hundreds of lines of code in just <tt class="docutils literal">NSNumber</tt> support with this generalization:</p>
+<ul class="simple">
+<li><tt class="docutils literal">NSNumber</tt> instances are bridged to a <tt class="docutils literal">float</tt>, <tt class="docutils literal">long</tt>, or <tt class="docutils literal">int</tt>
+subclass that uses <tt class="docutils literal">__pyobjc_object__</tt>.  <tt class="docutils literal">NSDecimalNumber</tt> is bridged
+to <tt class="docutils literal">Foundation.NSDecimal</tt>, which now supports <tt class="docutils literal">__pyobjc_object__</tt>.
+This eliminates a HUGE amount of cruft in <tt class="docutils literal">objc._conveniences</tt>.</li>
+</ul>
+<p>Speaking of protocols, I also added support so that the formal ones work!</p>
+<ul class="simple">
+<li>PyObjC classes can now declare that they implement formal protocols,
+for example:</li>
+</ul>
+<pre class="literal-block">
+import objc
+from Foundation import *
+class MyLockingClass(NSObject, objc.protocolNamed('NSLocking')):
+    # implementation
+    pass
+</pre>
+<p>There's still a lot of room for improvement in the <tt class="docutils literal">Protocol</tt> support:</p>
+<ul class="simple">
+<li>Protocols are not type checked.  Anything in the base list that is a <tt class="docutils literal">PyObjCObject</tt> will get chunked into the protocol list.  Will probably crash if you do something really stupid (though there's plenty of that in <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> anyway)</li>
+<li>Protocols can not be created from <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a></li>
+<li>selectors don't benefit from the Protocol information like they do for informal protocols</li>
+<li><a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> doesn't verify that you implement the protocol like it does for informal protocols</li>
+<li><tt class="docutils literal">objc.protocolNamed</tt> is probably pretty slow, should use a lookup hash</li>
+</ul>
+<p>There's also a nice new convenience in <tt class="docutils literal">PyObjCTools.KeyValueCoding</tt>:</p>
+<ul>
+<li><p class="first">PyObjCTools.KeyValueCoding has a new <tt class="docutils literal">kvc</tt> class that allows
+Pythonic Key-Value Coding.</p>
+<ul class="simple">
+<li><tt class="docutils literal">__getitem__</tt> is mapped to <tt class="docutils literal">valueForKeyPath:</tt></li>
+<li><tt class="docutils literal">__setitem__</tt> is mapped to <tt class="docutils literal">setValue:forKeyPath:</tt></li>
+<li><tt class="docutils literal">__getattr__</tt> is mapped to <tt class="docutils literal">valueForKey:</tt></li>
+<li><tt class="docutils literal">__setattr__</tt> is mapped to <tt class="docutils literal">setValue:forKey:</tt></li>
+</ul>
+<p>The <tt class="docutils literal">kvc</tt> class uses <tt class="docutils literal">__pyobjc_object__</tt>, so it may cross the bridge
+as the wrapped object.</p>
+</li>
+</ul>

@@ -1,0 +1,19 @@
+---
+categories: [python, simplejson]
+tags: [python, simplejson]
+title: simplejson 1.8.1
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> is a simple, fast, complete, correct and extensible <a class="reference external" href="http://json.org/">JSON</a> (<a class="reference external" href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>) encoder/decoder for Python 2.3+.  It is pure Python code with no dependencies.</p>
+<p><a class="reference external" href="http://undefined.org/python/#simplejson">simplejson</a> 1.8.1 is a major update:</p>
+<ul class="simple">
+<li>Optional C extension for accelerating the decoding of JSON strings</li>
+<li>Command line interface for pretty-printing JSON (via <tt class="docutils literal">python <span class="pre">-msimplejson</span></tt>)</li>
+<li>Decoding of integers and floats is now extensible (e.g. to use <tt class="docutils literal">Decimal</tt>) via <tt class="docutils literal">parse_int</tt>, <tt class="docutils literal">parse_float</tt> options.</li>
+<li>Subversion and issue tracker moved to google code: <a class="reference external" href="http://code.google.com/p/simplejson/">http://code.google.com/p/simplejson/</a></li>
+<li>Misc. bug fixes</li>
+</ul>
+<p>There is one incompatible change:</p>
+<ul class="simple">
+<li><tt class="docutils literal">&quot;/&quot;</tt> is no longer escaped, so if you're embedding JSON directly in HTML you'll want to use <tt class="docutils literal"><span class="pre">.replace(&quot;/&quot;,</span> <span class="pre">&quot;\\/&quot;)</span></tt> to prevent a close-tag attack. Sorry, but the in-HTML use case just isn't worth the bloat in everyone else's documents.</li>
+</ul>

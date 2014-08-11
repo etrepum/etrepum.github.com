@@ -1,0 +1,28 @@
+---
+categories: [python, py2app]
+tags: [py2app, python]
+title: 'ANN: py2app 0.1.1'
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P75 -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>, that builds Mac OS X applications from Python scripts, extensions, and related data files.  It tries very hard to include all dependencies it can find so that your application can be distributed standalone, as Mac OS X applications should be.</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.1 is primarily a bugfix release:</p>
+<blockquote>
+<ul class="simple">
+<li>Several problems related to Mac OS X 10.2 compatibility and standalone building have been resolved</li>
+<li>Scripts that are not in the same directory as setup.py now work</li>
+<li>A new recipe has been added that removes the pydoc -&gt; Tkinter dependency</li>
+<li>A recipe has been added for py2app itself</li>
+<li>a <a class="reference external" href="http://www.wxpython.org/">wxPython</a> example (superdoodle) has been added.  Demonstrates not only how easy it is (finally!) to bundle <a class="reference external" href="http://www.wxpython.org/">wxPython</a> applications, but also how one setup.py can deal with both <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a> and <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>.</li>
+<li>A new experimental tool, py2applet, has been added.  Once you've built it (<tt class="docutils literal">python setup.py py2app</tt>, of course), you should be able to build simple applications simply by dragging your main script and optionally any packages, data files, Info.plist and icon it needs.</li>
+</ul>
+</blockquote>
+<p>Known issues:</p>
+<blockquote>
+<ul class="simple">
+<li>Includes <em>all</em> files from packages, it should be smart enough to strip unused .py/.pyc/.pyo files (to save space, depending on which optimization flag is used).</li>
+<li>The default PyRuntimeLocations can cause problems on machines that have a /Library/Frameworks/Python.framework installed.  Workaround is to set a plist that has the following key: <tt class="docutils literal"><span class="pre">PyRuntimeLocations=['/System/Library/Frameworks/Python.framework/Versions/2.3/Python']</span></tt> (this will be resolved soon)</li>
+</ul>
+</blockquote>
+<p>Download and related links are here:
+<a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>

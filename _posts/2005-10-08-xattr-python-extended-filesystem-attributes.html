@@ -1,0 +1,34 @@
+---
+categories: [python, macosx]
+tags: [macosx, python]
+title: xattr - Python extended filesystem attributes
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#xattr">xattr</a> is a Python wrapper for the extended attributes APIs available in Darwin 8.0+ (Mac OS X 10.4) and Linux 2.6+.  0.2 added Linux compatibility, and API compatibility with the GPL <a class="reference external" href="http://pyxattr.sourceforge.net/">pyxattr</a> module.  Unlike <a class="reference external" href="http://pyxattr.sourceforge.net/">pyxattr</a>, <a class="reference external" href="http://undefined.org/python/#xattr">xattr</a> supports both Darwin and Linux, has a <tt class="docutils literal">dict</tt>-like API, and it is MIT licensed.</p>
+<p>Usage looks like this:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; import xattr
+&gt;&gt;&gt; x = xattr.xattr('tiger_8a428_userdvd.dmg')
+&gt;&gt;&gt; x
+&lt;xattr file='tiger_8a428_userdvd.dmg'&gt;
+&gt;&gt;&gt; x.keys()
+[u'com.apple.diskimages.recentcksum']
+&gt;&gt;&gt; dict(x)
+{u'com.apple.diskimages.recentcksum': 'i:969254 ...more stuff'}
+&gt;&gt;&gt; x['com.apple.diskimages.recentcksum']
+'i:969254 ...more stuff'
+&gt;&gt;&gt; x['com.apple.adc'] = 'select'
+&gt;&gt;&gt; dict(x)
+{u'com.apple.adc': 'select',
+ u'com.apple.diskimages.recentcksum': 'i:969254 ...more stuff'}
+&gt;&gt;&gt; del x['com.apple.adc']
+&gt;&gt;&gt; dict(x)
+{u'com.apple.diskimages.recentcksum': 'i:969254 ...more stuff'}
+</pre>
+<p>You can download xattr 0.2 from <a class="reference external" href="http://pythonmac.org/packages/">http://pythonmac.org/packages/</a> for Tiger's Python 2.3.5 or Python 2.4.1 (installed on Tiger).</p>
+<dl class="docutils">
+<dt>svn trunk:</dt>
+<dd><a class="reference external" href="http://svn.red-bean.com/bob/xattr/trunk/">http://svn.red-bean.com/bob/xattr/trunk/</a></dd>
+<dt>0.2 source:</dt>
+<dd><a class="reference external" href="http://svn.red-bean.com/bob/xattr/releases/xattr-0.2/">http://svn.red-bean.com/bob/xattr/releases/xattr-0.2/</a></dd>
+</dl>

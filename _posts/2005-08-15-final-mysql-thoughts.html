@@ -1,0 +1,33 @@
+---
+categories: [SQL, MySQL]
+tags: [mysql, sql]
+title: Final MySQL Thoughts
+---
+<!-- -*- mode: rst -*- -->
+<p>It seems that most of my gripes about MySQL boil down to three things:</p>
+<ol class="arabic">
+<li><p class="first">It sucks if your recent previous experience is with more capable SQL databases.  I actually learned SQL using MySQL back in 1997 or whatever, but it was
+using hardcopy literature written for the ANSI standard... so I'd write SQL with views, subselects, and whatnot, and curse MySQL for not having the
+features I thought I wanted.  Once I moved on to the PostgreSQL/MSSQL/Oracle stuff I knew that I actually did want those features.</p>
+<p>I think the last project I used MySQL on was in 1998 or 1999.  Everything since has been other databases, but I decided to try MySQL this time around.  I
+decided to give it another shot because I know some people running high volume stuff on MySQL, I had met a couple respectable people working for MySQL
+over the years, I thought it would be fast (it's not -- what we really need is materialized views, and I had to write a daemon to poll the database to implement
+them), and I knew I wouldn't have to spend much time setting it up.  I think this was a premature optimization, and I'm pretty sure that something else
+would've been faster anyway now that I have a feel for what MySQL is and isn't good at (read: our stuff).</p>
+<p>I know that a lot of this is being fixed in MySQL 5, but damned if I'm going to use a <em>beta</em> database that has hundreds of new features that haven't ever
+been in the wild.  I also have a feeling that it's probably full of legacy brain damage like PHP 5, even though it tries to suck significantly less.</p>
+</li>
+<li><p class="first">It broke in two different ways in one week, after having used it for only about two months.  Granted, we're putting a lot of stress on it, but you expect a
+database that's been around this long to at least gracefully degrade into getting slow, rather than throwing data away.  The first two months were nice, but
+I have a feeling that other people are experiencing this crap later on in the game, and are simply just screwed because they have too much of an investment
+in their MySQL-based code.  It's painful to migrate a couple million rows no matter how you slice it, but I have better things to do than babysit a database.</p>
+<p>We have our own flat file transaction log now, so I'm not so worried about MySQL dying again during the transition :)</p>
+</li>
+<li><p class="first">The MySQL GUI tools are really weird and buggy and/or out of date on OS X.  They're <em>almost</em> good enough, but tend to crash or have weird UI quirks.
+Who the hell decided to remove the select all option from the edit menus?  I put them back in with Interface Builder, but I feel sorry for people who don't
+have Cocoa experience :)  This is only a somewhat valid complaint, because most of the other RDBMS don't really have GUI tools for OS X.  Also, the
+performance/health monitoring graphs in the administrator are just totally worthless, because they adjust the scale once a second, and most of the time
+it's not even done correctly so the peaks get clipped.  It looks cool, but man is that graph useless.</p>
+</li>
+</ol>
+<p>So long, and thanks for all the marketing buzz.</p>

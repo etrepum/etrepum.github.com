@@ -1,0 +1,95 @@
+---
+categories: [python, aeve]
+tags: [aeve, python]
+title: aeve-o-rama vol.2
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P31 -->
+<p>This is the second in a finite series of articles about the development of <a class="reference external" href="http://pythonmac.org/wiki/aeve">aeve</a>.</p>
+<p>...Continuing from <a class="reference external" href="http://www.pycs.net/bob/weblog/2004/01/20.html">where I left off</a>:</p>
+<p><tt class="docutils literal">aeve.util</tt></p>
+<p>I didn't quite finish this one out last time (I think I was tired).  aeve.util is generic could-be-anywhere Python
+code.</p>
+<p><tt class="docutils literal">aeve.util.ShortBitmask</tt></p>
+<p>This is probably the least generally useful module in aeve.util, but the code is portable and it doesn't say
+Apple anywhere, so I figured this would be the right place for it, but it could or perhaps should be in
+aeve.terminology.  The <a class="reference external" href="http://developer.apple.com/documentation/mac/IAC/IAC-308.html">aete resource format</a> (yes, that documentation is really from 1996) uses these
+2-byte &quot;flags&quot; everywhere.  In AEUserTermTypes.r <a class="footnote-reference" href="#id2" id="id1">[1]</a>, they're arrays of boolean pairs, and that's the
+representation I chose to use.  ShortBitmask is an int subclass, with a metaclass that does the dirty work.
+It's not meant to be used directly, but to be again subclassed and provided with a __pairs__ member that
+enumerate the properties.  None is a placeholder property for a reserved bit.  Here's what it looks like in
+action:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; from aeve.util.ShortBitmask import ShortBitmask
+&gt;&gt;&gt; class EventReplyFlags(ShortBitmask):
+...   __pairs__ = (
+...     ('replyRequired', 'replyOptional'),
+...     ('singleItem', 'listOfItems'),
+...     ('notEnumerated', 'enumerated'),
+...   )
+...
+&gt;&gt;&gt; erf = EventReplyFlags(1 &lt;&lt; 15 | 1 &lt;&lt; 13)
+&gt;&gt;&gt; erf.replyRequired
+0
+&gt;&gt;&gt; erf.replyOptional
+32768
+&gt;&gt;&gt; erf.singleItem
+16384
+&gt;&gt;&gt; erf.enumerated
+8192
+&gt;&gt;&gt; erf
+40960
+</pre>
+<p>I'm using the masks themselves instead of booleans for a reason, I forget what it is at the moment, but I
+certainly had one.  In any case, it's equivalent to what it would be as a boolean and it's faster to just return the
+integer without the conversion (not that I care).  This odd hack is only so I don't have to carry around a bunch of
+per-flag-type constants later on (in aeve.runtime and aeve.compiler).  It does make it harder (but still possible)
+to create runtime types by hand, as they expect ShortBitmask subclasses and not ints (the same goes for
+NamedTuple vs. tuple).  I'm willing to trade that &quot;convenience&quot; for readable code.</p>
+<p><tt class="docutils literal">aeve.constants</tt></p>
+<p>aeve.constants is probably one of the most and least useful parts of aeve.  Basically what I did was take the
+AppleEvents constants from Python itself (bgen generated from the C header), converted it all over to
+aeve.util.Enumerations, and grouped it into classes that I could understand (for my reference, not used in code).</p>
+<p>Before (these aren't marked as related.. they're mixed in with the other 958 lines of constants):</p>
+<pre class="literal-block">
+keyDirectObject = FOUR_CHAR_CODE('----')
+keyErrorNumber = FOUR_CHAR_CODE('errn')
+keyErrorString = FOUR_CHAR_CODE('errs')
+keyProcessSerialNumber = FOUR_CHAR_CODE('psn ')
+keyPreDispatch = FOUR_CHAR_CODE('phac')
+keySelectProc = FOUR_CHAR_CODE('selh')
+keyAERecorderCount = FOUR_CHAR_CODE('recr')
+keyAEVersion = FOUR_CHAR_CODE('vers')
+</pre>
+<p>After:</p>
+<pre class="literal-block">
+class AEEventParameterKeywords(FourCharCodeEnumeration):
+    &quot;&quot;&quot;Keywords for Apple event parameters&quot;&quot;&quot;
+    keyDirectObject = FourCharCode('----')
+    keyErrorNumber = FourCharCode('errn')
+    keyErrorString = FourCharCode('errs')
+    keyProcessSerialNumber = FourCharCode('psn ')
+    keyPreDispatch = FourCharCode('phac')
+    keySelectProc = FourCharCode('selh')
+    keyAERecorderCount = FourCharCode('recr')
+    keyAEVersion = FourCharCode('vers')
+</pre>
+<p>Yes, my code does needlessly use FourCharCode (since it will get turned into the mixed-in FourCharCode
+__baseclass__ anyway when the metaclass creates it). My excuse is that I was using regular expressions
+to do all this, and didn't feel a need to chop it out.  I also compared the standard MacPython version
+(it used an older version of Universal Headers) with the OS X headers and I actually had to add in some
+missing OS X related constants, such as the typeApplicationBundleID, typeKernelProcessID, and typeMachPort
+addressing modes.</p>
+<p><cite>... to be continued</cite></p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>See /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/AE.framework/Versions/A/Headers/AEUserTermTypes.r</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>See /System/Library/Frameworks/Python.framework/Versions/2.3/lib/python2.3/plat-mac/Carbon/AppleEvents.py</td></tr>
+</tbody>
+</table>

@@ -1,0 +1,99 @@
+---
+categories: [javascript, AJAX]
+tags: [ajax, javascript]
+title: Javascript OO Primer
+---
+<!-- -*- mode: rst -*- -->
+<div class="section" id="prototypes">
+<h2>Prototypes</h2>
+<p>JavaScript is a non-traditional Object Oriented language in that it uses
+prototype based, rather than class based inheritance.  Some other languages
+that implement prototype-based OO are Self, Lua, Io, NewtonScript, Slate,
+and Prothon.</p>
+<p>The basic premise of prototype-based OO is that new objects are created from
+similar objects, much like using a copy machine.  The new object is largely
+indistinguishable from the prototype used to create it.  It is possible
+to modify the new object without affecting the prototype, and this
+new object may be used as the prototype for other objects.</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions</h2>
+<p>In JavaScript, functions are first-class objects like any other.  They may be
+stored in variables, passed as arguments, and properties may be added or
+removed from them dynamically (e.g. <tt class="docutils literal">func.foo = &quot;bar&quot;</tt>).  Functions are
+also the building block for creating new objects.  There are three different
+syntaxes for invoking a function:</p>
+<dl class="docutils">
+<dt>Function Call:</dt>
+<dd><p class="first"><tt class="docutils literal">func(a, b)</tt></p>
+<p>Execute the body of <tt class="docutils literal">func</tt> with two arguments, <tt class="docutils literal">a</tt> and <tt class="docutils literal">b</tt>, and the special
+<tt class="docutils literal">this</tt> variable set to the global object (typically <tt class="docutils literal">window</tt> in a browser).
+The value of this expression will be the value given by the terminal <tt class="docutils literal">return</tt>
+statement, or <tt class="docutils literal">undefined</tt> if no <tt class="docutils literal">return</tt> statement is reached before the
+execution completes.</p>
+<p class="last">Note that even if <tt class="docutils literal">func</tt> is a local variable in another function's scope,
+<tt class="docutils literal">this</tt> will still be set to the global object!</p>
+</dd>
+<dt>Method Call:</dt>
+<dd><p class="first"><tt class="docutils literal">obj.func(a, b)</tt></p>
+<p>Execute the body of <tt class="docutils literal">func</tt> with two arguments, <tt class="docutils literal">a</tt> and <tt class="docutils literal">b</tt>, and special
+<tt class="docutils literal">this</tt> variable set to <tt class="docutils literal">obj</tt>.  The value of this expression will be the
+value given by the terminal <tt class="docutils literal">return</tt> statement, or <tt class="docutils literal">undefined</tt> if no
+<tt class="docutils literal">return</tt> statement is reached before the execution completes.</p>
+<p class="last">Note that this is actually a different syntax entirely than the function call.
+<tt class="docutils literal">func</tt> is not bound to <tt class="docutils literal">obj</tt> in any way, and that a reference to <tt class="docutils literal">func</tt> as
+a local variable or on another object will behave differently if called!</p>
+</dd>
+<dt>Constructor:</dt>
+<dd><p class="first"><tt class="docutils literal">new func(a, b)</tt></p>
+<p>Execute the body of <tt class="docutils literal">func</tt> with two arguments, <tt class="docutils literal">a</tt> and <tt class="docutils literal">b</tt>, and special
+<tt class="docutils literal">this</tt> variable set to a new object (<tt class="docutils literal">newObject</tt>) cloned from
+<tt class="docutils literal">func.prototype</tt>.  The value of this expression is always <tt class="docutils literal">newObject</tt>.  If
+any <tt class="docutils literal">return</tt> statement is reached during execution, its value is ignored.</p>
+<p>The expression <tt class="docutils literal">(newObject instanceof func)</tt> will evaluate to <tt class="docutils literal">true</tt> so long
+as <tt class="docutils literal">func.prototype</tt> is not replaced with another object.  Additionally,
+<tt class="docutils literal">(newObject instanceof T)</tt> will evaluate to <tt class="docutils literal">true</tt> for all values of <tt class="docutils literal">T</tt>
+where <tt class="docutils literal">(func.prototype instanceof T)</tt> evalutes to <tt class="docutils literal">true</tt>.</p>
+<p><tt class="docutils literal">newObject</tt> is a copy-on-write clone of <tt class="docutils literal">func.prototype</tt>.  This means that
+any property set on <tt class="docutils literal">newObject</tt> <em>will not</em> propagate to <tt class="docutils literal">func.prototype</tt>.
+Conversely, any property added or changed on <tt class="docutils literal">func.prototype</tt> <em>will</em>
+propagate to <tt class="docutils literal">newObject</tt>, unless that property has been set on <tt class="docutils literal">newObject</tt>.</p>
+<p class="last">All objects, including <tt class="docutils literal">func.prototype</tt>, have this prototype property
+delegation behavior.  This means that properties from <tt class="docutils literal">func.prototype</tt>'s
+prototype will propagate to <tt class="docutils literal">newObject</tt> unless otherwise set by
+<tt class="docutils literal">func.prototype</tt> or <tt class="docutils literal">newObject</tt>, and so on.  This prototype property
+delegation chain terminates with <tt class="docutils literal">Object.prototype</tt>, so properties set on
+<tt class="docutils literal">Object.prototype</tt> are accessible (and enumerable) from every object in the
+whole interpreter!  Due to this, it's generally wise to avoid modifying
+<tt class="docutils literal">Object.prototype</tt> (or really, any built-in prototype) whenever possible.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="demonstration">
+<h2>Demonstration</h2>
+<pre class="literal-block">
+// set up the prototype
+func.prototype.protoProperty = 1;
+func.prototype.anotherProperty = 2;
+
+// create a new object from the prototype
+var newObject = new func(a, b);
+
+// the prototype's properties are visible on newObject
+assert( newObject.protoProperty == 1 );
+assert( newObject.anotherProperty == 2 );
+
+// newObject can be modified without affecting its prototype
+newObject.anotherProperty = 3;
+assert( newObject.anotherProperty == 3 );
+assert( func.prototype.anotherProperty == 2 );
+
+// func.prototype can be modified, and it will affect
+// newObject unless the modified properties were written to
+// in newObject
+func.prototype.protoProperty = 0;
+func.prototype.anotherProperty = 1;
+assert( newObject.protoProperty == 0 );
+assert( newObject.anotherProperty == 3 );
+</pre>
+</div>

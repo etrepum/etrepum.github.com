@@ -1,0 +1,29 @@
+---
+categories: [General]
+tags: [general]
+title: CacheFly vs. Amazon S3
+---
+<!-- -*- mode: rst -*- -->
+<p>We've been looking at solutions for hosting and serving large amounts of (small) static content to a global audience and are currently in the process of evaluating all of the <a class="reference external" href="http://en.wikipedia.org/wiki/Content_Delivery_Network">CDNs</a> out there.</p>
+<p>One might think that <a class="reference external" href="http://aws.amazon.com/s3">Amazon S3</a> would be good for this purpose, but it's absolutely not. We tried it for a while, and it really only has two things going for it:</p>
+<ul class="simple">
+<li>It's very cheap</li>
+<li>Everything is automated and easy to set up</li>
+</ul>
+<p>Aside from that, the performance is absolutely terrible outside of the US, which I really noticed since I've been in Taipei. In addition to that, it's simply not reliable. There are extended and unannounced periods of downtime, so you shouldn't be using it in production (except maybe for redundancy or backup purposes).</p>
+<p>After we experienced some unacceptably long downtime I scoured the internet for a real <a class="reference external" href="http://en.wikipedia.org/wiki/Content_Delivery_Network">CDN</a> solution. There are a bunch out there, but only one of them is open enough to publish prices and allow you to sign up without doing a sales call: <a class="reference external" href="http://www.cachefly.com/">CacheFly</a>. So far our experience with <a class="reference external" href="http://www.cachefly.com/">CacheFly</a> has been pleasant. It's a little more expensive than <a class="reference external" href="http://aws.amazon.com/s3">Amazon S3</a>, but you're paying for a far better service. Plus, there's a 30 day free trial. The trial appears to be &quot;only available if you sign up before tomorrow&quot;, but it seems to be following the calendar.</p>
+<p>There have been a few small snags with the <a class="reference external" href="http://www.cachefly.com/">CacheFly</a> service so far:</p>
+<ul class="simple">
+<li>In order to use rsync/scp/sftp uploads you must file a support ticket; ftp is the only service enabled by default</li>
+<li>After that support ticket was resolved, scp was broken so I had to file another ticket (rsync and sftp worked)</li>
+<li>In order to use your own DNS you must file a support ticket, otherwise you're stuck with <tt class="docutils literal">accountname.cachefly.net</tt></li>
+<li>Their <a class="reference external" href="http://en.wikipedia.org/wiki/Point_of_presence">POP</a> distribution technology seems suboptimal; they're serving the lion's share of our traffic from the US when most of it isn't coming from there (though still massively better than <a class="reference external" href="http://aws.amazon.com/s3">Amazon S3</a>)</li>
+</ul>
+<p>On the flip side, the experience has been good overall:</p>
+<ul class="simple">
+<li>Latency is MUCH better than <a class="reference external" href="http://aws.amazon.com/s3">Amazon S3</a> in our experience</li>
+<li>They give you pretty good reports about your traffic, without having to parse your own logs</li>
+<li>Responses to support tickets have been prompt</li>
+<li>It's the only real <a class="reference external" href="http://en.wikipedia.org/wiki/Content_Delivery_Network">CDN</a> with published prices that allows you to sign up without dealing with a sales department</li>
+</ul>
+<p>All that said, <a class="reference external" href="http://www.cachefly.com/">CacheFly</a> is the smallest fish in the <a class="reference external" href="http://en.wikipedia.org/wiki/Content_Delivery_Network">CDN</a> pond. It only has 5 <a class="reference external" href="http://en.wikipedia.org/wiki/Point_of_presence">POPs</a> and we'll probably outgrow it within the next year and move over to one of the &quot;Tier 1&quot; providers such as <a class="reference external" href="http://www.akamai.com/">Akamai</a> or <a class="reference external" href="http://www.bitgravity.com/">BitGravity</a> . I still <em>highly</em> recommend <a class="reference external" href="http://www.cachefly.com/">CacheFly</a> as a first step for anyone looking to improve their site's reliability and performance by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Content_Delivery_Network">CDN</a>.</p>

@@ -1,0 +1,28 @@
+---
+categories: [macosx, c, universal binaries]
+tags: [c, macosx, universal binaries]
+title: Universal Binaries with gcc and Xcode
+---
+<!-- -*- mode: rst -*- -->
+<p>Versions of Mac OS X prior to 10.4 <em>did</em> support universal binaries, but the shipping gcc did not, so it is possible to compile applications that will work on both 10.3 ppc (Panther) and 10.4 i386 (Tiger).  To build Panther-compatible universal binaries, you'll need to use the following Custom Build Settings in Xcode 2.1 or later...</p>
+<p>Per-architecture SDK Support for Universal Binaries in Xcode.  <em>This is according to documentation, but I couldn't get it to work</em>:</p>
+<pre class="literal-block">
+SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk
+SDKROOT_ppc64 = /Developer/SDKs/MacOSX10.4u.sdk
+SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk
+</pre>
+<p>I'm not sure how to translate per-architecture SDKs to gcc settings, but to build single-SDK Universal Binaries with GCC, there are some undocumented (not in the compiler man page, anyhow) flags that you can use.  These flags are only available in GCC 4.0 and later, and probably only with Apple's toolchain.</p>
+<p>Universal Binaries with GCC (in Makefile syntax):</p>
+<pre class="literal-block">
+SDK=/Developer/SDKs/MacOSX10.4u.sdk
+CFLAGS= -isysroot ${SDK} -arch ppc -arch ppc64 -arch i386
+LDFLAGS= -isysroot ${SDK} -syslibroot,${SDK}
+</pre>
+<p>Using <a class="reference external" href="http://developer.apple.com/documentation/Darwin/Reference/ManPages/man1/lipo.1.html">lipo(1)</a> to do per-architecture SDK builds with gcc should be possible, but painful.  Hopefully it's not the only way! <em>However, that's exactly what Xcode 2.1 does</em>.</p>
+<p>See Also:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://developer.apple.com/documentation/MacOSX/Conceptual/universal_binary/">Universal Binary Programming Guidelines</a></li>
+<li><a class="reference external" href="http://developer.apple.com/releasenotes/DeveloperTools/Xcode/Xcode.html">Xcode 2.1 Release Notes</a></li>
+<li><a class="reference external" href="http://developer.apple.com/documentation/DeveloperTools/Conceptual/cross_development/Articles/cd_overview.html">Cross-Development: Configuring Your Project for Cross Development</a></li>
+<li><a class="reference external" href="http://developer.apple.com/documentation/Darwin/Reference/ManPages/man1/lipo.1.html">lipo - create or operate on fat files</a></li>
+</ul>

@@ -1,0 +1,23 @@
+---
+categories: [python, PyObjC]
+tags: [pyobjc, python]
+title: More PyObjC Trunk News
+---
+<!-- -*- mode: rst -*- -->
+<ul class="simple">
+<li><tt class="docutils literal">PyObjCTools.AppHelper.runEventLoop()</tt> will now bring your
+application to the front at startup when using <tt class="docutils literal">pdb</tt>
+mode for convenience.</li>
+<li><tt class="docutils literal">objc.loadBundle()</tt> no longer filters the class list.  This
+solves a few potential issues and shaves off about 1/3rd of
+the overhead of <tt class="docutils literal">python <span class="pre">-c</span> &quot;import AppKit&quot;</tt>.</li>
+<li><tt class="docutils literal">PyObjCTools.AppHelper.runEventLoop()</tt> no longer breaks on
+pure Objective-C exceptions.  Most exceptions of this variety
+are more like warnings, and there is nothing that can be done
+them anyway.</li>
+<li><tt class="docutils literal">PyObjCTools.AppHelper.runEventLoop()</tt> now installs the
+interrupt handler and verbose exception logging when using pdb,
+either explicitly or by the <tt class="docutils literal">USE_PDB</tt> environment variable.</li>
+</ul>
+<p>I've also made some more progress on the (still marked NonFunctional) <tt class="docutils literal">RemotePyInterpreter</tt> example.  It starts up and works, but stdin is not fully implemented and completion is not available.  As Cocoa expects completion to be synchronous, completion will be a little bit tricky to implement.  I'll probably have it return no completions, and then trigger a completion after the results are available (if they came back fast enough, I guess?).  After the interpreter is done, I'll see about writing a remote object browser (you can probably guess where this is eventually leading...).</p>
+<p>After doing some optimization of PyObjC's initialization I started thinking about what else can be done to increase performance and offer more flexibility.  I think the key to this is making PyObjC as lazy as possible.  This might mean the return of an <tt class="docutils literal">objc.runtime</tt> equivalent?  Also, I'm not so sure about creating all of these selector objects so eagerly.  Why bother?  <tt class="docutils literal">pydoc</tt> support for Objective-C classes is basically worthless anyway because there are no doc strings.  I suppose we could have the dict-proxy object do the eager lookup if someone tries to iterate over it (more for code completion than <tt class="docutils literal">pydoc</tt>), but I don't see a good reason to bother until you <em>at least</em> poke the class.  This kind of laziness may also be the key to solving the infamous bug where you can't reasonably use a class method on a class that has an instance method of the same selector.  There is a way, but I think it might crash if the class and instance selectors have different type signatures (though this would be rare if it even exists).</p>

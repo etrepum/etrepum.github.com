@@ -1,0 +1,29 @@
+---
+categories: [python]
+tags: [python]
+title: Python iterators and sentinel values
+---
+<!-- -*- mode: rst -*- -->
+<p>A little known feature of <a class="reference external" href="http://www.python.org/peps/pep-0234.html">PEP 234: Iterators</a> (implemented in Python 2.1 and later) is the alternate form:</p>
+<pre class="literal-block">
+iter(callable, sentinel)
+</pre>
+<p>This form creates an iterator out of any callable, and will stop when an exception is raised or the sentinel value is returned by the callable.  Additionally, raising <tt class="docutils literal">StopIteration</tt> will stop the iteration as with a normal iterator.  A sentinel value is a special value that indicates the end of a sequence.  This can be any value, but the most commonly useful values are likely to be <tt class="docutils literal">None</tt>, <tt class="docutils literal">0</tt>, or <tt class="docutils literal">''</tt>.</p>
+<p>I haven't seen much code in the wild that takes advantage of this form of <tt class="docutils literal">iter</tt>, but an excellent usage would be to replace this common idiom:</p>
+<pre class="literal-block">
+while True:
+    data = fileobj.read(BLOCKSIZE)
+    if not data:
+        break
+    # do something with data here
+</pre>
+<p>Using the sentinel form of <tt class="docutils literal">iter</tt>, it can be rewritten as an iterator with more obvious control flow:</p>
+<pre class="literal-block">
+for data in iter(lambda: fileobj.read(BLOCKSIZE), ''):
+    # do something with data here
+</pre>
+<p>Of course, nobody likes a <tt class="docutils literal">lambda</tt>, but you could wrap this up as a little utility function, or you could wait for <a class="reference external" href="http://www.python.org/peps/pep-0309.html">PEP 309: Partial Function Application</a> (on the standards track, will be in Python 2.5).  With <tt class="docutils literal">partial</tt> it would look like this:</p>
+<pre class="literal-block">
+for data in iter(partial(fileobj.read, BLOCKSIZE), ''):
+    # do something with data here
+</pre>

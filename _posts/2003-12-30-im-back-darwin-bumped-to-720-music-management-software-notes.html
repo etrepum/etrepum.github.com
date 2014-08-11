@@ -1,0 +1,18 @@
+---
+categories: [python, PyObjC, aeve]
+tags: [aeve, pyobjc, python]
+title: I'm back, Darwin bumped to 7.2.0, music management software notes
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P19 -->
+<p>I just got back yesterday morning from my ~2.5 week stint in Tokyo.  I didn't really do any coding (open source or otherwise) while I was away, but I'm pretty sure I still remember how ;)</p>
+<p>The Mac OS X 10.3.2 updater upgrades the Darwin kernel to 7.2.0 from 7.0.0.  This has some effect on my package repository (mostly an effect on the tools I use to build it), so I'll probably be sweeping through and doing package updates this week.  It did have a short lived effect on the official database, but Jack fixed the issue on Dec 26th.</p>
+<dl class="docutils">
+<dt>Here's my blog-relevant TODO for the next two weeks or so:</dt>
+<dd><ul class="first last simple">
+<li>Finish the next version of <a class="reference external" href="http://pythonmac.org/wiki/aeve">aeve</a> (huge changes!)</li>
+<li>Update my <a class="reference external" href="http://undefined.org/python/pimp/">package repository</a></li>
+<li>Start writing a to-be-named (mac specific) music management software program that makes managing large collections of music possible.  It will be written in <a class="reference external" href="http://pythonmac.org/wiki/PyObjC">PyObjC</a> and will be dependent on iTunes via <a class="reference external" href="http://pythonmac.org/wiki/aeve">aeve</a> as a backend (at least at first, because it's a pretty good database that abstracts ID3 really well).  Kevin pointed me at <a class="reference external" href="http://musicbrainz.org/">musicbrainz</a>, which in theory could make this stuff a lot more useful and efficient so I hope to integrate that, possibly in the first version.  The big idea is to make it easy to write regexes to generate ID3 tag info from existing ID3 tag info and filenames, as well as bringing in metadata from other sources (like cddb, gracenote, musicbrainz, etc.) when the existing information is not complete.</li>
+</ul>
+</dd>
+</dl>

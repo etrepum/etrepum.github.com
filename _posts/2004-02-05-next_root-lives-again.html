@@ -1,0 +1,13 @@
+---
+categories: [python]
+tags: [python]
+title: NEXT_ROOT lives again
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P40 -->
+<p>If you are wondering how to compile stuff on 10.3 such that it's <em>probably</em> backwards compatible with OS X 10.2, you'll want to set the following environment up (after having installed the 10.2 SDKs, of course):</p>
+<pre class="literal-block">
+setenv NEXT_ROOT /Developer/SDKs/MacOSX10.2.8.sdk
+setenv MACOSX_DEPLOYMENT_TARGET 10.2
+</pre>
+<p>This, of course, is only useful if the whole environment you're trying to make standalone is already 10.2 compatible.  The Python 2.3.0 that comes with OS X 10.3 is most definitely not.  At some point, one of the MacPythonistas will probably put together a little &quot;chrooted&quot; environment for building 10.2 compatible --standalone'd software (but don't hold your breath).</p>

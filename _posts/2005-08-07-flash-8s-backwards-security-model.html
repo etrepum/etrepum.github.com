@@ -1,0 +1,25 @@
+---
+categories: [flash, actionscript]
+tags: [actionscript, flash]
+title: Flash 8's Backwards Security Model
+---
+<!-- -*- mode: rst -*- -->
+<p>While the Flash 8 runtime is still in <a class="reference external" href="http://www.macromedia.com/software/flashplayer/public_beta/">public beta</a>, quite a bit about its new features have already been discovered by <a class="reference external" href="http://osflash.org/doku.php?id=flashcoders:undocumented:flash8">reverse engineering</a>.  One &quot;feature&quot; I haven't heard much about is the new &quot;security&quot; model.</p>
+<p><em>It's ridiculously broken and stupid</em> (not that this should be a <a class="reference external" href="http://bob.pythonmac.org/archives/2005/07/23/systemfalsesenseofsecurity/">surprise</a>).</p>
+<p>Specifically, movies running on the local machine are not allowed to do any network communication whatsoever (even to localhost) without popping up a really obnoxious warning to the user!  No other application or content development environments I've seen have any such brainless restrictions.  Not HTML, not QuickTime, not anything else.  Hell, even most email clients will load images from the internet by default.  Give it up Macromedia, you don't know what you're doing.  Who are you trying to help here anyway?  Certainly not your <em>customers</em>.</p>
+<p>With this in place, forget about writing dashboard widgets, network screensavers, locally run network games, etc.  Users don't want to see a security warning when they run your content, and explicitly allow every single application (widget, or whatever else) to talk to a server.  Especially since it's a couple clicks to do so!  I can also imagine this causing Really Bad Things to happen for some uses of Flash (dialog popping up in the context of a screen saver or in dashboard, mostly).</p>
+<p>If the user clicks &quot;OK&quot;, like they are conditioned to do, the Flash app can't talk on the network and probably won't work.  If they click &quot;edit settings&quot; it opens up a browser window pointing somewhere on macromedia.com with a Flash application to manage Flash's preferences.  This page doesn't immediately appear to know what you were doing, and doesn't make it at all obvious how to enable a paritcular local movie to talk on the internet.  At this point, users will either give up or click &quot;always allow&quot; -- which of course turns this &quot;feature&quot; off for everything everywhere.  Why bother having it on by default if everyone is going to either give up on Flash or turn it off anyway?</p>
+<p>The actual procedure for enabling a single Flash application to talk on the internet (or LAN, or the loopback interface!) is five steps:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://undefined.org/images/flash8security/dialog.png">Security dialog</a></li>
+<li><a class="reference external" href="http://undefined.org/images/flash8security/securitypanel.png">Macromedia.com security panel</a></li>
+<li><a class="reference external" href="http://undefined.org/images/flash8security/editlocations.png">Edit locations pulldown</a></li>
+<li><a class="reference external" href="http://undefined.org/images/flash8security/addlocation.png">Add locations panel</a></li>
+<li><a class="reference external" href="http://undefined.org/images/flash8security/copypaste.png">Copy and paste URL</a></li>
+</ol>
+<p>What if your content <em>optionally</em> talks over a network (download high scores, report statistics, check for upgrades, etc.), but the user can't currently make a connection to macromedia.com?  You guessed it, dialog every time!  They can't use the security panel unless they're online.  Awesome.</p>
+<p>Oh, and this applies to Flash content with any authoring version whatsoever.  It's a player feature that's enabled unconditionally for all Flash content.</p>
+<p>The workaround of course, is to simply not buy Flash 8 and distribute only Flash 7-built projectors, which are unsigned executable files (that's security!).</p>
+<p>P.S. I'm sorry that <a class="reference external" href="http://www.macromedia.com/software/central/">Macromedia Central</a> was a flop, but you don't have to take that out on everyone else who is trying to use Flash locally.</p>
+<p>UPDATE: There is some more information from the horse's mouth in <a class="reference external" href="http://chattyfig.figleaf.com/pipermail/flashcoders/2005-July/145237.html">this Flashcoders post</a>.  They do plan on having a security model that allows networking with local SWFs; however, they are still planning to break all existing networked content that plays locally.  You will have to download and run a command line tool, or buy Flash 8 and republish all of your existing content.  WTF?  At least I can see a business case for it now; this breakage means more people will buy Flash 8 to ensure that their content will continue to work.  I thought they were bought out by Adobe, not Microsoft :)</p>
+<p>UPDATE (again): <a class="reference external" href="http://weblogs.macromedia.com/mesh/archives/2005/08/new_flash_8_pla.cfm">Flash 8 security whitepapers</a></p>

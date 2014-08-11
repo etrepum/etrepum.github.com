@@ -1,0 +1,52 @@
+---
+categories: [python]
+tags: [python]
+title: Determining the number of common bytes at the beginning of N files
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P60 -->
+<p>I have a need to compare binary files that are slightly different.  I haven't found or written any particularly good tools yet, but here is a script that prints the number of bytes N files have in common before they differ, or nothing if all the files are identical.</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+from itertools import izip
+
+def blockread(f, size=1024):
+    while True:
+        block = f.read(size)
+        if not block:
+            break
+        yield block
+
+def blockseq(blocks):
+    blocks = iter(blocks)
+    first = blocks.next()
+    for block in blocks:
+        if block != first:
+            return False
+    return True
+
+def byteseq(blocks):
+    idx = 0
+    for idx, bytes in enumerate(izip(*blocks)):
+        if not blockseq(bytes):
+            return idx
+    else:
+        # this shouldn't happen
+        return idx + 1
+
+def firstdiff(generators):
+    offset = 0
+    for blocks in izip(*generators):
+        if not blockseq(blocks):
+            break
+        offset += len(blocks[0])
+    else:
+        return None
+    return offset + byteseq(blocks)
+
+if __name__ == '__main__':
+    import sys
+    rval = firstdiff([blockread(file(fn, 'rb')) for fn in sys.argv[1:]])
+    if rval is not None:
+        print rval
+</pre>

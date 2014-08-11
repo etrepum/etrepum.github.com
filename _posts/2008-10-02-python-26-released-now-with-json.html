@@ -1,0 +1,29 @@
+---
+categories: [python, macosx, simplejson]
+tags: [macosx, python, simplejson]
+title: Python 2.6 released, now with json! :)
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://python.org/download/releases/2.6/">Python 2.6</a> was released yesterday, which has tons of <a class="reference external" href="http://docs.python.org/whatsnew/2.6.html">cool new features</a> including a new <a class="reference external" href="http://docs.python.org/library/json.html">json</a> library and a new <a class="reference external" href="http://docs.python.org/library/multiprocessing.html">multiprocessing</a> library. The <a class="reference external" href="http://docs.python.org/library/json.html">json</a> library is basically <a class="reference external" href="http://www.undefined.org/python/#simplejson">simplejson</a> (from a few months ago) minus the Python 2.4/2.5 support and refactored to take advantage of the latest future-compatible features (such as the new <a class="reference external" href="http://docs.python.org/library/stdtypes.html#str.format">str.format</a> method instead of using % format interpolation).</p>
+<p>The only downside is that I wasn't able to get the latest <a class="reference external" href="http://www.undefined.org/python/#simplejson">simplejson</a> 2.0.1 performance enhancements into the first release of <a class="reference external" href="http://python.org/download/releases/2.6/">Python 2.6</a>, but expect them for Python 2.6.1! Don't worry though, <a class="reference external" href="http://www.undefined.org/python/#simplejson">simplejson</a> should install just fine with Python 2.6 if you need the speed. If not, you don't have any dependencies for JSON anymore, just change your imports:</p>
+<pre class="literal-block">
+# Use simplejson or Python 2.6 json, prefer simplejson.
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
+print repr(json.dumps({'key': 'serialize this!'}))
+print repr(json.loads('{&quot;key&quot;: &quot;deserialize this!&quot;}'))
+</pre>
+<p>One of my favorite features in <a class="reference external" href="http://docs.python.org/library/json.html">json</a>/<a class="reference external" href="http://www.undefined.org/python/#simplejson">simplejson</a> is the shell command that will validate/pretty print JSON. Great for debugging, and it will be sweet to have it available on every box with Python 2.6+!</p>
+<!-- ::
+
+$ echo '{"json":"obj"}' | python-mjson.tool
+{
+    "json": "obj"
+} -->
+<p>A really cool tip if you're using Mac OS X is that you can access the string version of the pasteboard from the shell with pbpaste and pbcopy. This will take the JSON from your pasteboard and replace it with a pretty-printed version! If you're using <a class="reference external" href="http://www.undefined.org/python/#simplejson">simplejson</a> just change <tt class="docutils literal">json.tool</tt> to <tt class="docutils literal">simplejson.tool</tt>. I'm sure this would be super handy in a text editor macro too:</p>
+<pre class="literal-block">
+$ pbpaste | python -mjson.tool | pbcopy
+</pre>

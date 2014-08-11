@@ -1,0 +1,22 @@
+---
+categories: [javascript, MochiKit, AJAX]
+tags: [ajax, javascript, mochikit]
+title: MochiKit cons.. or not
+---
+<!-- -*- mode: rst -*- -->
+<p>I was taking a look at the <a class="reference external" href="http://wiki.osafoundation.org/bin/view/Projects/AjaxLibraries">AjaxLibraries</a> section of the <a class="reference external" href="http://wiki.osafoundation.org/">OSAFoundation wiki</a>, because <a class="reference external" href="http://mochikit.com/">mochikit.com</a> has been getting a lot of referrals from there.  There's a bit of misinformation in the cons section, which I'll clarify in this post:</p>
+<blockquote>
+<ul class="simple">
+<li>Sparse visual effects library</li>
+</ul>
+</blockquote>
+<p>This is fair, but so what?  <a class="reference external" href="http://mochikit.com/">MochiKit</a> is fully compatible with everything else.  If you want visual effects, pick a library that does those and use it <em>with MochiKit</em>.  It's not trying to do any visual effects right now, except rounded corners -- and that's because it was a contributed feature.  JavaScript, particularly in the browser environment, is missing so many other things that making everything blink is not really a priority for us right now.  Blinking is totally orthogonal to everything else going on.  You know, like the stuff that actually matters.</p>
+<blockquote>
+<ul class="simple">
+<li>AJAX library (called 'Deferred') has limited functionality -- no POST, no access to result in XML, no ability to access HTTP status in error handling.</li>
+</ul>
+</blockquote>
+<p>Wrong, wrong, wrong, and wrong.</p>
+<p>The AJAX library, called <a class="reference external" href="http://mochikit.com/doc/html/MochiKit/Async.html">MochiKit.Async</a> gives you full access to the <tt class="docutils literal">XMLHttpRequest</tt> object throughout the entire process, which lets you do whatever you want.  I imagine that the confusion arises because we make GET and JSON really really ridiculously easy.  Because they are.  There's nothing it can't do, though, because you have full control.</p>
+<p>To do a POST (or any other verb), use <tt class="docutils literal">getXMLHttpRequest()</tt> and set one up, use <tt class="docutils literal">sendXMLHttpRequest(req, postData)</tt> to fire it out.  If you want an easy way to build the post data, use <tt class="docutils literal">queryString()</tt>.</p>
+<p>The returned <tt class="docutils literal">Deferred</tt> object will call back with the <tt class="docutils literal">XMLHttpRequest</tt> object upon successful completion (which means you can get XML, or whatever the hell else you want), or if there is an error, the <tt class="docutils literal">XMLHttpRequestError</tt> object has a <tt class="docutils literal">req</tt> object that corresponds to the failed request, and for convenience a <tt class="docutils literal">number</tt> property that corresponds to <tt class="docutils literal">req.status</tt>.</p>

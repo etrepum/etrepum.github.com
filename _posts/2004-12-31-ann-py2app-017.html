@@ -1,0 +1,102 @@
+---
+categories: [python, PyObjC, py2app]
+tags: [py2app, pyobjc, python]
+title: 'ANN: py2app 0.1.7'
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>, that builds Mac OS X applications from Python scripts, extensions, and related data files.  It tries very hard to include all dependencies it can find so that your application can be distributed standalone, as Mac OS X applications should be.</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.7 is included in the installer for <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a> 1.2.  If you have
+installed <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a> 1.2, then you already have <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.7 installed.</p>
+<p>Download and related links are here: <a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.7 is a bug fix release:</p>
+<ul class="simple">
+<li>The <tt class="docutils literal">bdist_mpkg</tt> script will now set up sys.path properly, for setup scripts
+that require local imports.</li>
+<li><tt class="docutils literal">bdist_mpkg</tt> will now correctly accept <tt class="docutils literal">ReadMe</tt>, <tt class="docutils literal">License</tt>, <tt class="docutils literal">Welcome</tt>,
+and <tt class="docutils literal">background</tt> files by parameter.</li>
+<li><tt class="docutils literal">bdist_mpkg</tt> can now display a custom background again (0.1.6 broke this).</li>
+<li><tt class="docutils literal">bdist_mpkg</tt> now accepts a <tt class="docutils literal"><span class="pre">build-base=</span></tt> argument, to put build files in
+an alternate location.</li>
+<li><tt class="docutils literal">py2app</tt> will now accept main scripts with a <tt class="docutils literal">.pyw</tt> extension.</li>
+<li><tt class="docutils literal">py2app</tt>'s not_stdlib_filter will now ignore a <tt class="docutils literal"><span class="pre">site-python</span></tt> directory as
+well as <tt class="docutils literal"><span class="pre">site-packages</span></tt>.</li>
+<li><tt class="docutils literal">py2app</tt>'s plugin bundle template no longer displays GUI dialogs by default,
+but still links to <tt class="docutils literal">AppKit</tt>.</li>
+<li><tt class="docutils literal">py2app</tt> now ensures that the directory of the main script is now added to
+<tt class="docutils literal">sys.path</tt> when scanning modules.</li>
+<li>The <tt class="docutils literal">py2app</tt> build command has been refactored such that it would be easier
+to change its behavior by subclassing.</li>
+<li><tt class="docutils literal">py2app</tt> alias bundles can now cope with editors that do atomic saves
+(write new file, swap names with existing file).</li>
+<li><tt class="docutils literal">macholib</tt> now has minimal support for fat binaries.  It still assumes big
+endian and will not make any changes to a little endian header.</li>
+<li>Add a warning message when using the <tt class="docutils literal">install</tt> command rather than installing
+from a package.</li>
+<li>New <tt class="docutils literal">simple/structured</tt> example that shows how you could package an
+application that is organized into several folders.</li>
+<li>New <tt class="docutils literal">PyObjC/pbplugin</tt> Xcode Plug-In example.</li>
+</ul>
+<p>Since I have been slacking and the last announcement was for 0.1.4, here are the
+changes for the soft-launched releases 0.1.5 and 0.1.6:</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.6 was a major feature enhancements release:</p>
+<ul class="simple">
+<li><tt class="docutils literal">py2applet</tt> and <tt class="docutils literal">bdist_mpkg</tt> scripts have been moved to Python modules
+so that the functionality can be shared with the tools.</li>
+<li>Generic graph-related functionality from <tt class="docutils literal">py2app</tt> was moved to
+<tt class="docutils literal">altgraph.ObjectGraph</tt> and <tt class="docutils literal">altgraph.GraphUtil</tt>.</li>
+<li><tt class="docutils literal">bdist_mpkg</tt> now outputs more specific plist requirements
+(for future compatibility).</li>
+<li><tt class="docutils literal">py2app</tt> can now create plugin bundles (MH_BUNDLE) as well as executables.</li>
+<li>New recipe for supporting extensions built with <a class="reference external" href="http://www.riverbankcomputing.co.uk/sip/index.php">sip</a>, such as <a class="reference external" href="http://www.riverbankcomputing.co.uk/pyqt/index.php">PyQt</a>.  Note that
+due to the way that <a class="reference external" href="http://www.riverbankcomputing.co.uk/sip/index.php">sip</a> works, when one sip-based extension is used, <em>all</em>
+sip-based extensions are included in your application.  In practice, this means
+anything provided by <a class="reference external" href="http://www.riverbankcomputing.co.uk/">Riverbank</a>, I don't think anyone else uses <a class="reference external" href="http://www.riverbankcomputing.co.uk/sip/index.php">sip</a> (publicly).</li>
+<li>New recipe for <a class="reference external" href="http://pyopengl.sf.net/">PyOpenGL</a>.  This is very naive and simply includes the whole
+thing, rather than trying to monkeypatch their brain-dead
+version acquisition routine in <tt class="docutils literal">__init__</tt>.</li>
+<li>Bootstrap now sets <tt class="docutils literal">ARGVZERO</tt> and <tt class="docutils literal">EXECUTABLEPATH</tt> environment variables,
+corresponding to the <tt class="docutils literal">argv[0]</tt> and the <tt class="docutils literal"><span class="pre">_NSGetExecutablePath(...)</span></tt> that the
+bundle saw.  This is only really useful if you need to relaunch your own
+application.</li>
+<li>More correct <tt class="docutils literal">dyld</tt> search behavior.</li>
+<li>Refactored <tt class="docutils literal">macholib</tt> to use <tt class="docutils literal">altgraph</tt>, can now generate <a class="reference external" href="http://www.pixelglow.com/graphviz/">GraphViz</a> graphs
+and more complex analysis of dependencies can be done.</li>
+<li><tt class="docutils literal">macholib</tt> was refactored to be easier to maintain, and the structure handling
+has been optimized a bit.</li>
+<li>The few tests that there are were refactored in <a class="reference external" href="http://codespeak.net/py/current/doc/test.html">py.test</a> style.</li>
+<li>New <a class="reference external" href="http://www.riverbankcomputing.co.uk/pyqt/index.php">PyQt</a> example.</li>
+<li>New <a class="reference external" href="http://pyopengl.sf.net/">PyOpenGL</a> example.</li>
+<li>See also:<ul>
+<li><a class="reference external" href="http://mail.python.org/pipermail/pythonmac-sig/2004-December/012272.html">http://mail.python.org/pipermail/pythonmac-sig/2004-December/012272.html</a></li>
+</ul>
+</li>
+</ul>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.5 was a major feature enhancements release:</p>
+<ul class="simple">
+<li>Added a <tt class="docutils literal">bdist_mpkg</tt> distutils extension, for creating Installer
+an metapackage from any distutils script.<ul>
+<li>Includes PackageInstaller tool</li>
+<li>bdist_mpkg script</li>
+<li>setup.py enhancements to support bdist_mpkg functionality</li>
+</ul>
+</li>
+<li>Added a <tt class="docutils literal">PackageInstaller</tt> tool, a droplet that performs the same function
+as the <tt class="docutils literal">bdist_mpkg</tt> script.</li>
+<li>Create a custom <tt class="docutils literal">bdist_mpkg</tt> subclass for <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a>'s setup script.</li>
+<li>Source package now includes <a class="reference external" href="http://dirtSimple.org/">PJE</a>'s <a class="reference external" href="http://cvs.eby-sarna.com/PEAK/setuptools/">setuptools</a> extension to distutils.</li>
+<li>Added lots of metadata to the setup script.</li>
+<li><tt class="docutils literal">py2app.modulegraph</tt> is now a top-level package, <tt class="docutils literal">modulegraph</tt>.</li>
+<li><tt class="docutils literal">py2app.find_modules</tt> is now <tt class="docutils literal">modulegraph.find_modules</tt>.</li>
+<li>Should now correctly handle paths (and application names) with unicode characters
+in them.</li>
+<li>New <tt class="docutils literal"><span class="pre">--strip</span></tt> option for <tt class="docutils literal">py2app</tt> build command, strips all Mach-O files
+in output application bundle.</li>
+<li>New <tt class="docutils literal"><span class="pre">--bdist-base=</span></tt> option for <tt class="docutils literal">py2app</tt> build command, allows an alternate
+build directory to be specified.</li>
+<li>New <a class="reference external" href="http://docutils.sf.net/">docutils</a> recipe.</li>
+<li>Support for non-framework Python, such as the one provided by <a class="reference external" href="http://darwinports.opendarwin.org/">DarwinPorts</a>.</li>
+<li>See also:<ul>
+<li><a class="reference external" href="http://mail.python.org/pipermail/pythonmac-sig/2004-October/011933.html">http://mail.python.org/pipermail/pythonmac-sig/2004-October/011933.html</a></li>
+</ul>
+</li>
+</ul>

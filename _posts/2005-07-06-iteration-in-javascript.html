@@ -1,0 +1,196 @@
+---
+categories: [javascript, MochiKit, AJAX]
+tags: [ajax, javascript, mochikit]
+title: Iteration in JavaScript
+---
+<!-- -*- mode: rst -*- -->
+<p>In JavaScript, there are basically two kinds of object iteration:</p>
+<ul>
+<li><p class="first">All objects support property enumeration:</p>
+<pre class="literal-block">
+for (var propName in someObject) {
+    var value = someObject[propName];
+}
+</pre>
+</li>
+<li><p class="first">Some objects support the &quot;Array protocol&quot;:</p>
+<pre class="literal-block">
+for (var i=0; i&lt;someObject.length; i++) {
+    var value = someObject[i];
+}
+</pre>
+</li>
+</ul>
+<p>These both suck.</p>
+<p>Property enumeration is only really useful for debugging, since chances are the objects will have a lot of properties that you do not want them to have, and there is no standard way to have properties that are hidden from enumeration.</p>
+<p>Array protocol enumeration sucks because:</p>
+<ul class="simple">
+<li>Writing for loops is so &quot;C&quot;</li>
+<li>Not every object that supports the &quot;array protocol&quot; is actually an array, so the &quot;higher order&quot; methods to manipulate the array such as <tt class="docutils literal">Array.prototype.slice</tt> aren't going to be available everywhere.  DOM <tt class="docutils literal">NodeList</tt> objects and the special <tt class="docutils literal">arguments</tt> array are particularly common examples of these array-like objects.</li>
+</ul>
+<p>Fortunately, this doesn't stop you from writing your own iteration protocol.  Here is an example of a JavaScript iterator in the style of Python's <a class="reference external" href="http://www.python.org/peps/pep-0234.html">PEP 234 - Iterators</a>:</p>
+<pre class="literal-block">
+StopIteration = function () {};
+StopIteration.prototype = new Error();
+StopIteration.name = 'StopIteration';
+StopIteration.message = 'StopIteration';
+
+arrayLikeIterator = function (arrayLike) {
+    var i = 0;
+    return {
+        'next': function () {
+            if (i &gt;= arrayLike.length) {
+                throw StopIteration;
+            }
+            return arrayLike[i++];
+        }
+    };
+};
+
+var countToFive = arrayIterator([1, 2, 3, 4, 5]);
+try {
+    while (true) {
+        var item = countToFive.next();
+        // do something with item here
+    }
+} catch (e) {
+    if (e != StopIteration) {
+        throw e;
+    }
+    // pass
+}
+</pre>
+<p>As you can see, it's not pleasant to work directly in this style.  We've actually made things worse, but we've gained two important things in the process:</p>
+<ul>
+<li><p class="first">The concept of an iterator separate from the object being iterated</p>
+<p>This separation is very important.  When you have iterators that are separate from the object being iterated, you can do crazy things like iterate in reverse without creating a new array, define an iteration over objects that aren't normally iterable (particularly important since JavaScript doesn't have operator overloading), or define an alternative kind of iteration over something (such as walking a tree in pre-order, or iterating over every even item in an array, etc.).</p>
+</li>
+<li><p class="first">Iterators that don't need to know about length or index</p>
+<p>This basically means that iterators are lazy.  You can define infinite iterators, filter chains, etc.  This can be extremely important when doing some kinds of programming in a functional style.</p>
+</li>
+</ul>
+<p>Unfortunately, as-is, we've made things too hard to use liberally.  That's when you bring in the sledgehammers, er, functions that make this less painful.  Basically, these fall into three groups:</p>
+<ol class="arabic simple">
+<li>Functions that create iterators from an iterable object (not necessarily an iterator)</li>
+<li>Functions that transform an iterator into some kind of primitive object</li>
+<li>Functions that transform one iterator into another iterator</li>
+</ol>
+<p>The most important function in the first group (following the Pythonisms) is <tt class="docutils literal">iter(iterable[, sentinel])</tt>.  <tt class="docutils literal">iter</tt>'s job is to determine if iterable is already an iterator, or match it up with the appropriate iterator factory to make one out of it.  The optional sentinel argument is just an <a class="reference external" href="http://bob.pythonmac.org/archives/2005/06/14/python-iterators-and-sentinel-values/">additional convenience</a> (which I carried over into MochiKit's iterators).</p>
+<p>Determining whether an iterable is already an iterator is trivial, simply check <tt class="docutils literal">typeof(iterable.next) == 'function'</tt>.  However, if it's not, then it has to do some grunt work.  In Python style, our implementation of iter allows an object to implement an <tt class="docutils literal">iter()</tt> method (like Python's <tt class="docutils literal">__iter__</tt>) which returns an iterable.  However, since we don't do any built-in object prototype hacking, we've also allowed for adapters (using the same methodology that's in <a class="reference external" href="http://bob.pythonmac.org/archives/2005/07/04/comparison-and-adaptation-in-javascript/">Comparison and Adaptation in JavaScript</a>) to be defined.</p>
+<p>Just like registering comparators, registering an iterable is a matter of writing a function that detects the kind of object you want to iterate (check), and another function (wrap) that is the iterator factory for that kind of object.  Note that we recommend adapting on how objects act, not their type.  Since JavaScript's type system is sufficiently weak, adapting based on type is a non-starter.  For example, many of the objects you may run across in JavaScript will behave similarly to an Array, but aren't quite.  The DOM's <tt class="docutils literal">NodeList</tt> is a particularly ugly example.  It has a length property, and it supports the <tt class="docutils literal"><span class="pre">[``same</span> syntax</tt>]`` as Arrays do, but they aren't Arrays.  The <tt class="docutils literal">arguments</tt> special object is similarly Array-like, but isn't a real Array.</p>
+<p>In order to work around this, <a class="reference external" href="http://en.wikipedia.org/wiki/Duck_typing">Duck Typing</a> is usually the right answer.  Instead of checking the constructor, <tt class="docutils literal">instanceof</tt>, etc., you simply introspect the object to see if it looks like a duck, and quacks like one.  For example, the registration for turning array-like objects into iterables looks like this:</p>
+<pre class="literal-block">
+isArrayLike = function (obj) {
+    // working around blog-bug with &quot;and&quot; due to ampersands
+    return !(typeof(obj) != 'object' || typeof(obj.length) != 'number');
+}
+
+arrayLikeIterator = function (arrayLike) {
+    var i = 0;
+    return {
+        'next': function () {
+            if (i &gt;= arrayLike.length) {
+                throw StopIteration;
+            }
+            return arrayLike[i++];
+        }
+    };
+};
+
+registerIteratorFactory(
+    // name of the adapter
+    &quot;arrayLike&quot;,
+    // check function
+    isArrayLike,
+    // wrap function
+    arrayLikeIterator
+);
+</pre>
+<p>With this, given a suitable definition of <tt class="docutils literal">iter</tt>, we can write <tt class="docutils literal">iter(someIterable)</tt> without having to worry so much about what <tt class="docutils literal">someIterable</tt> is.</p>
+<p>The second group of functions let you do the inverse: take something iterable, and make it primitive again.  There are two basic examples of this, <tt class="docutils literal">reduce</tt> and <tt class="docutils literal">list</tt>.  The implementations are as follows (the documentation is better in MochiKit, I shortened it for brevity):</p>
+<pre class="literal-block">
+list = function (iterable) {
+   /***
+
+       Create an array from an iterable.
+
+   ***/
+   // fast-path if they passed in an Array already
+   if (typeof(iterable.slice) == 'function') {
+       return iterable.slice();
+   }
+   // it's good to do this for convenience,
+   // it's cheap if it's already iterable
+   iterable = iter(iterable);
+   var rval = [];
+   try {
+       while (true) {
+           rval.push(iterable.next());
+       }
+   } catch (e) {
+       if (e != StopIteration) {
+           throw e;
+       }
+   }
+   return rval;
+}
+
+reduce = function (func, iterable, /* optional */initial) {
+    /***
+
+        Create a value from an iterable by applying a function of two arguments
+        cumulatively to all of its elements.
+
+    ***/
+    iterable = iter(iterable);
+    if (arguments.length &lt; 3) {
+        try {
+            initial = iterable.next();
+        } catch (e) {
+            if (e == StopIteration) {
+                e = new TypeError(&quot;reduce() of empty sequence with no initial value&quot;);
+            }
+            throw e;
+        }
+    }
+    try {
+        while (true) {
+            initial = func(initial, iterable.next());
+        }
+    } catch (e) {
+        if (e != StopIteration) {
+            throw e;
+        }
+    }
+    return initial;
+}
+</pre>
+<p>The last group of functions completes the toolkit by allowing you to transform an iterator into another iterator.  These functions are <tt class="docutils literal">imap</tt>, <tt class="docutils literal">ifilter</tt>, <tt class="docutils literal">ifilterfalse</tt>, etc.  Effectively what these let you do is compose something a bit more declarative.  For example:</p>
+<pre class="literal-block">
+// reduce(operator.add, sequence, 0) is also sum(sequence) in MochiKit
+sumOfAllObjectsGreaterThanTen = reduce(operator.add,
+   // all objects that are greater than 10 (10 is less than them)
+   ifilter(partial(operator.lt, 10),
+        // skip all objects that are undefined or null
+        ifilterfalse(isUndefinedOrNull, allObjects)
+   ),
+   // use 0 as the initial value, i.e. (((0 + p0) + p1) + p2 ...)
+   0
+);
+</pre>
+<p>The equivalent in idiomatic JavaScript looks more like this:</p>
+<pre class="literal-block">
+var sumOfAllObjectsGreaterThanTen = 0;
+for (var i = 0; i &lt; allObjects.length; i++) {
+    var o = allObjects[i];
+    // working around blog-bug with &quot;and&quot; due to ampersands
+    if (!(isUndefinedOrNull(o) || o &lt;= 10)) {
+        sumOfAllObjectsGreaterThanTen += o;
+    }
+}
+</pre>
+<p>Granted, this particular example doesn't give you much.  However, if you're familiar with the functional style of programming you can easily see where this goes.  Unfortunately, I'm not really in the mindset to teach at the moment, so if you don't get it yet, you're not going to get it from me (today).</p>
+<dl class="docutils">
+<dt>UPDATE:</dt>
+<dd>Check out the full implementation of this in <a class="reference external" href="http://mochikit.com/">MochiKit</a>!</dd>
+</dl>

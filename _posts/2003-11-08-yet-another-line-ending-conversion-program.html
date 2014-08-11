@@ -1,0 +1,32 @@
+---
+categories: [python]
+tags: [python]
+title: Yet Another Line Ending Conversion Program
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P4 -->
+<p>This is what I've been using.. it's really simple, and should convert Win32, Mac, or Unix line endings to whatever your native line ending is.  A possible future optimization would be to use temp files instead, but they're annoying.</p>
+<pre class="literal-block">
+#!/usr/bin/env python
+import sys, os, shutil
+from cStringIO import StringIO
+
+def tonative(fname):
+    buff = StringIO()
+    infile = file(fname, 'rU')
+    infile.readline()
+    infile.seek(0)
+    if infile.newlines == os.linesep:
+        return
+    for line in infile:
+        buff.write(line.strip() + os.linesep)
+    infile.close()
+    outfile = file(fname, 'wb')
+    buff.seek(0)
+    shutil.copyfileobj(buff, outfile)
+    outfile.close()
+
+if __name__ == '__main__':
+    for fname in sys.argv[1:]:
+        tonative(fname)
+</pre>

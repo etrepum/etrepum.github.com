@@ -1,0 +1,31 @@
+---
+categories: [python, py2app]
+tags: [py2app, python]
+title: 'ANN: py2app 0.1.2'
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P77 -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>, that builds Mac OS X applications from Python scripts, extensions, and related data files.  It tries very hard to include all dependencies it can find so that your application can be distributed standalone, as Mac OS X applications should be.</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.2 is primarily a bugfix release:</p>
+<blockquote>
+<ul class="simple">
+<li>The encodings package now gets included in the zip file (saves space)</li>
+<li>A copy of the Python interpreter is not included anymore in standalone builds (saves space)</li>
+<li>The executable bootstrap is now stripped by default (saves a little space)</li>
+<li>sys.argv is set correctly now, it used to point to the executable, now it points to the boot script.  This should enhance compatibility with some applications.</li>
+<li>Adds an &quot;Alias&quot; feature to modulegraph, so that sys.modules craziness such as wxPython.wx -&gt; wx can be accomodated (this particular craziness is also now handled by default)</li>
+<li>A sys.path alternative may be passed to find_modules now, though this is not used yet</li>
+<li>The Command instance is now passed to recipes instead of the Distribution instance (though no recipes currently use either)</li>
+<li>The post-filtering of modules and extensions is now generalized into a stack and can be modified by recipes</li>
+<li>A <a class="reference external" href="http://www.wxpython.org/">wxPython</a> example demonstrating how to package <a class="reference external" href="http://wxglade.sourceforge.net/">wxGlade</a> has been added (this is a good example of how to write your own recipe, and how to deal with complex applications that mix code and data files)</li>
+<li>PyRuntimeLocations is now set to (only) the location of the current interpreter's Python.framework for alias and semi-standalone build modes (enhances compatibility with extensions built with an unpatched Makefile with Mac OS X 10.3's Python 2.3.0)</li>
+</ul>
+</blockquote>
+<p>Known issues:</p>
+<blockquote>
+<ul class="simple">
+<li>Includes <em>all</em> files from packages, it should be smart enough to strip unused .py/.pyc/.pyo files (to save space, depending on which optimization flag is used).</li>
+</ul>
+</blockquote>
+<p>Download and related links are here:
+<a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>

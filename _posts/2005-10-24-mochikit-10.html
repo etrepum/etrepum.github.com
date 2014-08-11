@@ -1,0 +1,36 @@
+---
+categories: [javascript, MochiKit, AJAX]
+tags: [ajax, javascript, mochikit]
+title: MochiKit 1.0
+---
+<!-- -*- mode: rst -*- -->
+<p>I've been putting in a lot of time into <a class="reference external" href="http://mochikit.com/">MochiKit</a> lately getting it ready for this release: 1.0 [<a class="reference external" href="http://mochikit.com/download.html">download</a>].  This version number carries a certain connotation, but honestly <a class="reference external" href="http://mochikit.com/">MochiKit</a>'s first release was beyond 1.0 quality compared to the rest of what's out there in this space.  It's stable, and we just tagged the latest <a class="reference external" href="http://mochibot.com/">MochiBot</a> release with what's currently in there (which was a couple checkins before 1.0).</p>
+<p>The first thing <a class="reference external" href="http://mochikit.com/download.html">MochiKit 1.0</a> brings is a bunch of little bugfixes.  There weren't all that many to begin with, but I think they're basically all covered at this point.  The rounded corners code still has some rough edges (hah), but it works if you use it as intended and MochiKit <a class="reference external" href="http://bob.pythonmac.org/archives/2005/09/09/mochikit-cons-or-not/">isn't about bling</a> at this point.</p>
+<p>Everyone loves examples, so here's the new ones:</p>
+<dl class="docutils">
+<dt><a class="reference external" href="http://mochikit.com/examples/interpreter/index.html">Interpreter</a>:</dt>
+<dd>An interactive JavaScript interpreter, much like python when run with no arguments.  Very useful!</dd>
+<dt><a class="reference external" href="http://mochikit.com/examples/mochiregexp/index.html">MochiRegExp</a>:</dt>
+<dd>A &quot;live&quot; RegExp explorer, good for debugging those gnarly JavaScript RegExps.  RegExps without named groups or a verbose flag suck, you need this.</dd>
+</dl>
+<p>One API change has been made though (basically a bugfix): <a class="reference external" href="http://mochikit.com/doc/html/MochiKit/Async.html">MochiKit.Async</a>'s <tt class="docutils literal">sendXMLHttpRequest</tt> and anything that uses it will now call the errback chain under ANY error.  This means that if the web server is down or if the user has gone to another page or started closing the browser, then you'll get an error.  From what I've seen, the error under both of these conditions is going to be an <tt class="docutils literal">XMLHttpRequestError</tt> with <tt class="docutils literal">undefined</tt> status.  That's right, you won't be able to discern one from the other, so don't do anything obtrusive (like an <tt class="docutils literal">alert</tt>) if you see an <tt class="docutils literal">XMLHttpRequestError</tt> in your errback!  The best thing to do is just log or ignore these errors.</p>
+<p><a class="reference external" href="http://mochikit.com/doc/html/MochiKit/Base.html">MochiKit.Base</a> has a new <tt class="docutils literal">updatetree(self, obj[, <span class="pre">...])</span></tt> function to update an object tree, in order to support new <a class="reference external" href="http://mochikit.com/doc/html/MochiKit/DOM.html">MochiKit.DOM</a> <tt class="docutils literal">updateNodeAttributes</tt> functionality (below).</p>
+<p><a class="reference external" href="http://mochikit.com/doc/html/MochiKit/DOM.html">MochiKit.DOM</a>'s <tt class="docutils literal">updateNodeAttributes</tt> now uses <tt class="docutils literal">updatetree</tt> if it sees object values, so you can now set style attributes inline:</p>
+<pre class="literal-block">
+var div = DIV({&quot;style&quot;: {&quot;display&quot;: &quot;block&quot;}}, &quot;div contents here...&quot;);
+</pre>
+<p><a class="reference external" href="http://mochikit.com/doc/html/MochiKit/DateTime.html">MochiKit.DateTime</a>'s <tt class="docutils literal">isoTimestamp</tt> now uses one of the ugliest regexps I've ever written in order to parse ANY <a class="reference external" href="http://www.w3.org/TR/NOTE-datetime">ISO 8601</a> timestamp.  It doesn't attempt to validate, so it will accept a large subset of incorrectly formatted <a class="reference external" href="http://www.w3.org/TR/NOTE-datetime">ISO 8601</a>-ish timestamps.  RegExps in JavaScript are so bad that I had to write <a class="reference external" href="http://mochikit.com/examples/mochiregexp/index.html">MochiRegExp</a> to get this right!</p>
+<p><a class="reference external" href="http://mochikit.com/doc/html/MochiKit/Format.html">MochiKit.Format</a> grew a couple new functions:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal">truncToFixed(aNumber, precision)</tt>: Truncate a number to the given precision (does NOT round).</p>
+</li>
+<li><p class="first"><tt class="docutils literal">roundToFixed(aNumber, precision)</tt>: Round a number to the given precision (because Safari's Number methods are <a class="reference external" href="http://bugzilla.opendarwin.org/show_bug.cgi?id=5307">mostly</a> <a class="reference external" href="http://bugzilla.opendarwin.org/show_bug.cgi?id=5308">broken</a>)</p>
+</li>
+<li><p class="first"><tt class="docutils literal">numberFormatter(pattern, <span class="pre">placeholder=&quot;&quot;,</span> <span class="pre">locale=&quot;default&quot;)</span></tt> and <tt class="docutils literal"><span class="pre">formatLocale(locale=&quot;default&quot;)</span></tt> brings Java style number formatting to JavaScript:</p>
+<pre class="literal-block">
+assert( percentFormat(1.234567) == &quot;123.46%&quot; );
+assert( numberFormatter(&quot;###,###%&quot;)(125) == &quot;12,500%&quot; );
+assert( numberFormatter(&quot;##.000&quot;)(1.25) == &quot;1.250&quot; );
+</pre>
+</li>
+</ul>

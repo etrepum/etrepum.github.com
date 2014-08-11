@@ -1,0 +1,53 @@
+---
+categories: [python, PyObjC, py2app]
+tags: [py2app, pyobjc, python]
+title: 'ANN: py2app 0.1.8'
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is the bundlebuilder replacement we've all been waiting for.  It is implemented as a distutils command, similar to <a class="reference external" href="http://starship.python.net/crew/theller/py2exe/">py2exe</a>, that builds Mac OS X applications from Python scripts, extensions, and related data files.  It tries very hard to include all dependencies it can find so that your application can be distributed standalone, as Mac OS X applications should be.</p>
+<p><a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.8 will be included in the installer for <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> 1.3.  If you have installed <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> 1.3, then you already have <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> 0.1.8 installed.</p>
+<p>Download and related links are here: <a class="reference external" href="http://undefined.org/python/#py2app">http://undefined.org/python/#py2app</a></p>
+<p>py2app 0.1.8 is a major enhancements release:</p>
+<p>Bugs fixed:</p>
+<ul class="simple">
+<li>Symlinks in included frameworks should be preserved correctly
+(fixes Tcl/Tk)</li>
+<li>Fixes some minor issues with alias bundles</li>
+<li>Removed implicit SpiderImagePlugin -&gt; ImageTk reference in PIL
+recipe</li>
+<li>The <tt class="docutils literal"><span class="pre">--optimize</span></tt> option should work now</li>
+<li><tt class="docutils literal">weakref</tt> is now included by default</li>
+<li><tt class="docutils literal">anydbm</tt>'s dynamic dependencies are now in the standard implies
+list</li>
+<li>Errors on app launch are brought to the front so the user does
+not miss them</li>
+<li>bdist_mpkg now compatible with pychecker (data_files had issues)</li>
+</ul>
+<p>Options changed:</p>
+<ul class="simple">
+<li>deprecated <tt class="docutils literal"><span class="pre">--strip</span></tt>, it is now on by default</li>
+<li>new <tt class="docutils literal"><span class="pre">--no-strip</span></tt> option to turn off stripping of executables</li>
+</ul>
+<p>New features:</p>
+<ul class="simple">
+<li>Looks for a hacked version of the PyOpenGL __init__.py so that
+it doesn't have to include the whole package in order to get
+at the stupid version file.</li>
+<li>New <tt class="docutils literal">loader_files</tt> key that a recipe can return in order to
+ensure that non-code ends up in the .zip (the pygame recipe
+uses this)</li>
+<li>Now scans all files in the bundle and normalizes Mach-O load
+commands, not just extensions.  This helps out when using the
+<tt class="docutils literal"><span class="pre">--package</span></tt> option, when including frameworks that have plugins,
+etc.</li>
+<li>An embedded Python interpreter is now included in the executable
+bundle (<tt class="docutils literal">sys.executable</tt> points to it), this currently only
+works for framework builds of Python</li>
+<li>New <tt class="docutils literal">macho_standalone</tt> tool</li>
+<li>New <tt class="docutils literal">macho_find</tt> tool</li>
+<li>Major enhancements to the way plugins are built</li>
+<li>bdist_mpkg now has a <tt class="docutils literal"><span class="pre">--zipdist</span></tt> option to build zip files
+from the built package</li>
+<li>The bdist_mpkg &quot;Installed to:&quot; description is now based on the
+package install root, rather than the build root</li>
+</ul>

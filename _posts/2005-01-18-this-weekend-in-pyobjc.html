@@ -1,0 +1,36 @@
+---
+categories: [python, PyObjC, py2app]
+tags: [py2app, pyobjc, python]
+title: This weekend in PyObjC
+---
+<!-- -*- mode: rst -*- -->
+<p>I've made several pretty cool enhancements to <a class="reference external" href="http://pyobjc.sf.net/">PyObjC</a> and <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> this weekend:</p>
+<ul class="simple">
+<li>There is now a fast path for the <tt class="docutils literal">NSString</tt>/<tt class="docutils literal">unicode</tt>
+bridge when <tt class="docutils literal">Py_UNICODE_SIZE</tt> is 2.  This is the default
+setting for Python.</li>
+<li>The default selector signature will have a void return value
+unless a &quot;return&quot; statement with an argument is used in the
+bytecode.  In that case, it will default to an object return
+value.</li>
+</ul>
+<p>This means that <tt class="docutils literal"><span class="pre">objc.accessor(...)</span></tt> isn't necessary for most setters!</p>
+<ul class="simple">
+<li><tt class="docutils literal">__bundle_hack__</tt> is no longer necessary, py2app now sets
+a different environment variable to the current plugin during
+execution, and a hack is installed to <tt class="docutils literal">NSBundle</tt> so that classes
+may respond to requests for their bundle with the <tt class="docutils literal">+bundleForClass</tt>
+method.  The class builder adds a default implementation of this to
+Python classes if this environment variable is set.</li>
+<li>Added <tt class="docutils literal">objc.currentBundle()</tt>, which is equivalent to
+<tt class="docutils literal">NSBundle.mainBundle()</tt> except after loading a plug-in.
+Makes it easier to load nib files.</li>
+<li><tt class="docutils literal">PyObjCTools.NibClassBuilder.extractClasses()</tt> now uses
+<tt class="docutils literal">objc.currentBundle()</tt> instead of <tt class="docutils literal">NSBundle.mainBundle()</tt>.  This
+makes plugins less of a hassle to develop and allows identical code
+to be used for application or plugin development.</li>
+<li><tt class="docutils literal">objc.registerPlugin()</tt> and <tt class="docutils literal">objc.pluginBundle()</tt> are now deprecated
+as they are no longer useful.</li>
+</ul>
+<p>These all VASTLY improve support for plugins.  Additionally, I have made some changes to the <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> bootstrap to support these new features, and I've cleaned it up so that it loads plugins into their own modules rather than stuffing them into <tt class="docutils literal">__main__</tt>.</p>
+<p>I have also started work on a new <tt class="docutils literal">RemotePyInterpreter</tt> example, which runs the interpreter in a subprocess and communicates with it asynchronously.  This will be useful for IDE work when it's done.  The IPC protocol it uses is a cute little repr-based hack, loosely based on <a class="reference external" href="http://codespeak.net/py/current/doc/execnet.html">py.execnet</a>.  I'll also use this to implement out-of-process debugging (think <tt class="docutils literal">pdb attach</tt>) and other fun things, hopefully in the near future.</p>

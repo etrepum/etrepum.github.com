@@ -1,0 +1,44 @@
+---
+categories: [python, macosx]
+tags: [macosx, python]
+title: Python on Mac OS X 10.4 (Tiger)
+---
+<!-- -*- mode: rst -*- -->
+<p><a class="reference external" href="http://www.apple.com/macosx/">Mac OS X 10.4</a> (Tiger) ships with <a class="reference external" href="http://python.org/">Python</a> 2.3.5.</p>
+<ul>
+<li><p class="first">Built as a framework (<tt class="docutils literal">./configure <span class="pre">--enable-framework</span></tt>) and installed to <tt class="docutils literal">/System/Library/Frameworks/Python.framework</tt>.</p>
+</li>
+<li><p class="first">Has &quot;faked&quot; unix-style organization by way of symlinks.  This is new in Tiger, but I'm not sure why they bothered.  It's not really very useful to do it this way because building against these things directly is probably going to fail anyway.  Especially because Mac OS X typically requires different linker options than other GCC platforms.  The correct way, of course, is to use <a class="reference external" href="http://docs.python.org/lib/module-distutils.html">distutils</a> or at least read values from Python's Makefile, which also works on other platforms.  Some people are stubborn and like to do things the wrong way, and this is only going to make them think it's acceptable to do it that way.  It's not.</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal">/usr/lib/libpython2.3.dylib</tt> -&gt; <tt class="docutils literal">Python.framework/Versions/2.3/Python</tt></li>
+<li><tt class="docutils literal">/usr/include/python2.3</tt> -&gt; <tt class="docutils literal">Python.framework/Versions/2.3/include/python2.3</tt></li>
+<li><tt class="docutils literal">/usr/lib/python2.3</tt> -&gt; <tt class="docutils literal">Python.framework/Versions/2.3/lib/python2.3</tt></li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">site-packages</span></tt> folder is symlinked to <tt class="docutils literal"><span class="pre">/Library/Python/2.3/site-packages</span></tt>.  This differs from Mac OS X 10.3 (Panther)'s Python 2.3.0, which was symlinked to <tt class="docutils literal">/Library/Python/2.3</tt>.  However, it is now consistent with <tt class="docutils literal"><span class="pre">~/Library/Python/2.3/site-packages</span></tt>.</p>
+</li>
+<li><p class="first">Ships with a proprietary closed-source CoreGraphics extension, which is a SWIG wrapper plus magic private API hackery on top of Apple's framework of the same name.  Mac OS X 10.3 also shipped with this extension.  I'm not sure whether there's any meaningful difference between the two, since it's not well documented and it's not open source.</p>
+</li>
+<li><p class="first">Ships with a &quot;unicode&quot; build of <a class="reference external" href="http://wxpython.org/">wxPython</a> 2.5.3.  Mac OS X 10.3 did not ship with any wxPython or wxWidgets.  I'm not sure whether this is good or bad, wxPython development moves pretty fast and the current Mac version isn't quite up to snuff yet.</p>
+</li>
+<li><p class="first">Ships with <a class="reference external" href="http://tcltkaqua.sourceforge.net/">TclTkAqua</a>, so Python has a working <a class="reference external" href="http://docs.python.org/lib/module-Tkinter.html">Tkinter</a> out of the box.  Tkinter is also a little weird on Mac OS X, but development of this stuff moves slowly enough, so this was almost definitely a good idea.</p>
+</li>
+<li><p class="first">Tiger pretends to have GNU libreadline, but it's really BSD libedit.  Python isn't fooled, so it still ships without readline support.</p>
+</li>
+</ul>
+<p>The packages in <a class="reference external" href="http://pythonmac.org/packages/">pythonmac packages</a> intended for Mac OS X 10.3's Python 2.3.0 <em>are</em> compatible with Tiger's Python 2.3.5, but you must install the TigerPython23Compat package before they will work.  This package simply adds a <tt class="docutils literal">.pth</tt> file that adds <tt class="docutils literal">/Library/Python/2.3</tt> as a site directory.</p>
+<p>Using the Python 2.4.1 installer works almost exactly as you'd expect it to on Tiger, with two exceptions:</p>
+<ul>
+<li><p class="first">Extensions won't build properly out of the box until you install the TigerPython24Fix package from <cite>pythonmac packages</cite>, because Apple's headers are anal about POSIX (non-)compliance (<a class="reference external" href="rdar:4075943">rdar:4075943</a>).</p>
+</li>
+<li><p class="first">There's a regression such that at least one of Mac OS X 10.4's math functions gives incorrect results.  This effects Python 2.4's float/long comparisons and conversions.  This is a pretty serious bug, and I expect it to be fixed in 10.4.1, whenever that is.  Python 2.4's <tt class="docutils literal">test.test_long</tt> fails due to this bug.</p>
+<p>Specifically, the bug is caused because <tt class="docutils literal">modf</tt> will return &quot;fractional parts&quot; of <tt class="docutils literal">&gt;= 1.0</tt> for some input values (<a class="reference external" href="rdar:4069461">rdar:4069461</a>).  If you're doing anything important with floating point, I suggest waiting for 10.4.1 or at least verifying your results elsewhere.  Off-by-one errors can get out of hand pretty quickly.  A really quick test of this bug is:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; 9007199254740991.0 == 9007199254740991L
+False
+</pre>
+<p>Obviously not the answer I was hoping for.  <tt class="docutils literal">modf</tt> is probably not very commonly used, but it definitely throws up warning flags that they'd cause a regression like this and not have a test suite that reproduces it.  As far as I know, I was the first/only person to report this bug.  It was reported on March 28th, which I guess was just too late to incorporate a fix.</p>
+</li>
+</ul>

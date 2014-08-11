@@ -1,0 +1,33 @@
+---
+categories: [python, py2app]
+tags: [py2app, python]
+title: py2app development continues
+---
+<!-- -*- mode: rst -*- -->
+<!-- original id: P71 -->
+<p>I've done a bunch of work on <a class="reference external" href="http://svn.red-bean.com/bob/py2app/trunk/">py2app</a> the past couple days.  It's probably in a state where it could be used for a legitimate project, but I'm not going to provide any real support it yet.  If you do play with it, you will need to also check out the latest <a class="reference external" href="http://svn.red-bean.com/bob/macholib/trunk/">macholib</a>.</p>
+<p>New stuff:</p>
+<ul class="simple">
+<li>dylib dependency hunting and rewriting</li>
+<li>standalone (for non-vendor python builds)</li>
+<li>data resources</li>
+<li>icon</li>
+<li>template plist file, plistlib.Plist, or dict</li>
+<li>alias build mode (similar to but better than bundlebuilder --symlink)</li>
+<li>can avoid modulefinder (when using alias build mode)</li>
+<li>Python 2.4 support</li>
+<li>dylib/framework includes</li>
+<li>semi-standalone option when using non-system Python</li>
+<li>argv emulation</li>
+<li>chdir to Resources folder (or not)</li>
+</ul>
+<p>Still missing:</p>
+<ul class="simple">
+<li>Non-zip distribution mode</li>
+<li>Plugins (preference panes, etc.)</li>
+<li>Including full packages</li>
+<li>Still haven't tried anything non-trivial</li>
+<li>dylib/framework excludes</li>
+<li>baked-in &quot;recipes&quot; for common problematic packages (PIL, for example)</li>
+<li>a couple minor bundlebuilder options (creator, bundle-id, strip)</li>
+</ul>
