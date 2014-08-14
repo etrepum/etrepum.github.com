@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/etrepum
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://bob.ippoli.to
+  * I am etrepum (https://keybase.io/etrepum) on keybase.
+  * I have a public key with fingerprint 0ADE DB65 BB14 2A89 3A2F  00A8 4F18 52C4 AD9C 3A69
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "0adedb65bb142a893a2f00a84f1852c4ad9c3a69",
+            "host": "keybase.io",
+            "key_id": "4f1852c4ad9c3a69",
+            "uid": "c85272e83a11b04ea78ff1b85c3d8800",
+            "username": "etrepum"
+        },
+        "service": {
+            "hostname": "bob.ippoli.to",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1408026927,
+    "expire_in": 157680000,
+    "prev": "99d80b111c80afca89f90f437768f9b9864a987d4124fcb5af03dfdca6a17bf8",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v0.3.1
+Comment: https://keybase.io/crypto
+
+yMHoAnicbZFbSBRRGMdna72t7rZEkPZgNEkR2e7Mzu3MPtRDUVhodENLYTszc2Yd
+0plxd9YUMTFfUrMkkQzRjApf0iAo6CJsYl7wQboQEVmQZCkmWSJmRp0Re+vpcP7f
+7/t//++cAfdawuVwPXg1vFjtTXOMxudixLGZEX8VKRlKJRmsIs+glUPV9DCKmBFN
+t8ggSUEFKRLPSRLNBiAQGRhQKQoCVqUBF5BZqIgyA3mRzCaLjajdgW0kGEU+zcAa
+voQ0Bav/4WMrBRnLQgABBtK0RLEICkBVaQlwMqMAQFE2GEURHZYiTCMrgsxYKVmd
+TWKxXJORHdmevApIhuTTTNMo0XyWHcCMGJYhGyW4VGxZZtDutCpNGz2LpNCqSUjS
+dAXvjRvKUSSqGToZpDEpW5rtSrMUoAK8GBCySVRhahEU0myCE3ickKLsMagcW4qi
+AiiJpmkZUFCV8XupIqWyjIBBVZREwLNQBILC0gFWlSUOqhSjqIoMeUgLkgpIe60y
+3SCDLI4Jw9gyqoV1aMUiiKzujxc5CYeLSExYY/8c4Urx/vvP9c+Sic7U77cnOG7z
+Us7k/VEir2mBnrmZm/ZFrb0n1lxLjae98+5YyBnsZu+AvoP8m/oL1wsbuJNdBSMZ
+sIGp/PBifmN9y0WvZ/n49mTfrqM/6+ixiedtwx4/zyw+Th7PDfe6M3Z2nMjPkrdp
+vWULwqnuotYN7JPXHXWzH6eBUDtxtfZtY0rIkzV0xdl869Npf5O7aOrAdGnmgPNX
+Qjsx5Ota2s8WWFsbz1vnkujxVuel2aRH+9YlDfa9P9zc9blnLuh3tcVrmqYbvu39
++nSxh8nPcv/wh6y6u791z1jz7svpfxL7W44celhWaOb3zte3py9XtG3K7JxMf5m3
+Zc+NKUfOXyrXEGM=
+=JxUN
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/etrepum
+
+==================================================================
