@@ -13,12 +13,11 @@ want to get GHC installed on your own machine.
 
 * [Install the Haskell Platform (GHC)](#install-ghc)
 * [Set up Cabal](#setup-cabal)
-* [Install Cabal-dev (sandbox build tool)](#install-cabal-dev)
 * [Install ghc-mod (better Emacs/Vim support)](#install-ghc-mod)
-* [How to install tools with cabal-dev](#how-to-install-tools-with-cabal-dev)
+* [How to install tools with cabal sandbox](#how-to-install-tools-with-cabal-sandbox)
 * [Configure GHCi](#configure-ghci)
 * [Hackage is fragile, but there are (unofficial) mirrors](#hackage-mirrors)
-* [Starting a project (with cabal-dev)](#starting-a-project)
+* [Starting a project (with cabal sandbox)](#starting-a-project)
 * [GHCi basics](#ghci-basics)
 * [Recommended Reading](#recommended-reading)
 
@@ -30,15 +29,18 @@ but this is the one that you want to learn. Another implementation of note is
 [Hugs](http://www.haskell.org/hugs/), which is more for teaching than for
 production code.
 
-These instructions are written for Mac OS X 10.8 using
-[Homebrew](http://mxcl.github.com/homebrew/) (and a recent version of Xcode),
+These instructions are written for Mac OS X 10.9 using
+[Homebrew](http://brew.sh) (and a recent version of Xcode),
 but it should be easy to figure out how to do it on other platforms starting from
-[Haskell Platform](http://www.haskell.org/platform/). The current version of
-Haskell Platform at this time is 2012.4.0.0.
+[Haskell Platform](http://www.haskell.org/platform/).
 
 <pre class="light bash literal-block">
-$ brew install haskell-platform
+$ brew install ghc cabal-install
 </pre>
+
+At time of this writing, the `ghc` package is at version 7.8.4, and
+`cabal-install` at 1.22.0.0. The Haskell Platform installer for all platforms
+is version 2014.2.0.0.
 
 <h1 id="setup-cabal">Set up Cabal</h1>
 
@@ -80,12 +82,6 @@ $ for f in ~/.cabal/config; do \
 done
 </pre>
 
-Before installing anything else, you'll need to install the Cabal installer:
-
-<pre class="light bash literal-block">
-$ cabal install cabal-install
-</pre>
-
 <h1 id="install-ghc-mod">Install ghc-mod (better Emacs/Vim support)</h1>
 
 [ghc-mod](http://www.mew.org/~kazu/proj/ghc-mod/en/) is what you want to install to integrate GHC with Emacs or Vim. You might also be able to use Sublime Text 2 and ghc-mod via [SublimeHaskell](https://github.com/SublimeHaskell/SublimeHaskell). I've only tried the Emacs integration so far. Vim users may want to try [hdevtools](https://github.com/bitc/hdevtools) as it's much faster and just as accurate (see [kamatsu's comment](http://www.reddit.com/r/haskell/comments/16fegr/getting_started_with_haskell/c7viysx)).
@@ -95,41 +91,23 @@ $ cabal install ghc-mod
 </pre>
 
 You'll obviously have to configure it for your Emacs, and I'll leave that up to you (my current [~/.emacs.d](https://github.com/etrepum/emacs.d) for reference).
+There are numerous Vim plugins you might evaluate, a one-shot starter setup using ghc-mod is [haskell-vim-now](https://github.com/begriffs/haskell-vim-now) or you may look at its constituent parts to kickstart a do-it-yourself configuration.
 
-<h1 id="install-cabal-dev">Install Cabal-dev (sandbox build tool)</h1>
+<h1 id="how-to-install-tools-with-cabal-sandbox">How to install tools with <code>cabal sandbox</code></h1>
 
-[Cabal-dev](https://github.com/creswick/cabal-dev) is a tool that helps you sandbox installation of Haskell software. It is similar in purpose to virtualenv for Python or rvm for Ruby, but the usage is quite a bit different. This is the tool that will save you from "Cabal Hell", where you can't install a package because some other package you have installed has conflicting dependencies.
+`cabal sandbox` is a tool that helps you isolate project dependencies, and can also be used to sandbox installation of Haskell software. It is similar in purpose to virtualenv for Python or rvm for Ruby, but the usage is a bit different. This is the tool that will save you from "Cabal Hell", where you can't install a package because some other package you have installed has conflicting dependencies.
 
-Use `cabal-dev` instead of just `cabal` to build stuff whenever possible. The major trade-off is that you will spend (a lot) more time compiling packages that you already have installed somewhere else (and waste some disk), but this is almost certainly a fair trade.
-
-<!--
-Normally installing cabal-dev would be a simple `cabal install cabal-dev`, but until [cabal-dev #74](https://github.com/creswick/cabal-dev/issues/74) is fixed, you'll need to build and install from source:
+If you want to try out a tool, but don't want to pollute your Haskell installation, you can just use `cabal sandbox`! By default `cabal sandbox` creates a `.cabal-sandbox` directory under the current working directory, for use in each of your own projects, but you can create sandboxes anywhere. In this example I'll install [darcs](http://darcs.net/) 2.8.5 (a distributed version control system written in Haskell) into ``/usr/local/Cellar/darcs/2.8.5`` and have Homebrew create the symlinks for me. On other platforms you might want to use your own directory structure, such as `/opt/local`, and manage your `PATH` instead.
 
 <pre class="light bash literal-block">
-$ git clone https://github.com/creswick/cabal-dev.git /tmp/cabal-dev-src && \
-    (cd /tmp/cabal-dev-src; cabal install) && \
-    rm -rf /tmp/cabal-dev-src
-</pre>
--->
-<pre class="light bash literal-block">
-$ cabal install cabal-dev
-</pre>
-
-There's some work in progress for adding
-[Sandboxed Builds and Isolated Environments](http://hackage.haskell.org/trac/hackage/wiki/SandboxedBuildsAndIsolatedEnvironments)
-support to cabal-install, so the cabal-dev material here will likely
-bit rot in a few months (years?).
-
-<h1 id="how-to-install-tools-with-cabal-dev">How to install tools with cabal-dev</h1>
-
-If you want to try out a tool, but don't want to pollute your Haskell installation, you can just use cabal-dev! By default, cabal-dev's sandbox is `./cabal-dev`, but you can put it anywhere. In this example I'll install [darcs](http://darcs.net/) 2.8.2 (a distributed version control system written in Haskell) into ``/usr/local/Cellar/darcs/2.8.2`` and have Homebrew create the symlinks for me. On other platforms you might want to use your own directory structure and manage your `PATH` instead. 
-
-<pre class="light bash literal-block">
-$ cabal-dev install -s /usr/local/Cellar/darcs/2.8.2 darcs-2.8.2
+$ mkdir -p /usr/local/Cellar/darcs/2.8.5
+$ cd !$
+$ cabal sandbox init --sandbox .
+$ cabal install darcs-2.8.5
 $ brew link --overwrite darcs
 </pre>
 
-Bam! Now darcs is on your `PATH` and you don't have to worry about version conflicts. Well, you do sadly still run into them, just not as much. Specifically, cabal-dev installs packages in such a way that they are all 'top-level' in a given sandbox. This means that if two packages have common dependencies (VERY common), then they'll stomp on each other's symlinks to things like license files and documentation of the dependencies. It's mostly harmless to use `--overwrite` in this way, but you might want to check with `--overwrite --dry-run` first. Annoying, but probably won't ruin your day.
+Bam! Now darcs is on your `PATH` and you don't have to worry about version conflicts. Well, you do sadly still run into them, just not as much. Specifically, `cabal sandbox` installs packages in such a way that they are all 'top-level' in a given sandbox (and this is why we specify `--sandbox .` for `init` above, to override placement into a child `.cabal-sandbox` directory). This means that if two packages have common dependencies (VERY common), then they'll stomp on each other's symlinks to things like license files and documentation of the dependencies. It's mostly harmless to use `--overwrite` in this way, but you might want to check with `--overwrite --dry-run` first. Annoying, but probably won't ruin your day.
 
 If you want to see what versions of a darcs are available, use `cabal info darcs` and look for the `Versions available:` section.
 
@@ -139,18 +117,24 @@ Other fun Haskell tools to try (in no particular order):
 * [gitit](http://gitit.net/) - a wiki backed by a git, darcs or mercurical filestore
 * [pronk](https://github.com/bos/pronk) - a HTTP load testing tool, like ab or httperf, only more modern and simpler to deal with
 
-For packages like pronk that aren't currently in Hackage, a cabal-dev installation will look more like this:
+For packages like pronk that aren't currently in Hackage, a sandbox installation will look more like this:
 
 <pre class="light bash literal-block">
-$  git clone https://github.com/bos/pronk.git /tmp/pronk-src && \
-    (cd /tmp/pronk-src; \
-     cabal-dev install -s /usr/local/Cellar/pronk/$(git rev-parse --short HEAD)) && \
-    rm -rf /tmp/pronk-src
+$ git clone https://github.com/bos/pronk.git /tmp/pronk-src && pushd /tmp/pronk-src
+$ version=$(git rev-parse --short HEAD)
+$ export CABAL_SANDBOX_CONFIG=/usr/local/Cellar/pronk/$version/cabal.sandbox.config
+$ cabal sandbox init --sandbox=/usr/local/Cellar/pronk/$version
+$ cabal install
+$ popd && rm -rf /tmp/pronk-src && unset CABAL_SANDBOX_CONFIG
 </pre>
+
+Use `cabal sandbox` instead of just `cabal install` to build stuff whenever possible. The major trade-off is that you will spend (a lot) more time compiling packages that you already have installed somewhere else (and waste some disk), but this is almost certainly a fair trade.
+
+We will have a further look at using Cabal sandboxes for dependency isolation of your own projects further below.
 
 <h1 id="configure-ghci">Configure GHCi</h1>
 
-`ghci` is the GHC interactive interpreter (REPL, similar to typing `python` or `irb` in a shell). For real documentation, see the [GHC Users Guide](http://www.haskell.org/ghc/docs/7.4.2/html/users_guide/index.html) ([Chapter 2. Using GHCi](http://www.haskell.org/ghc/docs/7.4.2/html/users_guide/ghci.html)) . You'll be spending a lot of time there playing with your code, you probably want to set up a shorter prompt. It starts off looking like this:
+`ghci` is the GHC interactive interpreter (REPL, similar to typing `python` or `irb` in a shell). For real documentation, see the [GHC Users Guide](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/index.html) ([Chapter 2. Using GHCi][using ghci]). You'll be spending a lot of time there playing with your code, you probably want to set up a shorter prompt. It starts off looking like this:
 
 <pre class="light haskell literal-block">
 Prelude>
@@ -164,7 +148,7 @@ Prelude Data.List> :m + Data.Maybe
 Prelude Data.List Data.Maybe> 
 </pre>
 
-The configuration file for this is [the .ghci file](http://www.haskell.org/ghc/docs/7.4.2/html/users_guide/ghci-dot-files.html). I use a very simple ASCII prompt, some people like to make theirs look like `λ>`.
+The configuration file for this is [the .ghci file](https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/ghci-dot-files.html). I use a very simple ASCII prompt, some people like to make theirs look like `λ>`.
 
 <pre class="light bash literal-block">
 echo ':set prompt "h> "' >> ~/.ghci
@@ -210,21 +194,22 @@ $ cabal update
 
 Don't forget to change it back later!
 
-<h1 id="starting-a-project">Starting a project (with cabal-dev)</h1>
+<h1 id="starting-a-project">Starting a project (with <code>cabal sandbox</code>)</h1>
 
-You'd figure this out eventually, but a quick way to start out a project is to
-just go ahead and start off with cabal-dev. Here's how you would do that
-for a trivial program.
+You'd figure this out eventually, but a quick way to start out a project is
+with `cabal init`, and you'll save yourself a world of dependency hell if you
+adopt `cabal sandbox` from day one. Here's how you would do that for a trivial
+program.
 
 For your own projects, you may want to remove the `-n` option and let cabal
 ask you which options you want to choose. The `-n` option uses all the
-defaults without any prompting.
+defaults without any prompting. We specify a license to avoid build complaints
+ahead.
 
 <pre class="light bash literal-block">
 $ mkdir -p ~/src/hs-hello-world
 $ cd ~/src/hs-hello-world
-$ touch LICENSE
-$ cabal init -n --is-executable
+$ cabal init -n --is-executable --license=MIT
 </pre>
 
 This will generate a `Setup.hs` and `hs-hello-world.cabal`. The next step is to
@@ -241,22 +226,22 @@ name:                hs-hello-world
 version:             0.1.0.0
 -- synopsis:            
 -- description:         
-license:             AllRightsReserved
+license:             MIT
 license-file:        LICENSE
 -- author:              
 -- maintainer:          
 -- copyright:           
 -- category:            
 build-type:          Simple
-cabal-version:       >=1.8
+cabal-version:       >=1.10
 
 executable hs-hello-world
   main-is:             HelloWorld.hs
   -- other-modules:       
-  build-depends:       base ==4.5.*
+  build-depends:       base >=4.7 && <4.8
 </pre>
 
-Then create a HelloWorld.hs, maybe something that looks like this:
+Then create a `HelloWorld.hs`, maybe something that looks like this:
 
 ## `HelloWorld.hs`
 
@@ -268,14 +253,20 @@ main = putStrLn "Hello, world!"
 You can build and "install" it into a local sandbox like this:
 
 <pre class="light bash literal-block">
-$ cabal-dev install
+$ cabal sandbox init
+Writing a default package environment file to
+/Users/bob/src/hs-hello-world/cabal.sandbox.config
+Creating a new sandbox at /Users/bob/src/hs-hello-world/.cabal-sandbox
+
+$ cabal install
 Resolving dependencies...
+Notice: installing into a sandbox located at
+/Users/bob/src/hs-hello-world/.cabal-sandbox
 Configuring hs-hello-world-0.1.0.0...
 Building hs-hello-world-0.1.0.0...
-Preprocessing executable 'hs-hello-world' for hs-hello-world-0.1.0.0...
-Installing executable(s) in /Users/bob/src/hs-hello-world/cabal-dev//bin
 Installed hs-hello-world-0.1.0.0
-$ ./cabal-dev/bin/hs-hello-world
+
+$ ./.cabal-sandbox/bin/hs-hello-world
 Hello, world!
 </pre>
 
@@ -283,34 +274,47 @@ The executable is large for what it does, but it's also statically linked. You
 can copy that file over to any other machine with the same OS and
 architecture and it'll Just Work.
 
-You might save a tiny bit of time by skipping the install step:
+This shows explicitly where the sandbox lives and that our executable is
+installed into it just like library dependencies would be. But there is a Cabal
+convenience command for building your project and running an executable—`cabal
+run`:
 
 <pre class="light bash literal-block">
-$ cabal-dev configure
+$ cabal configure
 Resolving dependencies...
 Configuring hs-hello-world-0.1.0.0...
-$ cabal-dev build
-Building hs-hello-world-0.1.0.0...
+
+$ cabal run
 Preprocessing executable 'hs-hello-world' for hs-hello-world-0.1.0.0...
 [1 of 1] Compiling Main             ( HelloWorld.hs, dist/build/hs-hello-world/hs-hello-world-tmp/Main.o )
 Linking dist/build/hs-hello-world/hs-hello-world ...
-$ ./dist/build/hs-hello-world/hs-hello-world
+Running hs-hello-world...
 Hello, world!
 </pre>
 
+Here we see that a build (which you could run separately with `cabal build`)
+produces artifacts in `./dist/build`. For a project with only a single
+`executable`, a bare `cabal run` will execute it. An explicit `cabal run
+hs-hello-world` also works, and bash completion for Cabal is available that
+even completes from the target names in the project `.cabal` file (installed
+automatically with Homebrew if you have the `bash-completion` package
+installed). This might also save a tiny bit of time by skipping extra `install`
+steps.
+
 Since this project has no dependencies that you want to install locally, you
-can take some shortcuts.
+can take some shortcuts that you might use for testing quick one-off Haskell
+programs.
 
 Run it interpreted, no compilation step needed:
 
 <pre class="light bash literal-block">
-$ runghc HelloWorld.hs
+$ runhaskell HelloWorld.hs
 Hello, world!
 </pre>
 
 <pre class="light haskell literal-block">
 $ ghci
-GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+GHCi, version 7.8.4: http://www.haskell.org/ghc/  :? for help
 Loading package ghc-prim ... linking ... done.
 Loading package integer-gmp ... linking ... done.
 Loading package base ... linking ... done.
@@ -321,39 +325,129 @@ Ok, modules loaded: Main.
 Hello, world!
 </pre>
 
-And you can build it without cabal-dev (or cabal) at all:
+And you can build it without cabal at all:
 
 <pre class="light bash literal-block">
-$ runghc Setup.hs configure
+$ cabal clean
+cleaning...
+
+$ runhaskell Setup.hs configure
 Configuring hs-hello-world-0.1.0.0...
-$ runghc Setup.hs build
+
+$ runhaskell Setup.hs build
 Building hs-hello-world-0.1.0.0...
 Preprocessing executable 'hs-hello-world' for hs-hello-world-0.1.0.0...
 [1 of 1] Compiling Main             ( HelloWorld.hs, dist/build/hs-hello-world/hs-hello-world-tmp/Main.o )
 Linking dist/build/hs-hello-world/hs-hello-world ...
 </pre>
 
-But for a more complicated project, you can use `cabal-dev ghci` (after `cabal-dev configure && cabal-dev build`).
-Note that it loads your executable's source into the interpreter automatically:
+The above GHCi example shows how you can load a bare module anywhere into the
+REPL, but normally in a Cabal project you'll want to run `cabal repl` instead.
+This starts GHCi with your project build environment set up and thus your
+sandbox dependencies also available for import in the REPL. Note that our main
+module is available automatically:
 
 <pre class="light haskell literal-block">
-$ cabal-dev ghci
-
-on the commandline:
-    Warning: -O conflicts with --interactive; -O ignored.
-GHCi, version 7.4.2: http://www.haskell.org/ghc/  :? for help
+$ cabal repl
+Preprocessing executable 'hs-hello-world' for hs-hello-world-0.1.0.0...
+GHCi, version 7.8.4: http://www.haskell.org/ghc/  :? for help
 Loading package ghc-prim ... linking ... done.
 Loading package integer-gmp ... linking ... done.
 Loading package base ... linking ... done.
+[1 of 1] Compiling Main             ( HelloWorld.hs, interpreted )
 Ok, modules loaded: Main.
 h> main
 Hello, world!
 </pre>
 
+## Hackage Dependencies and Freezing
+
+Our trivial example project doesn't have any library dependencies from Hackage.
+Let's add `ansi-terminal` to spruce up our sophisticated program, and give us
+an example to work with. Modify the `build-depends` section of
+`hs-hello-world.cabal` as follows:
+
+<pre class="light plain literal-block">
+build-depends:       base >=4.7 && <4.8,
+                     ansi-terminal == 0.6.*
+</pre>
+
+Now, add some bling to `HelloWorld.hs`:
+
+<pre class="light haskell literal-block">
+import System.Console.ANSI
+
+main :: IO ()
+main = do
+    putStr "Hello, "
+    setSGR [ SetColor Foreground Vivid Green ]
+    putStrLn "world!"
+</pre>
+
+A configure will remind us the dependency is missing:
+
+<pre class="light bash literal-block">
+$ cabal configure
+Resolving dependencies...
+Configuring hs-hello-world-0.1.0.0...
+cabal: At least the following dependencies are missing:
+ansi-terminal ==0.6.*
+</pre>
+
+So simply install it:
+
+<pre class="light bash literal-block">
+$ cabal install
+Resolving dependencies...
+Notice: installing into a sandbox located at
+/Users/bob/src/hs-hello-world/.cabal-sandbox
+Configuring ansi-terminal-0.6.2.1...
+Building ansi-terminal-0.6.2.1...
+Installed ansi-terminal-0.6.2.1
+Configuring hs-hello-world-0.1.0.0...
+Building hs-hello-world-0.1.0.0...
+Installed hs-hello-world-0.1.0.0
+</pre>
+
+And now `cabal run` should reveal a brighter world!
+
+We've declared a fuzzy dependency on `ansi-terminal`. If this were an open
+source library, this would be fine—project contributers or CI might install a
+new 0.6.x version, and if something breaks you'll know it needs to be fixed to
+satisfy the declared compatibility. In private production projects of course,
+you probably want strict build consistency.
+
+`cabal freeze` is here to help. Run `cabal freeze` and you'll find a new
+`cabal.config` file in the project directory, which will look something like
+this:
+
+<pre class="light bash literal-block">
+constraints: ansi-terminal ==0.6.2.1,
+             array ==0.5.0.0,
+             base ==4.7.0.2,
+             bytestring ==0.10.4.0,
+             deepseq ==1.3.0.2,
+             ghc-prim ==0.3.1.0,
+             integer-gmp ==0.5.1.0,
+             old-locale ==1.0.0.6,
+             rts ==1.0,
+             time ==1.4.2,
+             unix ==2.7.0.1
+</pre>
+
+This file locks down the exact versions of dependencies (including transitive)
+installed in your development sandbox. Check this file into source control, and
+you will establish build consistency throughout your team and build pipeline
+using Cabal.
+
+Refer to the [Cabal User's
+Guide](https://www.haskell.org/cabal/users-guide/index.html) for more on using
+Cabal and `.cabal` build definitions—like adding tests to you builds!
+
 <h1 id="ghci-basics">GHCi Basics</h1>
 
 Some essential GHCi tricks you'll want to know, you'll find more in
-[Chapter 2. Using GHCi](http://www.haskell.org/ghc/docs/7.4.1/html/users_guide/ghci.html).
+[Chapter 2. Using GHCi][using ghci].
 
 ## `:t` shows the type of an expression
 
@@ -502,3 +596,6 @@ I plan to try and keep this current based on suggestions. Let me know if I'm
 missing anything of note! I'm not trying to be comprehensive, I think the
 Haskell wiki does a far better job of that. These are just intended to be
 highlights.
+
+[using ghci]: https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/ghci.html
+
