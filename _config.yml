@@ -32,7 +32,7 @@ defaults:
       layout: "post"
       category: 'archives'
 
-production_url: http://bob.ippoli.to
+production_url: https://bob.ippoli.to
 tags_path: /tags.html
 archive_path: /archive.html
 categories_path: /categories.html
