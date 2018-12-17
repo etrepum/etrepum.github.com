@@ -1,4 +1,4 @@
-permalink: /archives/:year/:month/:day/:title
+permalink: /archives/:year/:month/:day/:title/
 
 markdown: kramdown
 kramdown:
