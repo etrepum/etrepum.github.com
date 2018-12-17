@@ -1,6 +1,4 @@
-permalink: /:categories/:year/:month/:day/:title
-
-exclude: ["README.md"]
+permalink: /archives/:year/:month/:day/:title
 
 markdown: kramdown
 kramdown:
@@ -47,3 +45,19 @@ JB :
   archive_path: /archive.html
   categories_path : /categories.html
   tags_path : /tags.html
+
+plugins:
+  - jekyll-redirect-from
+
+whitelist:
+  - jekyll-redirect-from
+
+exclude:
+  - README.md
+  - default.nix
+  - start-dev.sh
+  - Gemfile
+  - ci
+  - .editorconfig
+  - .travis.yml
+  - .nix-gems
