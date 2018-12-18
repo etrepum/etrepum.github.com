@@ -31,20 +31,10 @@ defaults:
       category: 'archives'
 
 production_url: https://bob.ippoli.to
-tags_path: /tags.html
-archive_path: /archive.html
-categories_path: /categories.html
 
-# All Jekyll-Bootstrap specific configurations are namespaced into this hash
-#
-JB :
-  version : 0.2.13
-  # These paths are to the main pages Jekyll-Bootstrap ships with.
-  # Some JB helpers refer to these paths; change theme here if needed.
-  #
-  archive_path: /archive.html
-  categories_path : /categories.html
-  tags_path : /tags.html
+tags_path: /tags/
+archive_path: /archive/
+categories_path: /categories/
 
 plugins:
   - jekyll-redirect-from
