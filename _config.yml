@@ -61,3 +61,4 @@ exclude:
   - .editorconfig
   - .travis.yml
   - .nix-gems
+  - scripts

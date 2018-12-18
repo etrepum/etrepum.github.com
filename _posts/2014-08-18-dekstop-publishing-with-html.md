@@ -2,6 +2,9 @@
 categories: [javascript, haskell, missionbit]
 tags: [javascript, haskell, missionbit]
 title: Desktop Publishing with HTML
+redirect_from:
+- /archives/2014/08/18/dekstop-publishing-with-html/
+- /javascript/haskell/missionbit/archives/2014/08/18/dekstop-publishing-with-html
 ---
 
 A convenient hack I've been using for the past few years is to leverage
@@ -28,7 +31,7 @@ one such as [wkhtmltopdf], you can print it. I've even used Haskell for this
 ([laptop-labels] generates our asset tags), but typically in-browser
 Javascript is good enough for my needs. [d3] in particular has great
 functionality out of the box for dealing with the [CSV] formatted data that is
-easy to export from a spreadsheet or database. 
+easy to export from a spreadsheet or database.
 
 I don't have any code in particular to share here, but that's the point.
 The only code you have to write is specific to generating your document.
