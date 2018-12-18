@@ -1,7 +1,15 @@
 ---
-categories: [python, py2app, macosx]
-tags: [macosx, py2app, python]
+categories:
+- python
+- py2app
+- macosx
 title: Fix Mac OS X 10.3's Python 2.3.0
+redirect_from:
+- /python/py2app/macosx/archives/2005/02/04/fix-mac-os-x-103s-python-230
+tags:
+- macosx
+- py2app
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>The way that Python builds extensions on Mac OS X was very <a class="reference external" href="http://mail.python.org/pipermail/python-dev/2004-December/050324.html">flawed</a> (note that this isn't the most recent thread) until very recently (Python 2.3.5 and 2.4.1 <em>should</em> finally be correct).  Although <a class="reference external" href="http://undefined.org/python/#py2app">py2app</a> is able to work around the deficiencies of these extensions, it's a particularly good idea to correct your build environment as soon as possible.  Especially if you plan on creating redistributable components with them, or if you intend to have multiple versions of Python installed.</p>

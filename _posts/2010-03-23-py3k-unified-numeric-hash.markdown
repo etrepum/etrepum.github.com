@@ -1,7 +1,15 @@
 ---
-categories: [python, math, hash]
-tags: [hash, math, python]
+categories:
+- python
+- math
+- hash
 title: Py3k Unified Numeric Hash Proposal
+redirect_from:
+- /python/math/hash/archives/2010/03/23/py3k-unified-numeric-hash
+tags:
+- hash
+- math
+- python
 ---
 There has been a recent and interesting set of discussions on python-dev
 [(Decimal <-> float comparisons)][]

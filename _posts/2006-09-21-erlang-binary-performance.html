@@ -1,7 +1,15 @@
 ---
-categories: [python, c, erlang]
-tags: [c, erlang, python]
+categories:
+- python
+- c
+- erlang
 title: Erlang Binary Performance
+redirect_from:
+- /python/c/erlang/archives/2006/09/21/erlang-binary-performance
+tags:
+- c
+- erlang
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>I was benchmarking <a class="reference external" href="http://code.google.com/p/egeoip/">egeoip</a> today, which is my from-scratch <a class="reference external" href="http://www.erlang.org/">Erlang</a> <a class="reference external" href="http://en.wikipedia.org/wiki/Geolocation">geolocation</a> library. It uses the <a class="reference external" href="http://www.maxmind.com/app/geolitecity">MaxMind GeoLite City</a> database, which has implementations in a bunch of other languages so it's great to compare with. The results were rather surprising to me, because I hadn't previously done any benchmarking of <a class="reference external" href="http://www.erlang.org/">Erlang</a> performance.</p>

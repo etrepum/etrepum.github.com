@@ -1,7 +1,18 @@
 ---
-categories: [javascript, teaching, processingjs, education]
-tags: [javascript, teaching, processingjs, processing, education]
+categories:
+- javascript
+- teaching
+- processingjs
+- education
 title: Why I made CodeCosmos
+redirect_from:
+- /javascript/teaching/processingjs/education/archives/2013/07/08/codecosmos-day-1
+tags:
+- javascript
+- teaching
+- processingjs
+- processing
+- education
 ---
 I never really thought much about my career until recently. From my first internship at [Bethesda Softworks] in 1997 to my short tenure at [Facebook] in 2012 I basically just followed my interests and made changes whenever I was no longer passionate about what I was doing.
 

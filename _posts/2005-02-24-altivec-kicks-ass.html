@@ -1,7 +1,17 @@
 ---
-categories: [python, pygame, macosx, c]
-tags: [c, macosx, pygame, python]
+categories:
+- python
+- pygame
+- macosx
+- c
 title: Altivec Kicks Ass
+redirect_from:
+- /python/pygame/macosx/c/archives/2005/02/24/altivec-kicks-ass
+tags:
+- c
+- macosx
+- pygame
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>I started screwing around with enhancing Ryan Gordon's AltiVec patch for SDL last weekend.  I ended up spending more time on it than I should've, but I think I've optimized all of the 32bit-32bit blits.  Even though my AltiVec is probably pretty naive, I'm seeing a ~3-4x speed increase over the scalar code.  And the scalar code is probably about as optimized as it's going to get, with duffs, etc.</p>

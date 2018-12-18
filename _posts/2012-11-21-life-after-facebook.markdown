@@ -1,6 +1,12 @@
 ---
-tags: [facebook, haskell, ios]
+categories: []
 title: Life after Facebook
+redirect_from:
+- /archives/2012/11/21/life-after-facebook
+tags:
+- facebook
+- haskell
+- ios
 ---
 I no longer work at Facebook. I tried it for four months, but I just couldn't
 find anything there that made it worth two hours on the road to spend

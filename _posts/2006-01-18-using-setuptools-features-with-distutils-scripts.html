@@ -1,7 +1,13 @@
 ---
-categories: [python, setuptools]
-tags: [python, setuptools]
+categories:
+- python
+- setuptools
 title: Using setuptools features with distutils scripts
+redirect_from:
+- /python/setuptools/archives/2006/01/18/using-setuptools-features-with-distutils-scripts
+tags:
+- python
+- setuptools
 ---
 <!-- -*- mode: rst -*- -->
 <p>A quick and dirty way to use <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> commands (such as <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#develop-deploy-the-project-source-in-development-mode">develop</a>, <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#bdist-egg-create-a-python-egg-for-the-project">bdist_egg</a>, etc.) given a standard distutils setup.py file is to just add an &quot;import setuptools&quot; statement to the top of the script.  This can also be done without modifying the setup.py as such:</p>

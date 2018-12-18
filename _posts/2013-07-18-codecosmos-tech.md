@@ -1,7 +1,18 @@
 ---
-categories: [javascript, teaching, processingjs, education]
-tags: [javascript, teaching, processingjs, processing, education]
+categories:
+- javascript
+- teaching
+- processingjs
+- education
 title: How I built CodeCosmos
+redirect_from:
+- /javascript/teaching/processingjs/education/archives/2013/07/18/codecosmos-tech
+tags:
+- javascript
+- teaching
+- processingjs
+- processing
+- education
 ---
 This is the continuation to [Why I made CodeCosmos]. If you're interested
 in why I bothered to do this in the first place, start there. This

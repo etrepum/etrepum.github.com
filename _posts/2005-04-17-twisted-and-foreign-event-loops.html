@@ -1,7 +1,17 @@
 ---
-categories: [python, PyObjC, pygame, wxPython]
-tags: [pygame, pyobjc, python, wxpython]
+categories:
+- python
+- PyObjC
+- pygame
+- wxPython
 title: Twisted and foreign event loops
+redirect_from:
+- /python/pyobjc/pygame/wxpython/archives/2005/04/17/twisted-and-foreign-event-loops
+tags:
+- pygame
+- pyobjc
+- python
+- wxpython
 ---
 <!-- -*- mode: rst -*- -->
 <p>There's a new reactor in <a class="reference external" href="http://twistedmatrix.com/">Twisted</a> svn: <tt class="docutils literal">threadedselectreactor</tt>.  This reactor blocks on <tt class="docutils literal">select()</tt> in a worker thread, so that it is easy to integrate with a foreign event loop without having to completely separate your Twisted code into its own thread.  This is awesome, and mostly eliminates the need to have specific reactors for each useful foreign event loop (<tt class="docutils literal">cfreactor</tt>, <tt class="docutils literal">wxreactor</tt>, etc.).  Especially when the existing integration reactor sucks -- <tt class="docutils literal">wxreactor</tt> is more or less a worst-possible implementation, and the others aren't a whole lot better.</p>

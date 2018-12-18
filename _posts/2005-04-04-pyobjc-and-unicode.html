@@ -1,7 +1,15 @@
 ---
-categories: [python, PyObjC, macosx]
-tags: [macosx, pyobjc, python]
+categories:
+- python
+- PyObjC
+- macosx
 title: PyObjC and unicode
+redirect_from:
+- /python/pyobjc/macosx/archives/2005/04/04/pyobjc-and-unicode
+tags:
+- macosx
+- pyobjc
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>There's a constant battle in <a class="reference external" href="http://pyobjc.sourceforge.net/">PyObjC</a> about what to do about regular <tt class="docutils literal">str</tt> instances, since Foundation doesn't have a data type that's unencoded bytes (<tt class="docutils literal">NSData</tt>) and text (<tt class="docutils literal">NSString</tt>) at the same time.  Up to now, <tt class="docutils literal">str</tt> instances were be converted to <tt class="docutils literal">NSString</tt> using Python's default encoding (<tt class="docutils literal">sys.getdefaultencoding()</tt>), which is basically always <tt class="docutils literal">ascii</tt> and will raise an exception, which is really never what you want.  I committed a change this week that will hopefully be a least worst of both worlds solution:</p>

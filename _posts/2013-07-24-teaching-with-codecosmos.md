@@ -1,7 +1,18 @@
 ---
-categories: [javascript, teaching, processingjs, education]
-tags: [javascript, teaching, processingjs, processing, education]
+categories:
+- javascript
+- teaching
+- processingjs
+- education
 title: Teaching with CodeCosmos
+redirect_from:
+- /javascript/teaching/processingjs/education/archives/2013/07/24/teaching-with-codecosmos
+tags:
+- javascript
+- teaching
+- processingjs
+- processing
+- education
 ---
 <style scoped>
 .imgright { float: right; margin-left: 1em; margin-bottom: 0.5em; width: 40%; clear: right; }

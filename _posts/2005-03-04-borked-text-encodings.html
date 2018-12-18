@@ -1,7 +1,13 @@
 ---
-categories: [python, macosx]
-tags: [macosx, python]
+categories:
+- python
+- macosx
 title: Borked Text Encodings
+redirect_from:
+- /python/macosx/archives/2005/03/04/borked-text-encodings
+tags:
+- macosx
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>Unfortunately when you're dealing with text across platforms, you're likely to run into a situation where you see characters that don't belong.  When I need to fixup such text, I put a snippet of the borked text on the clipboard and break open a Python interpreter.  On platforms other than Mac OS X, you'll probably have to fiddle around with the I/O boundary codecs, but on Mac OS X it is generally going to be UTF-8 to and from standard I/O.</p>

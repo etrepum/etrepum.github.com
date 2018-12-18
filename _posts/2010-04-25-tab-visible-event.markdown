@@ -1,7 +1,11 @@
 ---
-categories: [javascript]
-tags: [javascript]
+categories:
+- javascript
 title: Browser Tab Visible Event
+redirect_from:
+- /javascript/archives/2010/04/25/tab-visible-event
+tags:
+- javascript
 ---
 Sadly there's no web standard that I could find to determine when a tab
 becomes visible. My use case was to delay loading of Flash content until

@@ -1,7 +1,15 @@
 ---
-categories: [python, simplejson, python3]
-tags: [python, simplejson, python3]
+categories:
+- python
+- simplejson
+- python3
 title: simplejson now for Python 3.3 (and Python 2.5+!)
+redirect_from:
+- /python/simplejson/python3/archives/2013/01/08/simplejson-3
+tags:
+- python
+- simplejson
+- python3
 ---
 [simplejson](http://github.com/simplejson/simplejson)
 ([documentation](http://simplejson.readthedocs.org/en/latest/))

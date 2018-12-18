@@ -1,7 +1,11 @@
 ---
-categories: [haskell]
-tags: [haskell]
+categories:
+- haskell
 title: Getting Started with Haskell
+redirect_from:
+- /haskell/archives/2013/01/11/getting-started-with-haskell
+tags:
+- haskell
 ---
 I've been having a lot of fun learning Haskell these past few months, but
 getting started isn't quite as straight-forward as it could be. I had the

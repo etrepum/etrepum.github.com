@@ -1,7 +1,15 @@
 ---
-categories: [macosx, c, debugging]
-tags: [c, debugging, macosx]
+categories:
+- macosx
+- c
+- debugging
 title: Disabling a CPU with the CHUD framework
+redirect_from:
+- /macosx/c/debugging/archives/2005/01/30/disabling-a-cpu-with-the-chud-framework
+tags:
+- c
+- debugging
+- macosx
 ---
 <!-- -*- mode: rst -*- -->
 <p><a class="reference external" href="http://developer.apple.com/tools/macosxtools.html">Xcode Tools</a> has an optional component, <a class="reference external" href="http://developer.apple.com/tools/performance/">CHUD Tools</a> (Computer Hardware Understanding Development Tools), that consists of some useful performance tools and low-level hardware facilities.  My Dual 2ghz G5 has been having some serious stability problems lately, with what I believe is a dying CPU or logic board.  When I saw errant CPU messages in the system log after experiencing unexplicable kernel panics and crashes I decided to see what would happen if I toggled the second CPU off with the Hardware preference pane that ships with CHUD.  It worked!  My G5 is now usable (though I will of course still get it repaired, but it's not convenient to do so at this time).</p>

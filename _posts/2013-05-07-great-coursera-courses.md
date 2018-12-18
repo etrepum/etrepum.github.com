@@ -1,7 +1,17 @@
 ---
-categories: [compsci, coursera, mooc, education]
-tags: [compsci, coursera, mooc, education]
+categories:
+- compsci
+- coursera
+- mooc
+- education
 title: Five great Computer Science courses on Coursera
+redirect_from:
+- /compsci/coursera/mooc/education/archives/2013/05/07/great-coursera-courses
+tags:
+- compsci
+- coursera
+- mooc
+- education
 ---
 [Coursera](https://www.coursera.org/) is really fantastic. Like many other
 entrepreneurs, I dropped out of college to work. Before Coursera,

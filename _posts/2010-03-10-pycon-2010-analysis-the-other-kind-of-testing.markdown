@@ -1,7 +1,13 @@
 ---
-categories: [python, PyCon]
-tags: [pycon, python]
-title: 'PyCon 2010, Analysis: The Other Kind of Testing'
+categories:
+- python
+- PyCon
+title: ! 'PyCon 2010, Analysis: The Other Kind of Testing'
+redirect_from:
+- /python/pycon/archives/2010/03/10/pycon-2010-analysis-the-other-kind-of-testing
+tags:
+- pycon
+- python
 ---
 I gave a talk at [PyCon 2010](http://us.pycon.org/2010/conference/) in Atlanta last month called [Analysis: The Other Kind of Testing](http://bitbucket.org/etrepum/analysis_pycon_2010/) ([video](http://blip.tv/file/3321657)). It's a very simple overview of techniques such as split testing (AB testing) and a call to action to improve [django-lean](http://bitbucket.org/akoha/django-lean/).
 

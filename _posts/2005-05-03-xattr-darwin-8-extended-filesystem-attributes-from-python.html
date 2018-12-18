@@ -1,7 +1,13 @@
 ---
-categories: [python, macosx]
-tags: [macosx, python]
+categories:
+- python
+- macosx
 title: xattr - Darwin 8 Extended Filesystem Attributes from Python
+redirect_from:
+- /python/macosx/archives/2005/05/03/xattr-darwin-8-extended-filesystem-attributes-from-python
+tags:
+- macosx
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>Darwin 8.0, the underpinnings of Mac OS X 10.4 (Tiger) ships with a new API at the filesystem layer: Extended Attributes.  I haven't really seen much documentation thrown about, but effectively they can be used to associate arbitrary metadata with files (note that this is <em>entirely separate</em> from <a class="reference external" href="http://developer.apple.com/documentation/Carbon/Reference/MetadataAttributesRef/index.html">Spotlight Metadata Attributes</a>).  Extended attributes are the new way that the resource fork and finder information is looked up and stored.  They're also used by the obscure <a class="reference external" href="http://bob.pythonmac.org/archives/2005/05/03/mac-os-x-104-tigers-copyfile/">copyfile</a> that lives beneath all of the changes to cp, mv, tar, etc.</p>

@@ -1,7 +1,13 @@
 ---
-categories: [python, debugging]
-tags: [debugging, python]
+categories:
+- python
+- debugging
 title: Apache X-Forwarded-For caveat
+redirect_from:
+- /python/debugging/archives/2005/09/23/apache-x-forwarded-for-caveat
+tags:
+- debugging
+- python
 ---
 <!-- -*- mode: rst -*- -->
 <p>When using Apache's mod_proxy in a reverse proxying scenario, usually you'll want to take a look at the (seemingly undocumented) X-Forwarded-For header.  This header contains <em>whatever the client sent for X-Forwarded-For</em> (if anything), plus the remote IP address of the client.</p>
