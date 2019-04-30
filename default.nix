@@ -11,6 +11,7 @@ in stdenv.mkDerivation rec {
     bundler
     libxml2
     libxslt
+    nodejs-10_x
 
     zlib
     bzip2
@@ -35,6 +36,9 @@ in stdenv.mkDerivation rec {
     export GEM_PATH=$GEM_HOME
     export PATH=$GEM_HOME/bin:$PATH
     export PS1="\[\033[1;32m\][nix-shell:\w]\n[★]\[\033[0m\] "
+    export LANG=en_US.UTF-8
+    export LANGUAGE=en_US.UTF-8
+    export LC_ALL=C.UTF-8
 
     ## change CWD; use with the impure shell
     [[ -n "$D" ]] && cd $D
